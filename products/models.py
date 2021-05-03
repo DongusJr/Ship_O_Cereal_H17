@@ -16,15 +16,15 @@ class Products(models.Model):
     price = models.IntegerField()
     category = models.CharField(max_length=64)
     nutritional_info = models.ForeignKey(NutritionalInfo, on_delete=models.CASCADE)
-    in_stock = models.IntegerField(validators=[models.MinValueValidator(1)])#can not be less than zero
+    # in_stock = models.IntegerField(validators=[models.MinValueValidator(1)], default=10)#can not be less than zero
     # manufacturer = models.ForeignKey(Manufacturer, on_delete=models.CASCADE)
 
-    @staticmethod
-    def update_stock(product, quantity, state=1):
-        if state == 1:
-            product.in_stock -= quantity
-        else:
-            product.in_stock += quantity
+    # @staticmethod
+    # def update_stock(product, quantity, state=1):
+    #     if state == 1:
+    #         product.in_stock -= quantity
+    #     else:
+    #         product.in_stock += quantity
 
 class ProductImage(models.Model):
     image = models.CharField(max_length=9999)
