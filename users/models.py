@@ -8,6 +8,7 @@ class ZipCodes(models.Model):
 
 
 class User(models.Model):
+    session_id = models.IntegerField()
     username = models.CharField(max_length=128)
     password = models.CharField(max_length=128)
     email = models.CharField(max_length=256, unique=True)
