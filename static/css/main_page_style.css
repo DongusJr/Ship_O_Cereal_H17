@@ -1,12 +1,89 @@
+html {
+    font-family: Roboto, sans-serif;
+}
+
+a {
+    color: #B46B36;
+    text-decoration: none;
+    font-size: large;
+}
+
+a:hover {
+    color: blueviolet;
+}
+
 header {
-    display: flex;
-    
+    display: block;
+    margin: 1rem;
+    background: beige;
+}
+
+header h1 {
+    color: #B46B36;
+    font-size: xxx-large;
 }
 
 footer {
+    background-color: aquamarine;
+}
 
+#header_top {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0px;
+}
+
+#header_top img {
+    width: 70%;
+    padding: 1rem;
+}
+
+#header_top img {
+    width: 35%;
+}
+
+#logo {
+    display: flex;
+    justify-content: space-around;
+    padding: 0px;
+    margin-bottom: 0px;
+    font-family: Roboto slab, sans-serif;
+}
+
+#header_bottom { /* TODO: Reduce border so not across whole screen */
+    display: flex;
+    justify-content: space-around;
+    border-bottom: 3px solid #B46B36;
+    margin-top: 0px;
 }
 
 #main_body {
+    background-color: antiquewhite;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
 
+#main_search {
+    margin: 1rem
+}
+
+#main_search input {
+    border: none;
+    border-radius: 10px;
+    height: 1.5rem;
+    width: 25rem;
+    text-align: center;
+}
+
+/* TODO: placeholder text needs to disappear*/
+
+.product-list {
+    display: flex;
+    justify-content: start;
+}
+
+.product-list img {
+    width: 25%;
 }
