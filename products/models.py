@@ -17,6 +17,7 @@ class Products(models.Model):
     price = models.IntegerField()
     category = models.CharField(max_length=64)
     nutritional_info = models.ForgeignKey(NutritionalInfo, on_detele=models.CASCADE)
+    # manufacturer = models.ForeignKey(Manufacturer, on_delete=models.CASCADE)
 
 class ProductImage(models.Model):
     image = models.CharField(max_length=9999)
@@ -25,6 +26,12 @@ class ProductImage(models.Model):
 class ListedAs(models.Model):
     product = models.ForeignKey(Products)
     name = models.ForeignKey(ProductTag)
+
+# class Review(models.Model):
+#     rating = models.IntegerField(validators=[models.MinValueValidator(1), models.MaxValueValidator(10)])  # 1-10
+#     comment = models.CharField(max_length=512)
+#     product = models.ForeignKey(Products, on_delete=models.CASCADE)
+    # user = models.ForeignKey(User, on_delete=models.CASCADE)
 
 # Should be in its own app
 # class Cart(models.Model):
