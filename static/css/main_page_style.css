@@ -1,5 +1,7 @@
-html {
+body, header {
     font-family: Roboto, sans-serif;
+    padding: 0px;
+    margin: 0px;
 }
 
 a {
@@ -14,8 +16,7 @@ a:hover {
 
 header {
     display: block;
-    margin: 1rem;
-    background: beige;
+    background: #F0C965;
 }
 
 header h1 {
@@ -24,7 +25,16 @@ header h1 {
 }
 
 footer {
-    background-color: aquamarine;
+    display: flex;
+    background-color: #B46B36;
+}
+
+footer img {
+    width: 25%;
+    height: 25% ;
+    border: 3px solid;
+    border-radius: 60%;
+    border-color: #F0C965;
 }
 
 #header_top {
