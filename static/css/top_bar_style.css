@@ -1,7 +1,13 @@
-.topDiv{
-    background-color: var(--light);
-    text-decoration-color: var(--dark);
+html, body{
+  margin:0 !important;
+  padding:0 !important;
 }
-h1{
-    text-decoration-color: var(--dark);
+
+.topDiv{
+    margin: 0%;
+    padding:  2%;
+    background-color: var(--light);
+}
+.topText{
+    color: var(--dark)
 }
