@@ -16,16 +16,16 @@ class Products(models.Model):
     description = models.CharField(max_length=512)
     price = models.IntegerField()
     category = models.CharField(max_length=64)
-    nutritional_info = models.ForgeignKey(NutritionalInfo, on_detele=models.CASCADE)
+    nutritional_info = models.ForeignKey(NutritionalInfo, on_delete=models.CASCADE)
     # manufacturer = models.ForeignKey(Manufacturer, on_delete=models.CASCADE)
 
 class ProductImage(models.Model):
     image = models.CharField(max_length=9999)
-    product = models.ForgeignKey(Products, on_delete=models.CASCADE)
+    product = models.ForeignKey(Products, on_delete=models.CASCADE)
 
 class ListedAs(models.Model):
-    product = models.ForeignKey(Products)
-    name = models.ForeignKey(ProductTag)
+    product = models.ForeignKey(Products, on_delete=models.CASCADE)
+    name = models.ForeignKey(ProductTag, on_delete=models.CASCADE)
 
 # class Review(models.Model):
 #     rating = models.IntegerField(validators=[models.MinValueValidator(1), models.MaxValueValidator(10)])  # 1-10
