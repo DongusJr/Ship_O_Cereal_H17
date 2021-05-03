@@ -1,5 +1,5 @@
 from django.db import models
-from products.models import Cart
+from cart.models import Cart
 
 # Create your models here.
 class ZipCodes(models.Model):
