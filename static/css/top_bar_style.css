@@ -12,5 +12,10 @@ html, body{
     color: var(--dark)
 }
 .topLogoDiv{
-
+    height: 10%;
+    width: 10%;
+}
+.topLogo{
+    height: 100%;
+    width: 100%;
 }
