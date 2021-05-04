@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.postgres.fields import ArrayField
 from cart.models import Cart
 from products.models import Products
-from users.models import PreviousOrder
+from users.models import PreviousOrders, Order, OrderProduct
 
 # Create your models here.
 
@@ -47,12 +47,12 @@ class Cart(models.Model):
     def complete_cart(user_id):
         cart = Cart.objects.get(id=user_id)
         contains_of_cart = Contains.objects.get(cart=cart)
+        prev_order = PreviousOrders.objects.get(id=user_id)
+        order = Order.objects.create(prev=prev_order)
         for contain in contains_of_cart:
+            OrderProduct.objects.create(quantity=contain.quantity, order=order, product=contain.product)
             del contain
         Cart.update_total(cart)
-        prev_ord = PreviousOrder.objects.get(id=user_id)
-        prev_ord.create_order()
-        cart.product_list = ArrayField()
-        cart.total = 0
+        prev_order = PreviousOrders.objects.get(id=user_id)
         return True
 
