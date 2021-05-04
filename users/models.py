@@ -1,5 +1,4 @@
 from django.db import models
-from cart.models import Cart
 from products.models import Products
 
 
@@ -20,18 +19,18 @@ class PreviousOrders(models.Model):
 
 class Order(models.Model):
     total = models.IntegerField()
-    prev = models.ForeignKey(PreviousOrders)
+    prev = models.ForeignKey(PreviousOrders, on_delete=models.CASCADE)
 
     def order_total(self, order):
         total = 0
-        contains = Contains.objects.get(order=order)
+        contains = OrderProduct.objects.get(order=order)
         for product in contains:
             total += product.price * (product.quantity)
         order.total = total
         return total
 
 class OrderProduct(models.Model):
-    quantity = models.IntergerField()
+    quantity = models.IntegerField()
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
     product = models.ForeignKey(Products, on_delete=models.CASCADE)
 
@@ -40,7 +39,6 @@ class User(models.Model):
     username = models.CharField(max_length=128)
     password = models.CharField(max_length=128)
     email = models.CharField(max_length=256, unique=True)
-    zip = models.ForeignKey(ZipCodes)
+    zip = models.ForeignKey(ZipCodes, on_delete=models.CASCADE)
     address = models.CharField(max_length=128)
-    cart = models.ForeignKey(Cart)
-    order = models.ForeignKey(PreviousOrder)
+    order = models.ForeignKey(PreviousOrders, on_delete=models.CASCADE)

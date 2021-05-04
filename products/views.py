@@ -41,7 +41,6 @@ class ProductLogic(TemplateView):
         if self.request.GET.get('criteria') != "" and self.request.GET.get('criteria') != None:
             specified_criteria = self.request.GET.get('criteria')
             data['products'] = data['products'].filter(name__icontains=specified_criteria)
-
         if 'price' in self.request.GET:
             order = self.request.GET['price']
             if order == 'descending':
@@ -77,6 +76,6 @@ class ProductLogic(TemplateView):
     def get_all_unique_tags(self, tags, tag):
         all_products_with_tag = []
         for elem in tags:
-            if elem.name.name.lower() == tag:
+            if elem.tag.name.lower() == tag:
                 all_products_with_tag.append(elem.product)
         return all_products_with_tag

@@ -1,19 +1,14 @@
 from django.db import models
 from django.contrib.postgres.fields import ArrayField
-from cart.models import Cart
 from products.models import Products
-from users.models import PreviousOrders, Order, OrderProduct
+from users.models import PreviousOrders, Order, OrderProduct, User
 
 # Create your models here.
-
-class Contains(models.Model):
-    quantity = models.IntergerField()
-    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
-    product = models.ForeignKey(Products, on_delete=models.CASCADE)
 
 class Cart(models.Model):
     # Possibly have user id
     total = models.IntegerField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     @staticmethod
     def add_to_cart(product, user_id, quantity=1):
@@ -55,4 +50,9 @@ class Cart(models.Model):
         Cart.update_total(cart)
         prev_order = PreviousOrders.objects.get(id=user_id)
         return True
+
+class Contains(models.Model):
+    quantity = models.IntegerField()
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
+    product = models.ForeignKey(Products, on_delete=models.CASCADE)
 
