@@ -1,0 +1,14 @@
+{% extends 'proto_base.html' %}
+{% block content %}
+    <div style="display: flex; justify-content: space-evenly">
+        {% include 'proto_products/proto_dropdown_tags.html' %}
+        {% include 'proto_products/proto_dropdown_order_by.html' %}
+    </div>
+
+    <h1>Products</h1>
+    <div style="display:flex;flex-wrap: wrap">
+        {% for product in products %}
+            {% include 'proto_products/proto_product.html' with product=product %}
+        {% endfor %}
+    </div>
+{% endblock %}

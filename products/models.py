@@ -1,5 +1,4 @@
 from django.db import models
-from django.contrib.postgres.fields import ArrayField
 
 # Create your models here.
 class ProductTag(models.Model):
@@ -14,26 +13,25 @@ class NutritionalInfo(models.Model):
 class Products(models.Model):
     name = models.CharField(max_length=64)
     description = models.CharField(max_length=512)
-    price = models.IntegerField()
+    price = models.FloatField()
     category = models.CharField(max_length=64)
-    nutritional_info = models.ForgeignKey(NutritionalInfo, on_detele=models.CASCADE)
+    nutritional_info = models.ForeignKey(NutritionalInfo, on_delete=models.CASCADE)
+    # in_stock = models.IntegerField(validators=[models.MinValueValidator(1)], default=10)#can not be less than zero
     # manufacturer = models.ForeignKey(Manufacturer, on_delete=models.CASCADE)
+
+    # @staticmethod
+    # def update_stock(product, quantity, state=1):
+    #     if state == 1:
+    #         product.in_stock -= quantity
+    #     else:
+    #         product.in_stock += quantity
 
 class ProductImage(models.Model):
     image = models.CharField(max_length=9999)
-    product = models.ForgeignKey(Products, on_delete=models.CASCADE)
+    product = models.ForeignKey(Products, on_delete=models.CASCADE)
 
 class ListedAs(models.Model):
-    product = models.ForeignKey(Products)
-    name = models.ForeignKey(ProductTag)
-
-# class Review(models.Model):
-#     rating = models.IntegerField(validators=[models.MinValueValidator(1), models.MaxValueValidator(10)])  # 1-10
-#     comment = models.CharField(max_length=512)
-#     product = models.ForeignKey(Products, on_delete=models.CASCADE)
-    # user = models.ForeignKey(User, on_delete=models.CASCADE)
+    product = models.ForeignKey(Products, on_delete=models.CASCADE)
+    name = models.ForeignKey(ProductTag, on_delete=models.CASCADE)
 
 # Should be in its own app
-# class Cart(models.Model):
-#     product_list = ArrayField(models.ForeignKey(Products))
-#     total = models.IntegerField()
