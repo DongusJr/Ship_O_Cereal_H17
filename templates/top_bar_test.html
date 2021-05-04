@@ -4,26 +4,32 @@
     <link rel="stylesheet" href="../static/css/style.css">
     <link rel="stylesheet" href="../static/css/top_bar_style.css">
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Navbar</title>
 </head>
 <body>
+<!-- Navbar begins -->
 <div class="topDiv">
-
-    <div id="header_top">
-        <a href="#"><!-- go to main site -->
+    <a href="#"><!-- go to main site -->
         <div id="topLogoDiv"><img src="../static/images/logo_w_circle.svg" alt="logo" id="topLogo"></div>
-        </a>
+    </a>
+    <div id="header_top">
 
-        <a href="#"><!-- go to profile -->
-            <img src="../static/images/Profile.svg" alt="Profile">
-        </a>
+        <div id="main_search">
+            <input type="text" placeholder="Search">
+        </div>
+        <div id="profile&CartDiv">
+        <a href="#"><div id="topProfileImgDiv"><!-- go to profile -->
+
+            <img src="../static/images/Profile.svg" alt="Profile" id="topProfileImg">
+        </div></a>
 
         <a href="#"> <!-- go to cart -->
             <div id="cart">
                 <img src="../static/images/cart.svg" alt="cart">
-                2 items
+                <a href="#" id="cartItems">2 items</a>
             </div>
         </a>
+        </div>
     </div>
     <div id="header_bottom">
         <a href="#">Category 1</a>
@@ -34,5 +40,6 @@
         <a href="#">About us</a>
     </div>
 </div>
+<!--Navbar ends -->
 </body>
 </html>

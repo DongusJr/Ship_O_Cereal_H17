@@ -1,17 +1,20 @@
-html, body{
-  margin:0 !important;
-  padding:0 !important;
-}
 
 .topDiv{
     margin: 0%;
-    padding:  2%;
+    padding:  20px;
     background-color: var(--light);
 }
 .topText{
     color: var(--dark)
 }
+#header_top {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0px;
+}
+
 #topLogoDiv{
+    float: left;
     height: 120px;
     width: 120px;
 }
@@ -19,17 +22,45 @@ html, body{
     height: 100%;
     width: 100%;
 }
-
-#header_top {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 0px;
+#main_search{
+    vertical-align: center;
 }
-#header_bottom { /* TODO: Reduce border so not across whole screen */
+#profile\&CartDiv{
+    display: flex;
+    justify-content: space-around;
+}
+#topProfileImgDiv{
+    float: left;
+    margin-right: 20px;
+    height: 70px;
+    width: 70px;
+}
+#topProfileImg {
+    height: 100%;
+    width: 100%;
+}
+
+#cartItems{
+    display: flex;
+    float: bottom;
+    horiz-align: center;
+}
+#header_bottom {
     display: flex;
     justify-content: space-around;
     border-top: 3px solid var(--dark);
-    margin-top: 10px;
-    margin-right: 120px;
-    margin-left: 120px;
+    margin-top: 20px;
+    margin-right: 20px;
+    margin-left: 140px;
+}
+#main_search {
+    margin: 1rem
+}
+
+#main_search input {
+    border: none;
+    border-radius: 10px;
+    height: 1.5rem;
+    width: 25rem;
+    text-align: center;
 }
