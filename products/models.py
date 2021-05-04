@@ -13,7 +13,7 @@ class NutritionalInfo(models.Model):
 class Products(models.Model):
     name = models.CharField(max_length=64)
     description = models.CharField(max_length=512)
-    price = models.IntegerField()
+    price = models.FloatField()
     category = models.CharField(max_length=64)
     nutritional_info = models.ForeignKey(NutritionalInfo, on_delete=models.CASCADE)
     # in_stock = models.IntegerField(validators=[models.MinValueValidator(1)], default=10)#can not be less than zero

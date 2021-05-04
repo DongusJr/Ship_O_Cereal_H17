@@ -47,6 +47,7 @@ class ProductLogic(TemplateView):
             if category in list_of_all_categories:
                 data['products'] = data['products'].filter(category__exact=category)
 
+
         return data
 
     def get_all_unique_categories(self):
