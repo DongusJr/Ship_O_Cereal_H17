@@ -11,11 +11,11 @@ html, body{
 .topText{
     color: var(--dark)
 }
-.topLogoDiv{
+#topLogoDiv{
     height: 10%;
     width: 10%;
 }
-.topLogo{
+#topLogo{
     height: 100%;
     width: 100%;
 }
