@@ -2,3 +2,22 @@
     --dark: #B46B36;
     --light: #F0C965;
 }
+a {
+    color: var(--dark);
+    text-decoration: none;
+    font-size: large;
+}
+
+a:hover {
+    color: blueviolet;
+}
+
+header {
+    display: block;
+    background: var(--dark);
+}
+
+header h1 {
+    color: var(--dark);
+    font-size: xxx-large;
+}

@@ -12,10 +12,15 @@ html, body{
     color: var(--dark)
 }
 #topLogoDiv{
-    height: 10%;
-    width: 10%;
+    height: 120px;
+    width: 120px;
 }
 #topLogo{
     height: 100%;
     width: 100%;
+}
+#header_top{
+    justify-self: ;
+    display: flex;
+
 }
