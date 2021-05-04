@@ -11,21 +11,17 @@ def get_product_by_tags(request):
         it renders the landing page, with a dictionary that contains tag and products list pair. for every tag, we list
         every product associated with that tag'''
     if request.method == 'GET':
-        # TODO 1: get all tags
         tags = ProductTag.objects.all()
-        # TODO 2: Create a dictionary, that maps every tag with list of products
         tag_maps_product_dict = {'tags_with_products' : {}}
         for tag in tags:
             if tag.listedas_set.all():
                 tag_maps_product_dict['tags_with_products'][tag] = [x.product for x in tag.listedas_set.all()]
-        # TODO 3: render landing page with dictionary
         return render(request, 'proto_landingpage.html', tag_maps_product_dict)
 
 def get_product_by_id(request, id):
     return render(request, 'proto_products/proto_product_detail_page.html', {
         'product' : get_object_or_404(Products, pk=id)
     })
-
 
 class ProductLogic(TemplateView):
     template_name = 'proto_products/proto_products.html'
