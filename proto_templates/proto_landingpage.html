@@ -1,0 +1,13 @@
+{% extends 'proto_base.html' %}
+{% block content %}
+    {% for tag, products in  tags_with_products.items %}
+        <h1>{{ tag.name }}</h1>
+        <div style="display:flex; flex-direction: row;">
+        {% for product in products %}
+
+                    {% include 'proto_products/proto_landing_product.html' with product=product %}
+
+        {% endfor %}
+         </div>
+    {% endfor %}
+{% endblock %}
