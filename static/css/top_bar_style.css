@@ -19,8 +19,17 @@ html, body{
     height: 100%;
     width: 100%;
 }
-#header_top{
-    justify-self: ;
-    display: flex;
 
+#header_top {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0px;
+}
+#header_bottom { /* TODO: Reduce border so not across whole screen */
+    display: flex;
+    justify-content: space-around;
+    border-top: 3px solid var(--dark);
+    margin-top: 10px;
+    margin-right: 120px;
+    margin-left: 120px;
 }
