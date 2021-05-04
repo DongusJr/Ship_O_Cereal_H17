@@ -30,8 +30,14 @@ class ProductLogic(TemplateView):
         data = super(ProductLogic, self).get_context_data(**kwargs)
         print(data)
         print(self)
-        data['products'] = Products.objects.all().order_by('name')
+        data['products'] = Products.objects.all()
         data['tags'] = ProductTag.objects.all()
+        if 'name' in self.request.GET:
+            name_order = self.request.GET.get('name')
+            if name_order == 'acsending':
+                data['products'] = data['products'].order_by('name')[::-1]
+            elif name_order == 'descending':
+                data['products'] = data['products'].order_by('name')
         if self.request.GET.get('criteria') != "" and self.request.GET.get('criteria') != None:
             specified_criteria = self.request.GET.get('criteria')
             data['products'] = data['products'].filter(name__icontains=specified_criteria)
