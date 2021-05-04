@@ -48,7 +48,7 @@ def get_product_by_id(request, id):
 
 
 class ProductLogic(TemplateView):
-    template = 'product/index.html'
+    template_name = 'proto_products/proto_index.html'
 
     def get_context_data(self, **kwargs):
         data = super(ProductLogic, self).get_context_data(**kwargs)
