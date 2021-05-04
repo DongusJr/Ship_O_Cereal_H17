@@ -1,6 +1,6 @@
 from django.db import models
 from cart.models import Cart
-from django.contrib.postgres.fields import ArrayField
+from products.models import Products
 
 
 # Create your models here.
@@ -8,16 +8,32 @@ class ZipCodes(models.Model):
     zip = models.IntegerField()
     city_name = models.CharField(max_length=64)
 
-class Order(models.Model):
-    product_list = ArrayField()
-    total = models.IntegerField()
-
 class PreviousOrders(models.Model):
-    order_list = ArrayField(models.ForeignKey(Order))
+    total_purchases = models.IntegerField()
 
-    def create_order(self,  prev_ord, product_list, total):
-        new_order = Order.create(product_list, total)
-        prev_ord.order_list.append(new_order)
+    def total_orders_made(self, prev):
+        orders = Order.objects.get(prev=prev)
+        i = 0
+        for order in orders:
+            i += 1
+        prev.total_purchases = i
+
+class Order(models.Model):
+    total = models.IntegerField()
+    prev = models.ForeignKey(PreviousOrders)
+
+    def order_total(self, order):
+        total = 0
+        contains = Contains.objects.get(order=order)
+        for product in contains:
+            total += product.price * (product.quantity)
+        order.total = total
+        return total
+
+class OrderProduct(models.Model):
+    quantity = models.IntergerField()
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    product = models.ForeignKey(Products, on_delete=models.CASCADE)
 
 class User(models.Model):
     session_id = models.IntegerField()

@@ -16,7 +16,7 @@ class Products(models.Model):
     price = models.FloatField()
     category = models.CharField(max_length=64)
     nutritional_info = models.ForeignKey(NutritionalInfo, on_delete=models.CASCADE)
-    in_stock = models.IntegerField(validators=[models.MinValueValidator(1)], default=10) #can not be less than zero
+    in_stock = models.IntegerField(default=1) #can not be less than zero
 
     @staticmethod
     def update_stock(product, quantity, state=1):
