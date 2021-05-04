@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from products.models import Products, ProductTag
+from products.models import Products, ProductTag, ListedAs
 from django.views.generic import TemplateView
 
 # Create your views here.
@@ -35,6 +35,7 @@ class ProductLogic(TemplateView):
         print(data)
         print(self)
         data['products'] = Products.objects.all().order_by('name')
+        data['tags'] = ProductTag.objects.all()
         if self.request.GET.get('criteria') != "" and self.request.GET.get('criteria') != None:
             specified_criteria = self.request.GET.get('criteria')
             data['products'] = data['products'].filter(name__icontains=specified_criteria)
@@ -51,6 +52,14 @@ class ProductLogic(TemplateView):
             category = self.request.GET['category']
             if category in list_of_all_categories:
                 data['products'] = data['products'].filter(category__exact=category)
+
+        if 'tag' in self.request.GET:
+            tag = self.request.GET['tag']
+            tags = ListedAs.objects.all()
+            all_products_with_tag = self.get_all_unique_tags(tags, tag)
+            for elem in data['products']:
+                if elem not in all_products_with_tag:
+                    data['products'].remove(elem)
         return data
 
     def get_all_unique_categories(self):
@@ -60,3 +69,10 @@ class ProductLogic(TemplateView):
             if elem.category not in all_unique_categories:
                 all_unique_categories.append(elem.category)
         return sorted(all_unique_categories)
+
+    def get_all_unique_tags(self, tags, tag):
+        all_products_with_tag = []
+        for elem in tags:
+            if elem.name.name == tag:
+                all_products_with_tag.append(elem.product)
+        return all_products_with_tag
