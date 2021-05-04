@@ -12,7 +12,7 @@ class Order(models.Model):
     product_list = ArrayField()
     total = models.IntegerField()
 
-class PreviousOrder(models.Model):
+class PreviousOrders(models.Model):
     order_list = ArrayField(models.ForeignKey(Order))
 
     def create_order(self,  prev_ord, product_list, total):
