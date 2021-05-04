@@ -1,6 +1,7 @@
 from django.db import models
 from cart.models import Cart
 
+
 # Create your models here.
 class ZipCodes(models.Model):
     zip = models.IntegerField()
