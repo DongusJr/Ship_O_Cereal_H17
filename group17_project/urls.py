@@ -16,8 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+import products.views
+
 urlpatterns = [
-    path('', include('products.urls')),
+    path('', products.views.get_product_by_tags, name='landing_page'),
     path('admin/', admin.site.urls),
     path('products/', include('products.urls'))
 ]
