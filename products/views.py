@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from products.models import Products, ProductTag
 from django.views.generic import TemplateView
 
@@ -40,6 +40,12 @@ def get_product_by_tags(request):
                 tag_maps_product_dict['tags_with_products'][tag] = [x.product for x in tag.listedas_set.all()]
         # TODO 3: render landing page with dictionary
         return render(request, 'proto_landingpage.html', tag_maps_product_dict)
+
+def get_product_by_id(request, id):
+    return render(request, 'proto_products/proto_product_detail_page.html', {
+        'product' : get_object_or_404(Products, pk=id)
+    })
+
 
 class ProductLogic(TemplateView):
     template = 'product/index.html'
