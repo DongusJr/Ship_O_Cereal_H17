@@ -34,7 +34,7 @@ class ProductLogic(TemplateView):
         data['tags'] = ProductTag.objects.all()
         if 'name' in self.request.GET:
             name_order = self.request.GET.get('name')
-            if name_order == 'acsending':
+            if name_order == 'ascending':
                 data['products'] = data['products'].order_by('name')[::-1]
             elif name_order == 'descending':
                 data['products'] = data['products'].order_by('name')
@@ -56,12 +56,14 @@ class ProductLogic(TemplateView):
                 data['products'] = data['products'].filter(category__exact=category)
 
         if 'tag' in self.request.GET:
-            tag = self.request.GET['tag']
+            tag = self.request.GET['tag'].lower()
             tags = ListedAs.objects.all()
             all_products_with_tag = self.get_all_unique_tags(tags, tag)
+            new_list = []
             for elem in data['products']:
-                if elem not in all_products_with_tag:
-                    data['products'].remove(elem)
+                if elem in all_products_with_tag:
+                    new_list.append(elem)
+            data['products'] = new_list
         return data
 
     def get_all_unique_categories(self):
@@ -75,6 +77,6 @@ class ProductLogic(TemplateView):
     def get_all_unique_tags(self, tags, tag):
         all_products_with_tag = []
         for elem in tags:
-            if elem.name.name == tag:
+            if elem.name.name.lower() == tag:
                 all_products_with_tag.append(elem.product)
         return all_products_with_tag
