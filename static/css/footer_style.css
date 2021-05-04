@@ -1,7 +1,7 @@
 footer {
     height: auto;
     display: flex;
-    background-color: #B46B36;
+    background-color: var(--dark);
 }
 
 #footer_info {
@@ -12,11 +12,11 @@ footer {
 }
 
 #footer_info a {
-    color: #F0C965;
+    color: var(--light);
 }
 
 #footer_info ul {
-    color: #F0C965;
+    color: var(--light);
 }
 
 #footer_logo {
@@ -30,5 +30,5 @@ footer {
     height: auto ;
     border: 3px solid;
     border-radius: 60%;
-    border-color: #F0C965;
+    border-color: var(--light);
 }
