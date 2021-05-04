@@ -5,22 +5,22 @@ body, header {
 }
 
 a {
-    color: #B46B36;
+    color: var(--dark);
     text-decoration: none;
     font-size: large;
 }
 
 a:hover {
-    color: blueviolet;
+    color: saddlebrown;
 }
 
 header {
     display: block;
-    background: #F0C965;
+    background: var(--light);
 }
 
 header h1 {
-    color: #B46B36;
+    color: var(--dark);
     font-size: xxx-large;
 }
 
@@ -50,7 +50,7 @@ header h1 {
 #header_bottom { /* TODO: Reduce border so not across whole screen */
     display: flex;
     justify-content: space-around;
-    border-bottom: 3px solid #B46B36;
+    border-bottom: 3px solid var(--dark);
     margin-top: 0px;
 }
 

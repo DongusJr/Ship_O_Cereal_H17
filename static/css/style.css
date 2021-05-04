@@ -1,0 +1,49 @@
+:root{
+    --dark: #B46B36;
+    --light: #F0C965;
+}
+html, body {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+body, header {
+    font-family: Roboto, sans-serif;
+}
+/*
+@media screen and (max-width: 99999px) {
+    html, body {
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 1300px;
+        justify-content: center;
+    }
+}
+@media screen and (max-width: 1300px) {
+    html, body {
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+}
+*/
+
+a {
+    color: var(--dark);
+    text-decoration: none;
+    font-size: large;
+}
+
+a:hover {
+    color: saddlebrown;
+}
+
+header {
+    display: block;
+    background: var(--dark);
+}
+
+header h1 {
+    color: var(--dark);
+    font-size: xxx-large;
+}
+
+
