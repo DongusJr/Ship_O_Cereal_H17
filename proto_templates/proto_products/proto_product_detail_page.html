@@ -1,0 +1,16 @@
+{% extends "proto_base.html" %}
+{% block content %}
+    <h1>{{ product.name }}</h1>
+    <p>{{ product.description }}</p>
+    <p>{{ product.description }}</p>
+    <p>{{ product.price }}</p>
+    <p>{{ product.category }}</p>
+    <p>{{ product.manufacturer}}</p>
+    <p>{{ product.nutritional_info.energy }}</p>
+    <p>{{ product.nutritional_info.sugar }}</p>
+    <p>{{ product.nutritional_info.fat }}</p>
+    <p>{{ product.nutritional_info.saturates }}</p>
+    {% for product_image in product.productimage_set.all %}
+        <img src="{{ product_image.image }}"/>
+    {% endfor %}
+{% endblock %}
