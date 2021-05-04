@@ -1,9 +1,0 @@
-{% extends 'proto_base.html' %}
-{% block content %}
-    <h1>Products</h1>
-    <div style="display:flex;flex-wrap: wrap">
-        {% for product in products %}
-            {% include 'proto_products/proto_product.html' with product=product %}
-        {% endfor %}
-    </div>
-{% endblock %}

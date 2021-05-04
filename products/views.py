@@ -22,7 +22,7 @@ from django.views.generic import TemplateView
 
 def index(request):
     context = {'products' : Products.objects.all()}
-    return render(request, 'proto_products/proto_index.html', context)
+    return render(request, 'proto_products/proto_products.html', context)
 
 def get_product_by_tags(request):
     ''' GET request when loading the landing page
@@ -69,8 +69,6 @@ class ProductLogic(TemplateView):
             category = self.request.GET['category']
             if category in list_of_all_categories:
                 data['products'] = data['products'].filter(category__exact=category)
-
-
         return data
 
     def get_all_unique_categories(self):
