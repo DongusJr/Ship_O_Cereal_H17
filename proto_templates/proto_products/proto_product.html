@@ -2,7 +2,7 @@
     <a href="/products/{{ product.id }}">
         <h1>{{ product.productimage }}</h1>
         <div class="landingProductImageDiv">
-        <img style="width: 200px;"src="{{ product.productimage_set.first.image }}" alt='image for {{ product.name }} missing' class="landingProductImage">
+            <img style="width: 200px;"src="{{ product.productimage_set.first.image }}" alt='image for {{ product.name }} missing' class="landingProductImage">
         </div>
         <h4>{{ product.name }}</h4>
         <p>{{ product.description }}</p>
