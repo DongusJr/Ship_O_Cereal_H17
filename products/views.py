@@ -2,27 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from products.models import Products, ProductTag
 from django.views.generic import TemplateView
 
-# products = [{'name': 'Cocoa Puffs',
-#              'description': 'Banned in Europe',
-#              'price': 5.99,
-#              'category': 'cereal',
-#              'nutritional_info': 1,
-#              'manufacturer': 2},
-#
-#             {'name': 'Lucky Charms',
-#              'description': 'Banned in Iceland',
-#              'price': 6.99,
-#              'category': 'cereal',
-#              'nutritional_info': 3,
-#              'manufacturer': 4}
-#             ]
-
 # Create your views here.
-
-
-def index(request):
-    context = {'products' : Products.objects.all()}
-    return render(request, 'proto_products/proto_products.html', context)
 
 def get_product_by_tags(request):
     ''' GET request when loading the landing page
@@ -48,10 +28,12 @@ def get_product_by_id(request, id):
 
 
 class ProductLogic(TemplateView):
-    template_name = 'proto_products/proto_index.html'
+    template_name = 'proto_products/proto_products.html'
 
     def get_context_data(self, **kwargs):
         data = super(ProductLogic, self).get_context_data(**kwargs)
+        print(data)
+        print(self)
         data['products'] = Products.objects.all().order_by('name')
         if self.request.GET.get('criteria') != "" and self.request.GET.get('criteria') != None:
             specified_criteria = self.request.GET.get('criteria')
