@@ -1,0 +1,15 @@
+#ProductInfo{
+    background-color: whitesmoke;
+    border: 3px solid var(--dark);
+    width: 30%;
+    padding: 20px;
+    margin: 20px;
+    align-self: flex-end;
+}
+#ProductImages{
+    float: left;
+    display: flex;
+}
+.singleProductImageDiv{
+
+}

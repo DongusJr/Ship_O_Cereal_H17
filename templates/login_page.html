@@ -1,0 +1,49 @@
+{% extends 'BasePage.html' %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ship O' Cereal - login</title>
+    <link rel="stylesheet" type="text/css" href="../static/css/login_style.css">
+</head>
+<body>
+<div id="main_profile_connection">
+    <form action="login.js" method="post">
+        <div class="login_box">
+            <h3>Log in</h3>
+            <label for="uname"><b>Username</b></label>
+            <input type="text" placeholder="Enter Username" name="uname" required>
+
+            <label for="psw"><b>Password</b></label>
+            <input type="password" placeholder="Enter Password" name="psw" required>
+
+            <button type="submit">Login</button>
+            <div class="container">
+                <label>
+                  <input type="checkbox" checked="checked" name="remember"> Remember me
+                </label>
+                <span class="psw">Forgot <a href="#">password?</a></span>
+            </div>
+        </div>
+    </form>
+    <form action="signup.js" method="post">
+        <div class="signup_box">
+        <div class="signup_box">
+            <h3>Sign up</h3>
+            <label for="uname"><b>Username</b></label>
+            <input type="text" placeholder="Enter Username" name="uname" required>
+
+            <label for="psw"><b>Password</b></label>
+            <input type="password" placeholder="Enter Password" name="psw" required>
+
+            <label for="cpsw"><b>Confirm password</b></label>
+            <input type="password" placeholder="Confirm password" name="cpsw" required>
+
+            <button type="submit">Sign up</button>
+        </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
