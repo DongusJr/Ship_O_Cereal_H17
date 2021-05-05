@@ -12,7 +12,7 @@ body, header {
 }
 
 body {
-    background-color: antiquewhite;
+    background-color: floralwhite;
 }
 /*
 @media screen and (max-width: 99999px) {
@@ -30,7 +30,12 @@ body {
     }
 }
 */
-
+h1 {
+    color: var(--dark);
+}
+p{
+    color: var(--dark);
+}
 a {
     color: var(--dark);
     text-decoration: none;

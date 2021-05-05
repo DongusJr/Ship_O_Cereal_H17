@@ -1,4 +1,4 @@
-.landingProductImageDiv {
+.landingProductDiv {
     margin: 20px;
 }
 .landingProductImageDiv {
@@ -11,5 +11,8 @@
 .landingProductImage{
     max-width: 200px;
     max-height: 200px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
