@@ -24,7 +24,7 @@ class Order(models.Model):
 
     def order_total(self, order):
         total = 0
-        contains = Contains.objects.get(order=order)
+        contains = OrderProduct.objects.get(order=order)
         for product in contains:
             total += product.price * (product.quantity)
         order.total = total
@@ -43,4 +43,4 @@ class User(models.Model):
     zip = models.ForeignKey(ZipCodes)
     address = models.CharField(max_length=128)
     cart = models.ForeignKey(Cart)
-    order = models.ForeignKey(PreviousOrder)
+    order = models.ForeignKey(PreviousOrders)
