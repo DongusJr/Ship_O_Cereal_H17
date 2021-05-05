@@ -1,8 +1,10 @@
-#landingProductImageDiv{
-    height: 500px;
-    width: 300px;
+.landingProductImageDiv{
+    background-color: whitesmoke;
+    border: 3px solid var(--dark);
+    width: 210px;
+    margin: 20px;
 }
-#landingProductImage{
-    height: 100%;
-    width: 100%;
+.landingProductImage{
+    width: 200px;
 }
+
