@@ -39,8 +39,18 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/products">Products</a>
+          <a class="nav-link active" aria-current="page" href="{% url 'product_index' %}">Products</a>
         </li>
+          {% if user.is_authenticated %}
+          <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{% url 'logout' %}">Logout</a>
+        </li>
+          {% else %}
+          <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{% url 'login_register' %}">Account</a>
+        </li>
+          {% endif %}
+
       <form class="d-flex">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-success" type="submit">Search</button>
@@ -48,6 +58,9 @@
     </div>
   </div>
 </nav>
+ {% if user.is_authenticated %}
+     <h1>LOGGED IN</h1>
+ {% endif %}
 {% block content %}
 {% endblock %}
     <!-- Optional JavaScript; choose one of the two! -->

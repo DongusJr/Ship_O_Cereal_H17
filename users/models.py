@@ -1,6 +1,6 @@
 from django.db import models
 from products.models import Products
-
+from django.contrib.auth.models import User
 
 # Create your models here.
 class ZipCodes(models.Model):
@@ -34,10 +34,8 @@ class OrderProduct(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
     product = models.ForeignKey(Products, on_delete=models.CASCADE)
 
-class User(models.Model):
-    session_id = models.IntegerField()
-    username = models.CharField(max_length=128)
-    password = models.CharField(max_length=128)
+class Account(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     email = models.CharField(max_length=256, unique=True)
     zip = models.ForeignKey(ZipCodes, on_delete=models.CASCADE)
     address = models.CharField(max_length=128)
