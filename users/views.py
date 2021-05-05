@@ -4,7 +4,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
-from users.models import Account, Order, OrderProduct
+from users.models import Account, Order, OrderProduct, PreviousOrders
 
 # Create your views here.
 
@@ -50,6 +50,8 @@ def _register(request):
         form.save()
         login_success = _login(request)
         if login_success:
+            acc = Account.objects.create(user=request.user)
+            acc.save()
             return True
     else:
         return False
@@ -61,10 +63,15 @@ class Profile(TemplateView):
 
     def get_context_data(self, **kwargs):
         data = super(Profile, self).get_context_data(**kwargs)
-        user = self.request.user
-        data['user'] = self.request.user
-        data['previous_order'] = order
-        previous_order = Order.objects.get(prev=order)
+        user = Account.objects.get(user=self.request.user)
+        data['user'] = user
+        try:
+            prev_ord = user.order
+        except:
+            data['previous_order'] = None
+            return data
+        data['previous_order'] = prev_ord
+        previous_order = Order.objects.get(prev=prev_ord)
         dic = {}
         for order in previous_order:
             dic[order] = OrderProduct.objects.get(order=order)
