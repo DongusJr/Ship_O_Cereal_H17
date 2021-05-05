@@ -39,10 +39,10 @@ class Profile(TemplateView):
 
     def get_context_data(self, **kwargs):
         data = super(Profile, self).get_context_data(**kwargs)
-        user = Account.objects.get(user=self.request.user)
-        data['user'] = user
-        data['previous_order'] = user.order
-        previous_order = Order.objects.get(prev=user.order)
+        user = self.request.user
+        data['user'] = self.request.user
+        data['previous_order'] = order
+        previous_order = Order.objects.get(prev=order)
         dic = {}
         for order in previous_order:
             dic[order] = OrderProduct.objects.get(order=order)

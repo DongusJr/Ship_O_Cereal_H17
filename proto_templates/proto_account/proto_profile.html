@@ -5,6 +5,7 @@
 </div>
 
 <h1>Previous Orders</h1>
+{% if previous_order != None%}
 <div style="display: flex; float: right;">
     {% for order, order_product in previous_orders.iteritems() %}
         {% include 'proto_account/proto_order.html' with order=order %}
@@ -13,4 +14,7 @@
         {% endfor %}
     {% endfor %}
 </div>
+{% else %}
+    <p>No previous orders to display.</p>
+{% endif %}
 {% endblock %}

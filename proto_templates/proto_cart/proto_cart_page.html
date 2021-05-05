@@ -2,9 +2,12 @@
 {% block content %}
 
     <h1>Cart</h1>
+    {% if product != [] %}
     {% for product in cart %}
         {% include 'proto_cart/proto_cart_product.html' with product=product%}
     {% endfor %}
+    {% else %}
+    <p>No items in cart</p>
     <h4>{{purchase.total}}</h4>
 
 {% endblock %}

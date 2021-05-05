@@ -1,23 +1,18 @@
 from django.db import models
 from django.contrib.postgres.fields import ArrayField
 from products.models import Products
-from users.models import PreviousOrders, Order, OrderProduct, User
+from users.models import PreviousOrders, Order, OrderProduct, Account
 
 # Create your models here.
 
 class Cart(models.Model):
     # Possibly have user id
-    total = models.IntegerField()
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    total = models.IntegerField(default=0)
+    user = models.ForeignKey(Account, on_delete=models.CASCADE)
 
-    @staticmethod
-    def add_to_cart(product, user_id, quantity=1):
-        cart = Cart.objects.get(pk=user_id)
-        #if quantity>product.in_stock:
-        #    return False
+    def add_to_cart(self, product, quantity=1):
+        cart = Cart.objects.get_or_create(self.request.user)
         contains = Contains.objects.create(cart=cart, product=product, quantity=quantity)
-        # cart.product_list.append({'quantity':quantity, 'product':product})
-        #Products.update_stock(product, quantity)
         Cart.update_total(cart)
         return True
 
@@ -29,26 +24,26 @@ class Cart(models.Model):
         cart_object.total = total
         return True
 
-    @staticmethod
-    def remove_item(product, user_id):
-        cart = Cart.objects.get(id=user_id)
+    def remove_item(self, product):
+        cart = Cart.objects.get(user=self.request.user)
         contains = Contains.objects.get(cart=cart, product=product)
         Products.update_stock(product, contains.quantity, state=0)
         del contains
         Cart.update_total(cart)
         return True
 
-    @staticmethod
-    def complete_cart(user_id):
-        cart = Cart.objects.get(id=user_id)
+    def complete_cart(self, user_id):
+        try:
+            cart = Cart.objects.get(user=self.request.user)
+        except:
+            return
         contains_of_cart = Contains.objects.get(cart=cart)
-        prev_order = PreviousOrders.objects.get(id=user_id)
+        prev_order = self.request.user.order
         order = Order.objects.create(prev=prev_order)
         for contain in contains_of_cart:
             OrderProduct.objects.create(quantity=contain.quantity, order=order, product=contain.product)
             del contain
         Cart.update_total(cart)
-        prev_order = PreviousOrders.objects.get(id=user_id)
         return True
 
 class Contains(models.Model):
