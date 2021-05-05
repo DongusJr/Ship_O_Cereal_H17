@@ -1,3 +1,4 @@
+import django.utils.datastructures
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib import messages
@@ -8,29 +9,50 @@ from users.models import Account, Order, OrderProduct
 # Create your views here.
 
 def login_register(request):
+    if request.user.is_authenticated:
+        return redirect('landing_page')
+    register_form = UserCreationForm()
+    login_form = AuthenticationForm()
     if request.method == 'POST':
         if request.POST.get('submit') == 'login':
-            print("LOGIN")
-            username = request.POST['username']
-            password = request.POST['password']
-            user = authenticate(username=username, password=password)
-            print(user)
-            if user is not None:
-                login(request, user)
-                print("IM LOGGED IN")
+            login_form = AuthenticationForm(data=request.POST)
+            success = _login(request)
+            print("login success: " + str(success))
+            if success:
                 return redirect('product_index')
-            else:
-                messages.error("wrong username and password")
         elif request.POST.get('submit') == 'register':
-            print("REGISTER")
-            form = UserCreationForm(data=request.POST)
-            if form.is_valid():
-                form.save()
-            return redirect('landing_page')
+            register_form = UserCreationForm(data=request.POST)
+            success = _register(request)
+            print("register success: " + str(success))
+            if success:
+                return redirect('landing_page')
     return render(request, 'proto_users/account.html', {
-        'form_1' : UserCreationForm(),
-        'form_2' : AuthenticationForm()
+        'form_1' : register_form,
+        'form_2' : login_form
     })
+
+def _login(request):
+    username = request.POST['username']
+    try:
+        password = request.POST['password']
+    except django.utils.datastructures.MultiValueDictKeyError:
+        password = request.POST['password1']
+    user = authenticate(username=username, password=password)
+    if user is not None:
+        login(request, user)
+        return True
+    else:
+        return False
+
+def _register(request):
+    form = UserCreationForm(data=request.POST)
+    if form.is_valid():
+        form.save()
+        login_success = _login(request)
+        if login_success:
+            return True
+    else:
+        return False
 
 
 # Create your views here.
@@ -39,10 +61,10 @@ class Profile(TemplateView):
 
     def get_context_data(self, **kwargs):
         data = super(Profile, self).get_context_data(**kwargs)
-        user = Account.objects.get(user=self.request.user)
-        data['user'] = user
-        data['previous_order'] = user.order
-        previous_order = Order.objects.get(prev=user.order)
+        user = self.request.user
+        data['user'] = self.request.user
+        data['previous_order'] = order
+        previous_order = Order.objects.get(prev=order)
         dic = {}
         for order in previous_order:
             dic[order] = OrderProduct.objects.get(order=order)
