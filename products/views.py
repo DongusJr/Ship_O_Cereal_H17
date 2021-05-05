@@ -28,8 +28,6 @@ class ProductLogic(TemplateView):
 
     def get_context_data(self, **kwargs):
         data = super(ProductLogic, self).get_context_data(**kwargs)
-        print(data)
-        print(self)
         data['products'] = Products.objects.all()
         data['tags'] = ProductTag.objects.all()
         if 'name' in self.request.GET:
