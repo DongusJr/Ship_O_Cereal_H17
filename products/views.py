@@ -16,7 +16,7 @@ def get_product_by_tags(request):
         for tag in tags:
             if tag.listedas_set.all():
                 tag_maps_product_dict['tags_with_products'][tag] = [x.product for x in tag.listedas_set.all()]
-        return render(request, 'proto_landingpage.html', tag_maps_product_dict)
+        return render(request, 'main_page.html', tag_maps_product_dict)
 
 def get_product_by_id(request, id):
     return render(request, 'proto_products/proto_product_detail_page.html', {

@@ -1,48 +1,11 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/html">
-<head>
-    <meta charset="UTF-8">
-    <title>Ship O' Cereal</title>
-    <link rel="stylesheet" type="text/css" href="../static/css/style.css">
-    <link rel="stylesheet" type="text/css" href="../static/css/main_page_style.css">
-</head>
-<body>
-    <header>
-        <div id="header_top">
-            <a href="#">
-                <img src="../static/images/Profile.svg" alt="Profile">
-            </a>
-            <div id="logo">
-                <h1>Ship</h1>
-                <img src="../static/images/logo_CaC.svg" alt="Ship O' Cereal logo">
-                <h1>Cereal</h1>
-            </div>
-            <a href="#">
-                <img src="../static/images/cart.svg" alt="cart">
-            </a>
+{% extends 'base_page.html' %}
+{% block content %}
+    {% for tag, products in  tags_with_products.items %}
+        <a href="/products?tag={{ tag.name }}"><h1>{{ tag.name }}</h1></a>
+        <div style="display:flex; flex-direction: row;">
+        {% for product in products %}
+                    {% include 'proto_products/proto_landing_product.html' with product=product %}
+        {% endfor %}
         </div>
-        <div id="header_bottom">
-            <a href="#">Category 1</a>
-            <a href="#">Category 2</a>
-            <a href="#">Category 3</a>
-            <a href="#">Category 4</a>
-            <a href="#">Category 5</a>
-            <a href="#">About us</a>
-        </div>
-    </header>
-    <div id="main_body">
-        <div id="big_ad">
-            ad section
-        </div>
-        <div id="main_search">
-            <input type="text" placeholder="Search">
-        </div>
-        <div class="products-list">
-            Product list
-        </div>
-    </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-    <!-- ADD FOOTER FROM TEMPLATE -->
-</body>
-</html>
+    {% endfor %}
+{% endblock %}
