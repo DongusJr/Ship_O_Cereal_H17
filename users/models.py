@@ -8,7 +8,7 @@ class ZipCodes(models.Model):
     city_name = models.CharField(max_length=64)
 
 class PreviousOrders(models.Model):
-    total_purchases = models.IntegerField()
+    total_purchases = models.IntegerField(default=0)
 
     def total_orders_made(self, prev):
         orders = Order.objects.get(prev=prev)
@@ -18,7 +18,7 @@ class PreviousOrders(models.Model):
         prev.total_purchases = i
 
 class Order(models.Model):
-    total = models.IntegerField()
+    total = models.IntegerField(default=0)
     prev = models.ForeignKey(PreviousOrders, on_delete=models.CASCADE)
 
     def order_total(self, order):
@@ -30,7 +30,7 @@ class Order(models.Model):
         return total
 
 class OrderProduct(models.Model):
-    quantity = models.IntegerField()
+    quantity = models.IntegerField(default=1)
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
     product = models.ForeignKey(Products, on_delete=models.CASCADE)
 
