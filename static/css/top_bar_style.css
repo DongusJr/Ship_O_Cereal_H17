@@ -49,9 +49,10 @@
     display: flex;
     justify-content: space-around;
     border-top: 3px solid var(--dark);
-    margin-top: 20px;
+    margin-top: 10px;
     margin-right: 20px;
     margin-left: 140px;
+    padding-top: 10px;
 }
 #main_search {
     margin: 1rem
