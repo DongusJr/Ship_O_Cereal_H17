@@ -2,6 +2,7 @@ footer {
     height: auto;
     display: flex;
     background-color: var(--dark);
+    ;
 }
 
 #footer_info {
