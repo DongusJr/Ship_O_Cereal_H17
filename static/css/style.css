@@ -1,6 +1,9 @@
 :root{
     --dark: #B46B36;
+    --darkHover: saddlebrown;
     --light: #F0C965;
+    --lightHover: yellow;
+    --backgroundWhite: white;
 }
 html, body {
     margin: 0 !important;
@@ -12,7 +15,7 @@ body, header {
 }
 
 body {
-    background-color: floralwhite;
+    background-color: var(--backgroundWhite);
 }
 /*
 @media screen and (max-width: 99999px) {
@@ -43,7 +46,7 @@ a {
 }
 
 a:hover {
-    color: saddlebrown;
+    color: var(--darkHover);
 }
 
 header {

@@ -16,7 +16,7 @@ footer {
     color: var(--light);
 }
 #footer_info a:hover {
-    color: yellow;
+    color: var(--lightHover);
 }
 
 #footer_info ul {
