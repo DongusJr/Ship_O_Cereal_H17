@@ -21,5 +21,7 @@ import products.views
 urlpatterns = [
     path('', products.views.get_product_by_tags, name='landing_page'),
     path('admin/', admin.site.urls),
-    path('products/', include('products.urls'))
+    path('products/', include('products.urls')),
+    path('user/', include('users.urls')),
+    path('user/', include('cart.urls'))
 ]

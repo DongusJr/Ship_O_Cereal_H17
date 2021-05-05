@@ -14,6 +14,7 @@
 </div>
 <div id="ProductImages">
     {% for product_image in product.productimage_set.all %}
+    {% include 'proto_products/proto_quantity_counter.html' %}
     <div class="singleProductImageDiv">
         <img src="{{ product_image.image }}" class="singleProductImage"/>
     </div>

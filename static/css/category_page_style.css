@@ -1,0 +1,23 @@
+.tags {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #B46B36;
+}
+
+.tags button {
+    width: 5rem;
+}
+
+.products_page {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.product {
+    flex: 1 0 21%;
+    margin: 1rem;
+    height: auto;
+}

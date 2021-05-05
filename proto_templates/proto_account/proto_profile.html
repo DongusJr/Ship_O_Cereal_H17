@@ -1,0 +1,20 @@
+{% extends 'proto_base.html' %}
+{% block content %}
+<div style="display: flex; float:left;">
+    <p>{{user.username}}</p>
+</div>
+
+<h1>Previous Orders</h1>
+{% if previous_order != None%}
+<div style="display: flex; float: right;">
+    {% for order, order_product in previous_orders.iteritems() %}
+        {% include 'proto_account/proto_order.html' with order=order %}
+        {% for product in order_product %}
+            {% include 'proto_account/proto_order_info.html' with order_product = order_product %}
+        {% endfor %}
+    {% endfor %}
+</div>
+{% else %}
+    <p>No previous orders to display.</p>
+{% endif %}
+{% endblock %}
