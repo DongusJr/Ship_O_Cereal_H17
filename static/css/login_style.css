@@ -9,7 +9,7 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    background-color: #F0C965;
+    background-color: var(--light);
     border-radius: 3rem;
     width: 50%;
     height: auto;
@@ -24,7 +24,7 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    background-color: #F0C965;
+    background-color: var(--light);
     border-radius: 3rem;
     width: 50%;
     height: auto;
@@ -57,7 +57,7 @@ input[type=text], input[type=password] {
 }
 
 button {
-    background-color: #04AA6D;
+    background-color: var(--dark);
     color: white;
     padding: 14px 20px;
     margin: 8px 0;

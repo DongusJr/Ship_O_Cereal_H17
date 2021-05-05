@@ -1,5 +1,5 @@
-{% extends 'proto_base.html' %}
-{% block content %}
+{% extends 'category_page.html' %}
+{% block products %}
     <div class="landingTagDiv">
         {% include 'proto_products/proto_dropdown_category.html' %}
         {% include 'proto_products/proto_dropdown_tags.html' %}
@@ -7,7 +7,7 @@
     </div>
 
     <h1>Products</h1>
-    <div style="display:flex;flex-wrap: wrap">
+    <div style="display:flex;flex-wrap: wrap" id="category">
         {% for product in products %}
             {% include 'proto_products/proto_product.html' with product=product %}
         {% endfor %}

@@ -1,14 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Ship O' Cereal - CATEGORY NAME</title> <!-- Later: should be category name -->
-    <link rel="stylesheet" type="text/css" href="../static/css/category_page_style.css">
-</head>
-<body>
-  <div class="header">
-    <!-- INSERT HEADER HERE -->
-  </div>
+{% extends 'base_page.html' %}
+{% block content %}
   <div class="tags">
     <button type="button">Tag 1</button>
     <button type="button">Tag 2</button>
@@ -28,12 +19,7 @@
     </select>
   </div>
   <div class="products_page">
-    <!-- INSERT PRODUCTS HERE -->
+    {% block products %}
+    {% endblock %}
   </div>
-
-  <div class="footer">
-    <!-- INSERT FOOTER HERE -->
-  </div>
-
-</body>
-</html>
+{% endblock %}
