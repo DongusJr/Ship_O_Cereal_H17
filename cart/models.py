@@ -9,7 +9,7 @@ from users.models import PreviousOrders, Order, OrderProduct, Account
 class Cart(models.Model):
     # Possibly have user id
     total = models.IntegerField(default=0)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     def add_to_cart(self, product, quantity=1):
         cart = Cart.objects.get_or_create(self.request.user)

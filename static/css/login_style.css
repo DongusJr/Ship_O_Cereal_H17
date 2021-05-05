@@ -1,0 +1,68 @@
+#main_profile_connection {
+    display: flex;
+    flex-direction: row;
+    margin: 0px;
+}
+
+.login_box {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #F0C965;
+    border-radius: 3rem;
+    width: 50%;
+    height: auto;
+}
+
+.container {
+    border: 1px solid black;
+}
+
+.signup_box {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #F0C965;
+    border-radius: 3rem;
+    width: 50%;
+    height: auto;
+}
+
+form {
+    width: 50%;
+}
+
+input[type=text], input[type=password] {
+  width: 80%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+.signup_box input[type=text], input[type=password] {
+  width: 80%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+.login_box button {
+    width: 5rem;
+}
+
+button {
+    background-color: #04AA6D;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: auto;
+    height: 3rem;
+}

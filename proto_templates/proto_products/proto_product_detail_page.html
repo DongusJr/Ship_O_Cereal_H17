@@ -11,6 +11,7 @@
     <p>{{ product.nutritional_info.fat }}</p>
     <p>{{ product.nutritional_info.saturates }}</p>
     {% for product_image in product.productimage_set.all %}
+        {% include 'proto_products/proto_quantity_counter.html' %}
         <img src="{{ product_image.image }}"/>
     {% endfor %}
 {% endblock %}
