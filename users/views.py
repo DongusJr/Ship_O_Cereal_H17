@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
-from users.models import User, Order, OrderProduct
+from users.models import Account, Order, OrderProduct
 
 # Create your views here.
 class Profile(TemplateView):
@@ -8,7 +8,7 @@ class Profile(TemplateView):
 
     def get_context_data(self, **kwargs):
         data = super(Profile, self).get_context_data(**kwargs)
-        user = User.objects.get(session_id=self.session_id)
+        user = Account.objects.get(user=self.request.user)
         data['user'] = user
         data['previous_order'] = user.order
         previous_order = Order.objects.get(prev=user.order)

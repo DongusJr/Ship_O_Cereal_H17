@@ -1,0 +1,10 @@
+{% extends 'proto_base.html' %}
+{% block content %}
+
+    <h1>Cart</h1>
+    {% for product in cart %}
+        {% include 'proto_cart/proto_cart_product.html' with product=product%}
+    {% endfor %}
+    <h4>{{purchase.total}}</h4>
+
+{% endblock %}
