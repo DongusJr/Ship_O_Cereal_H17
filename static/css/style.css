@@ -4,6 +4,8 @@
     --light: #F0C965;
     --lightHover: yellow;
     --backgroundWhite: white;
+    --pageWidth: 1400px;
+    --marginsWidth: calc( calc(100vw - var(--pageWidth)) / 2);
 }
 html, body {
     margin: 0 !important;
@@ -18,8 +20,8 @@ body {
     background-color: var(--backgroundWhite);
 }
 body {
-    border-right: calc(50% - 700px) solid #F0F0F0;
-    border-left: calc(50% - 700px) solid #F0F0F0;
+    border-right: var(--marginsWidth) solid #F0F0F0;
+    border-left: var(--marginsWidth) solid #F0F0F0;
 }
 /*
 @media screen and (min-width: 1400Px) {
