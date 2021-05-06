@@ -11,5 +11,11 @@
     display: flex;
 }
 .singleProductImageDiv{
-
+    border: 3px solid var(--dark);
+    max-width: 601px;
+    max-height: 601px;
+}
+.singleProductImage{
+    max-width: 600px;
+    max-height: 600px;
 }
