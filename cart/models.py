@@ -11,12 +11,6 @@ class Cart(models.Model):
     total = models.IntegerField(default=0)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
-    def add_to_cart(self, product, quantity=1):
-        cart = Cart.objects.get_or_create(self.request.user)
-        contains = Contains.objects.create(cart=cart, product=product, quantity=quantity)
-        Cart.update_total(cart)
-        return True
-
     @staticmethod
     def update_total(cart_object, total=0):
         contains_list = Contains.objects.get(cart=cart_object)
@@ -51,4 +45,15 @@ class Contains(models.Model):
     quantity = models.IntegerField()
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
     product = models.ForeignKey(Products, on_delete=models.CASCADE)
+
+    @staticmethod
+    def add_to_cart(user, product, quantity=1):
+        try:
+            cart = Cart.objects.get(user=user)
+        except:
+            cart = Cart.objects.create(user=user)
+        cart.save()
+        contains = Contains.objects.create(cart=cart, product=product, quantity=quantity)
+        cart.save()
+        return contains
 
