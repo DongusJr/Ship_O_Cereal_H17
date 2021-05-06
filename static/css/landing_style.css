@@ -1,11 +1,17 @@
+.landingTagDiv{
+    background-color: #f5f5f5;
+    display: flex;
+    justify-content: space-evenly
+}
 .landingProductDiv {
     margin: 20px;
+    max-width: 210px;
 }
 .landingProductImageDiv {
     background-color: whitesmoke;
     border: 3px solid var(--dark);
-    width: 210px;
-    height: 210px;
+    width: 204px;
+    height: 204px;
 
 }
 .landingProductImage{

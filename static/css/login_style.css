@@ -5,26 +5,33 @@
 }
 
 .login_box {
+    margin: auto;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     align-items: center;
-    background-color: #F0C965;
+    background-color: var(--light);
     border-radius: 3rem;
     width: 50%;
     height: auto;
 }
 
 .container {
-    border: 1px solid black;
+    width: 80%;
+    display: flex;
+    margin: 1rem;
+    justify-content: space-between;
 }
 
 .signup_box {
+    margin: auto;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     align-items: center;
-    background-color: #F0C965;
+    background-color: var(--light);
     border-radius: 3rem;
     width: 50%;
     height: auto;
@@ -57,7 +64,7 @@ input[type=text], input[type=password] {
 }
 
 button {
-    background-color: #04AA6D;
+    background-color: var(--dark);
     color: white;
     padding: 14px 20px;
     margin: 8px 0;

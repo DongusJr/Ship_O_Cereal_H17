@@ -1,29 +1,43 @@
-{% extends "proto_base.html" %}
+{% extends "base_page.html" %}
 {% block content %}
-<div id="ProductInfo">
-    <h1>{{ product.name }}</h1>
-    <p>{{ product.description }}</p>
-    <p>{{ product.description }}</p>
-    <p>{{ product.price }}</p>
-    <p>{{ product.category }}</p>
-    <p>{{ product.manufacturer}}</p>
-    <p>{{ product.nutritional_info.energy }}</p>
-    <p>{{ product.nutritional_info.sugar }}</p>
-    <p>{{ product.nutritional_info.fat }}</p>
-    <p>{{ product.nutritional_info.saturates }}</p>
-    {% include 'proto_products/proto_quantity_counter.html' %}
-    {% if user.is_authenticated%}
+<link rel="stylesheet" href="../static/css/single_product_style.css">
+
+<div id="mainProductDiv">
+    <div id="ProductImages">
+        <div id="largeProductImage">
+
+        </div>
+        <div id="smallProductImages">
+        {% for product_image in product.productimage_set.all %}
+        <div class="singleProductImageDiv">
+            <img src="{{ product_image.image }}" alt="A product image" class="singleProductImage"/>
+        </div>
+        {% endfor %}
+        </div>
+    </div>
+    <div id="ProductInfoDiv">
+        <div id="CartProdInfo">
+            {% include 'proto_products/proto_quantity_counter.html' %}
+            <input type="submit" name="submit" class="btn btn-primary" value="Add to cart"></input>
+        </div>
+        <div id="ProductInfo">
+            <h1>{{ product.name }}</h1>
+            <p>{{ product.description }}</p>
+            <p>{{ product.description }}</p>
+            <p>{{ product.price }}</p>
+            <p>{{ product.category }}</p>
+            <p>{{ product.manufacturer}}</p>
+            <p>{{ product.nutritional_info.energy }}</p>
+            <p>{{ product.nutritional_info.sugar }}</p>
+            <p>{{ product.nutritional_info.fat }}</p>
+            <p>{{ product.nutritional_info.saturates }}</p>
+        </div>
+     {% if user.is_authenticated%}
         <a type="submit" name="add" class="btn btn-primary" value="Add to cart" href="{% url 'product_detail' product.id %}">Add to cart</a>
     {% endif %}
     {% if success %}
         <p>Added to cart</p>
     {% endif %}
-</div>
-<div id="ProductImages">
-    {% for product_image in product.productimage_set.all %}
-    <div class="singleProductImageDiv">
-        <img src="{{ product_image.image }}" class="singleProductImage"/>
     </div>
-    {% endfor %}
 </div>
 {% endblock %}
