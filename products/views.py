@@ -86,8 +86,8 @@ class SingleProduct(TemplateView):
         data = super(SingleProduct, self).get_context_data(**kwargs)
         id = self.kwargs['id']
         data['product'] = get_object_or_404(Products, pk=id)
-        cart = Cart.objects.get_or_create(user=self.request.user)
         if 'add' in self.request.GET and 'quant' in self.request.GET:
+            cart = Cart.objects.get_or_create(user=self.request.user)
             quant = self.request.GET.get('quant')
             if quant.isdigit():
                 cart.add_to_cart(quant, data['product'])
