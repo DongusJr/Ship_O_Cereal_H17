@@ -17,7 +17,11 @@ body, header {
 body {
     background-color: var(--backgroundWhite);
 }
-
+body {
+    border-right: calc(50% - 700px) solid #F0F0F0;
+    border-left: calc(50% - 700px) solid #F0F0F0;
+}
+/*
 @media screen and (min-width: 1400Px) {
     html, body {
         border-right: calc(50% - 700px) solid #F0F0F0;
@@ -30,7 +34,7 @@ body {
         border-left: 0 solid #F0F0F0;
     }
 }
-
+*/
 h1 {
     color: var(--dark);
 }
