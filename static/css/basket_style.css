@@ -1,0 +1,15 @@
+.cart_page {
+    display: flex;
+    flex-direction: row;
+}
+
+.cart {
+    width: 60%;
+    background-color: blueviolet;
+}
+
+.summary {
+    width: 20%;
+    background-color: azure;
+}
+
