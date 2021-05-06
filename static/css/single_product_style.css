@@ -20,16 +20,19 @@
 #CartProdInfo{
     display: flex;
     flex-direction: row;
+    justify-content: flex-end;
 }
-#CartProdInfo .input-group{
+#CartProdInfo .input-group {
     display: flex;
     flex-direction: row;
-    justify-content: center;
+
 }
+
 #CartProdInfo .input-number{
-    justify-content: center;
+    text-align: center;
     width: 30px;
 }
+
 #CartProdInfo .btn{
     border: solid var(--dark);
     background-color: var(--dark);
