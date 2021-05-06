@@ -56,3 +56,6 @@ button:hover{
     background-color: var(--darkHover);
 }
 
+#contentDiv{
+    min-height: 75vh;
+}
