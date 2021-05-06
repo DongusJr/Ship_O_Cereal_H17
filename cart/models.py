@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.contrib.postgres.fields import ArrayField
 from products.models import Products
-from users.models import PreviousOrders, Order, OrderProduct, Account
+from users.models import Order
 
 # Create your models here.
 
@@ -33,19 +33,19 @@ class Cart(models.Model):
         Cart.update_total(cart)
         return True
 
-    def complete_cart(self, user_id):
-        try:
-            cart = Cart.objects.get(user=self.request.user)
-        except:
-            return
-        contains_of_cart = Contains.objects.get(cart=cart)
-        prev_order = self.request.user.order
-        order = Order.objects.create(prev=prev_order)
-        for contain in contains_of_cart:
-            OrderProduct.objects.create(quantity=contain.quantity, order=order, product=contain.product)
-            del contain
-        Cart.update_total(cart)
-        return True
+    # def complete_cart(self, user_id):
+    #     try:
+    #         cart = Cart.objects.get(user=self.request.user)
+    #     except:
+    #         return
+    #     contains_of_cart = Contains.objects.get(cart=cart)
+    #     prev_order = self.request.user.order
+    #     order = Order.objects.create(prev=prev_order)
+    #     for contain in contains_of_cart:
+    #         OrderProduct.objects.create(quantity=contain.quantity, order=order, product=contain.product)
+    #         del contain
+    #     Cart.update_total(cart)
+    #     return True
 
 class Contains(models.Model):
     quantity = models.IntegerField()

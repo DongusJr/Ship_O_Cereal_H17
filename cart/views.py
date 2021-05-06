@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
 from cart.models import Cart, Contains
-from users.models import Account
 
 # Create your views here.
 

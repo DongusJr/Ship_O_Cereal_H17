@@ -7,36 +7,40 @@ class ZipCodes(models.Model):
     zip = models.IntegerField()
     city_name = models.CharField(max_length=64)
 
-class PreviousOrders(models.Model):
-    total_purchases = models.IntegerField(default=0)
+class Country(models.Model):
+    name = models.CharField(max_length=50)
 
-    def total_orders_made(self, prev):
-        orders = Order.objects.get(prev=prev)
-        i = 0
-        for order in orders:
-            i += 1
-        prev.total_purchases = i
+class PersonInfo(models.Model):
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
+    country = models.ForeignKey(Country, on_delete=models.CASCADE)
+    zip = models.ForeignKey(ZipCodes, on_delete=models.CASCADE)
+    Street = models.CharField(max_length=80)
+
+class PaymentInfo(models.Model):
+    full_name = models.CharField(max_length=80)
+    card_number = models.IntegerField()
+    expiration_date = models.IntegerField()
+    cvc = models.IntegerField()
 
 class Order(models.Model):
     total = models.IntegerField(default=0)
-    prev = models.ForeignKey(PreviousOrders, on_delete=models.CASCADE)
+    profile = models.ForeignKey(User, on_delete=models.CASCADE) # Order can only have 1 profile
+    person_info = models.ForeignKey(PersonInfo, on_delete=models.CASCADE)
+    payment_info = models.ForeignKey(PaymentInfo, on_delete=models.CASCADE)
+    delivery = models.BooleanField()
+    product = models.ManyToManyField(Products)
 
-    def order_total(self, order):
-        total = 0
-        contains = OrderProduct.objects.get(order=order)
-        for product in contains:
-            total += product.price * (product.quantity)
-        order.total = total
-        return total
+    # def order_total(self, order):
+    #     total = 0
+    #     contains = OrderProduct.objects.get(order=order)
+    #     for product in contains:
+    #         total += product.price * (product.quantity)
+    #     order.total = total
+    #     return total
 
-class OrderProduct(models.Model):
-    quantity = models.IntegerField(default=1)
-    order = models.ForeignKey(Order, on_delete=models.CASCADE)
-    product = models.ForeignKey(Products, on_delete=models.CASCADE)
-
-class Account(models.Model):
+class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    email = models.CharField(max_length=256, unique=True)
-    zip = models.ForeignKey(ZipCodes, on_delete=models.CASCADE)
-    address = models.CharField(max_length=128)
-    order = models.ForeignKey(PreviousOrders, on_delete=models.CASCADE)
+    image = models.CharField(max_length=9999)
+    description = models.CharField(max_length=512, blank=True)
+    # One profile can have many orders
