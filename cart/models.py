@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.contrib.postgres.fields import ArrayField
 from products.models import Products
-from users.models import PreviousOrders, Order, OrderProduct, Account
+from users.models import Order, OrderProduct
 
 # Create your models here.
 

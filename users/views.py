@@ -4,7 +4,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
-from users.models import Account, Order, OrderProduct, PreviousOrders
+from users.models import Order, OrderProduct
 
 # Create your views here.
 
@@ -50,8 +50,6 @@ def _register(request):
         form.save()
         login_success = _login(request)
         if login_success:
-            acc = Account.objects.create(user=request.user)
-            acc.save()
             return True
     else:
         return False

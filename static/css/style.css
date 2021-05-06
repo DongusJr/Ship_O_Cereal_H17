@@ -1,15 +1,22 @@
 :root{
     --dark: #B46B36;
+    --darkHover: saddlebrown;
     --light: #F0C965;
+    --lightHover: yellow;
+    --backgroundWhite: white;
 }
 html, body {
     margin: 0 !important;
     padding: 0 !important;
+    height: 100%;
 }
 body, header {
     font-family: Roboto, sans-serif;
 }
 
+body {
+    background-color: var(--backgroundWhite);
+}
 /*
 @media screen and (max-width: 99999px) {
     html, body {
@@ -26,7 +33,12 @@ body, header {
     }
 }
 */
-
+h1 {
+    color: var(--dark);
+}
+p{
+    color: var(--dark);
+}
 a {
     color: var(--dark);
     text-decoration: none;
@@ -34,7 +46,7 @@ a {
 }
 
 a:hover {
-    color: saddlebrown;
+    color: var(--darkHover);
 }
 
 header {
