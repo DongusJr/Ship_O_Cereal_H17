@@ -91,4 +91,5 @@ class SingleProduct(TemplateView):
             quantity = self.request.GET.get('quant')
             Contains.add_to_cart(self.request.user, product, int(quantity)).save()
             data['success'] = True
+
         return data

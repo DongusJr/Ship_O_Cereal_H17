@@ -13,19 +13,13 @@ class Cart(models.Model):
 
     @staticmethod
     def update_total(cart_object, total=0):
-        contains_list = Contains.objects.get(cart=cart_object)
+        contains_list = Contains.objects.filter(cart=cart_object)
         for item in contains_list:
             total += item.quantity*(item.product.price)
         cart_object.total = total
-        return True
+        return cart_object
 
-    def remove_item(self, product):
-        cart = Cart.objects.get(user=self.request.user)
-        contains = Contains.objects.get(cart=cart, product=product)
-        Products.update_stock(product, contains.quantity, state=0)
-        del contains
-        Cart.update_total(cart)
-        return True
+
 
     # def complete_cart(self, user_id):
     #     try:
@@ -54,6 +48,12 @@ class Contains(models.Model):
             cart = Cart.objects.create(user=user)
         cart.save()
         contains = Contains.objects.create(cart=cart, product=product, quantity=quantity)
-        cart.save()
+        Cart.update_total(cart).save()
         return contains
 
+    @staticmethod
+    def remove_item(pk):
+        contains = Contains.objects.get(pk=pk)
+        cart = contains.cart
+        contains.delete()
+        Cart.update_total(cart).save()

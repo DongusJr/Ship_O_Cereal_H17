@@ -11,6 +11,9 @@ class CartView(TemplateView):
         data = super(CartView, self).get_context_data(**kwargs)
         cart = Cart.objects.get(user=self.request.user)
         contains_list = Contains.objects.filter(cart=cart)
+        if 'remove' in self.request.GET:
+            primary_key = self.request.GET.get('remove')
+            Contains.remove_item(primary_key)
         data['has'] = True
         data['purchase'] = cart
         data['cart'] = contains_list
