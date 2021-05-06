@@ -5,7 +5,7 @@ from cart.models import Cart, Contains
 # Create your views here.
 
 class CartView(TemplateView):
-    template_name = 'proto_cart/proto_cart_page.html'
+    template_name = 'basket.html'
 
     def get_context_data(self, **kwargs):
         data = super(CartView, self).get_context_data(**kwargs)
