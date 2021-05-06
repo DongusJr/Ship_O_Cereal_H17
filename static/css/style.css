@@ -20,14 +20,14 @@ body {
 
 @media screen and (min-width: 1400Px) {
     html, body {
-        border-right: calc(50%-700px) solid #F0F0F0;
-        border-left: calc(50%-700px) solid #F0F0F0;
+        border-right: calc(50% - 700px) solid #F0F0F0;
+        border-left: calc(50% - 700px) solid #F0F0F0;
     }
 }
 @media screen and (max-width: 1400px) {
     html, body {
-        border-right: 0px solid #F0F0F0;
-        border-left: 0px solid #F0F0F0;
+        border-right: 0 solid #F0F0F0;
+        border-left: 0 solid #F0F0F0;
     }
 }
 
