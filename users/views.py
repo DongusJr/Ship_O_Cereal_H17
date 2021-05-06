@@ -10,7 +10,6 @@ from users.models import Order, Profile
 # Create your views here.
 
 def login_register(request):
-    print(request.POST)
     if request.user.is_authenticated:
         return redirect('profile')
     register_form = UserCreationForm()
@@ -21,7 +20,7 @@ def login_register(request):
             success = _login(request)
             print("login success: " + str(success))
             if success:
-                return redirect('profile')
+                return redirect('product_index')
         elif request.POST.get('submit') == 'register':
             register_form = UserCreationForm(data=request.POST)
             success = _register(request)
@@ -97,8 +96,8 @@ class UserProfile(TemplateView):
                                                  'total',
                                                  'product__id',
                                                  'product__name',
-                                                 'product__price',
-                                                 'product__productimage__image'))
+                                                 'product__price'))
+                                                 # 'product__productimage__image'))
         for item in fetched_data:
             order_id = item['id']
             try:
