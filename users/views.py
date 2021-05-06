@@ -12,7 +12,7 @@ from users.models import Order, Profile
 def login_register(request):
     print(request.POST)
     if request.user.is_authenticated:
-        return redirect('landing_page')
+        return redirect('profile')
     register_form = UserCreationForm()
     login_form = AuthenticationForm()
     if request.method == 'POST':
@@ -21,13 +21,13 @@ def login_register(request):
             success = _login(request)
             print("login success: " + str(success))
             if success:
-                return redirect('product_index')
+                return redirect('profile')
         elif request.POST.get('submit') == 'register':
             register_form = UserCreationForm(data=request.POST)
             success = _register(request)
             print("register success: " + str(success))
             if success:
-                return redirect('landing_page')
+                return redirect('profile')
     # return render(request, 'proto_users/account.html', {
     #     'form_1' : register_form,
     #     'form_2' : login_form
@@ -75,7 +75,8 @@ class UserProfile(TemplateView):
         data = super(UserProfile, self).get_context_data(**kwargs)
         user_profile = Profile.objects.get(user=self.request.user)
         data['profile'] = user_profile
-        order_history_dict = _create_order_dictionary_dict()
+        order_history_dict = self._create_order_dictionary_dict(user_profile)
+        data['order_history'] = order_history_dict
         # try:
         #     prev_ord = user.order
         # except:
@@ -89,4 +90,20 @@ class UserProfile(TemplateView):
         # data['order'] = dic
         return data
 
-    def _create_order_dictionary_dict(self):
+    def _create_order_dictionary_dict(self, user_profile):
+        order_history_dict = {}
+        print(user_profile.user_id)
+        fetched_data = list(Order.objects.filter(profile__id=user_profile.user_id).values('id',
+                                                 'total',
+                                                 'product__id',
+                                                 'product__name',
+                                                 'product__price',
+                                                 'product__productimage__image'))
+        for item in fetched_data:
+            order_id = item['id']
+            try:
+                order_history_dict[order_id].append(item)
+            except:
+                order_history_dict[order_id] = [item]
+        return order_history_dict
+

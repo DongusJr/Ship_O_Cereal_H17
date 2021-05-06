@@ -1,4 +1,7 @@
-<div>
-    <h1>Order</h1>
-    <h2>{{order.total}}</h2>
-</div>
+<h1>products</h1>
+{% for product in products %}
+    <img class="categoryProductImage" src="{{ product.product__productimage__image }}" alt='image for {{ product.name }} missing' style="width: 8rem" >
+    <p>{{ product.product__name }}</p>
+    <p>{{ product.product__price }}</p>
+    <hr/>
+{% endfor %}

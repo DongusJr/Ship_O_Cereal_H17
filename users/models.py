@@ -1,7 +1,7 @@
 from django.db import models
 from products.models import Products
 from django.contrib.auth.models import User
-Count
+
 # Create your models here.
 class ZipCodes(models.Model):
     zip = models.IntegerField()
@@ -23,7 +23,7 @@ class PaymentInfo(models.Model):
     expiration_date = models.IntegerField()
     cvc = models.IntegerField()
 
-Sum
+
 class Order(models.Model):
     total = models.IntegerField(default=0)
     profile = models.ForeignKey(User, on_delete=models.CASCADE) # Order can only have 1 profile

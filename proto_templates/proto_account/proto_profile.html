@@ -10,10 +10,16 @@
         </div>
 
     </div>
-    <h1>Previous Orders</h1>
-    {% for order in orders %}
-        <p>{{ order }}</p>
+    <h1>Order history</h1>
+    <div name="Order history box" style="border:solid black 2px; width: 80%;>
+    {% for order, products in order_history.items %}
+        <div name="single order" box style="border:solid black 2px; width: 80%;>
+            <p> order_id : {{ order }}</p>
+            {% include 'proto_account/proto_order.html' with products=products %}
+            <p>total: {{ products.0.total }}$</p>
+        </div>
     {% endfor %}
+    </div>
 </div>
 
 
