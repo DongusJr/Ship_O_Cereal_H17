@@ -75,6 +75,7 @@ class UserProfile(TemplateView):
         data = super(UserProfile, self).get_context_data(**kwargs)
         user_profile = Profile.objects.get(user=self.request.user)
         data['profile'] = user_profile
+        order_history_dict = _create_order_dictionary_dict()
         # try:
         #     prev_ord = user.order
         # except:
@@ -87,3 +88,5 @@ class UserProfile(TemplateView):
         #     dic[order] = OrderProduct.objects.get(order=order)
         # data['order'] = dic
         return data
+
+    def _create_order_dictionary_dict(self):

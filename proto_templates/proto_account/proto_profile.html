@@ -1,6 +1,6 @@
 {% extends 'proto_base.html' %}
 {% block content %}
-<div style="display: flex; float:left;">
+<div style="display: float;">
     <div class="profile info" style="display: float;">
         <h1>{{profile.user.username}}</h1>
         <img src="{{ profile.image }}"/>
@@ -10,9 +10,13 @@
         </div>
 
     </div>
+    <h1>Previous Orders</h1>
+    {% for order in orders %}
+        <p>{{ order }}</p>
+    {% endfor %}
 </div>
 
-<h1>Previous Orders</h1>
+
 {#{% if previous_order %}#}
 {#<div style="display: flex; float: right;">#}
 {#    {% for order, order_product in previous_orders.iteritems() %}#}
