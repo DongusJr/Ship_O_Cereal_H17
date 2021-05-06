@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from products.models import Products, ProductTag, ListedAs
+from products.models import Products, ProductTag
 from django.views.generic import TemplateView
 
 # Create your views here.
@@ -14,8 +14,7 @@ def get_product_by_tags(request):
         tags = ProductTag.objects.all()
         tag_maps_product_dict = {'tags_with_products' : {}}
         for tag in tags:
-            if tag.listedas_set.all():
-                tag_maps_product_dict['tags_with_products'][tag] = [x.product for x in tag.listedas_set.all()]
+            tag_maps_product_dict['tags_with_products'][tag] = Products.objects.filter(producttag__id=tag.id)
         return render(request, 'main_page.html', tag_maps_product_dict)
 
 def get_product_by_id(request, id):

@@ -29,19 +29,15 @@ class Order(models.Model):
     person_info = models.ForeignKey(PersonInfo, on_delete=models.CASCADE)
     payment_info = models.ForeignKey(PaymentInfo, on_delete=models.CASCADE)
     delivery = models.BooleanField()
+    product = models.ManyToManyField(Products)
 
-    def order_total(self, order):
-        total = 0
-        contains = OrderProduct.objects.get(order=order)
-        for product in contains:
-            total += product.price * (product.quantity)
-        order.total = total
-        return total
-
-class OrderProduct(models.Model):
-    quantity = models.IntegerField(default=1)
-    order = models.ForeignKey(Order, on_delete=models.CASCADE)
-    product = models.ForeignKey(Products, on_delete=models.CASCADE)
+    # def order_total(self, order):
+    #     total = 0
+    #     contains = OrderProduct.objects.get(order=order)
+    #     for product in contains:
+    #         total += product.price * (product.quantity)
+    #     order.total = total
+    #     return total
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)

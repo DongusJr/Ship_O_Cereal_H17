@@ -1,9 +1,6 @@
 from django.db import models
 
 # Create your models here.
-class ProductTag(models.Model):
-    name = models.CharField(max_length=64)
-
 class NutritionalInfo(models.Model):
     energy = models.FloatField()
     sugar = models.FloatField()
@@ -29,8 +26,8 @@ class ProductImage(models.Model):
     image = models.CharField(max_length=9999)
     product = models.ForeignKey(Products, on_delete=models.CASCADE)
 
-class ListedAs(models.Model):
-    product = models.ForeignKey(Products, on_delete=models.CASCADE)
-    tag = models.ForeignKey(ProductTag, on_delete=models.CASCADE)
+class ProductTag(models.Model):
+    name = models.CharField(max_length=64)
+    product = models.ManyToManyField(Products)
 
 # Should be in its own app
