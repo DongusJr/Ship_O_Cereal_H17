@@ -4,12 +4,25 @@
 }
 
 .cart {
-    width: 60%;
-    background-color: blueviolet;
+    width: 40%;
+    border: 5px solid #B46B36;
+    border-radius: 10px;
+    height: 20rem;
+    margin: auto;
+}
+
+.cart_item {
+    border-top: 2px solid #B46B36;
+    margin: 2rem;
 }
 
 .summary {
-    width: 20%;
-    background-color: azure;
+    display: flex;
+    width: 15%;
+    border: 5px solid #B46B36;
+    border-radius: 10px;
+    margin: auto;
+    height: 20rem;
+    flex-direction: column;
 }
 
