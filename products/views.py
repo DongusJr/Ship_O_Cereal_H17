@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from products.models import Products, ProductTag
 from django.views.generic import TemplateView
-from cart.models import Cart
+from cart.models import Contains
 
 # Create your views here.
 
@@ -85,11 +85,10 @@ class SingleProduct(TemplateView):
     def get_context_data(self, **kwargs):
         data = super(SingleProduct, self).get_context_data(**kwargs)
         id = self.kwargs['id']
-        data['product'] = get_object_or_404(Products, pk=id)
+        product = get_object_or_404(Products, pk=id)
+        data['product'] = product
         if 'quant' in self.request.GET:
-            cart = Cart.objects.get_or_create(user=self.request.user)
-            quant = self.request.GET.get('quant')
-            if quant.isdigit():
-                cart.add_to_cart(quant, data['product'])
-                data['success'] = True
+            quantity = self.request.GET.get('quant')
+            Contains.add_to_cart(self.request.user, product, int(quantity)).save()
+            data['success'] = True
         return data
