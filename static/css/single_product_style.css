@@ -16,6 +16,14 @@
     display: flex;
     flex-direction: column;
 }
+#CartProdInfo{
+    display: flex;
+    flex-direction: row;
+}
+#CartProdInfo .inline-group{
+    display: flex;
+    flex-direction: row;
+}
 #ProductImages{
     display: flex;
     max-width: 600px;
