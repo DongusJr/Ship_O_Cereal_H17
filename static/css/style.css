@@ -17,22 +17,20 @@ body, header {
 body {
     background-color: var(--backgroundWhite);
 }
-/*
-@media screen and (max-width: 99999px) {
+
+@media screen and (min-width: 1400Px) {
     html, body {
-        margin: 0 !important;
-        padding: 0 !important;
-        width: 1300px;
-        justify-content: center;
+        border-right: calc(50%-700px) solid #F0F0F0;
+        border-left: calc(50%-700px) solid #F0F0F0;
     }
 }
-@media screen and (max-width: 1300px) {
+@media screen and (max-width: 1400px) {
     html, body {
-        margin: 0 !important;
-        padding: 0 !important;
+        border-right: 0px solid #F0F0F0;
+        border-left: 0px solid #F0F0F0;
     }
 }
-*/
+
 h1 {
     color: var(--dark);
 }
