@@ -5,24 +5,29 @@
 
 .cart {
     width: 40%;
-    border: 5px solid #B46B36;
+    border: 5px solid var(--dark);
     border-radius: 10px;
     height: 20rem;
     margin: auto;
+    margin-block: 2rem;
 }
 
 .cart_item {
-    border-top: 2px solid #B46B36;
+    border-top: 2px solid var(--dark);
     margin: 2rem;
 }
 
 .summary {
     display: flex;
     width: 15%;
-    border: 5px solid #B46B36;
+    border: 5px solid var(--dark);
     border-radius: 10px;
-    margin: auto;
-    height: 20rem;
+    
+    height: auto;
     flex-direction: column;
+}
+
+.summary button {
+    width: 25%;
 }
 
