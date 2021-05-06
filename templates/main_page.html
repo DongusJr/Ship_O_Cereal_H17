@@ -1,9 +1,19 @@
 {% extends 'base_page.html' %}
+{#{% block content %}#}
+{#    {% for tag, products in  tags_with_products.items %}#}
+{#        <a href="/products?tag={{ tag.name }}"><h1>{{ tag.name }}</h1></a>#}
+{#        <div style="display:flex; flex-direction: row;">#}
+{#        {% for product in products %}#}
+{#                    {% include 'proto_products/proto_landing_product.html' with product=product %}#}
+{#        {% endfor %}#}
+{#        </div>#}
+{#    {% endfor %}#}
+{#{% endblock %}#}
 {% block content %}
-    {% for tag, products in  tags_with_products.items %}
-        <a href="/products?tag={{ tag.name }}"><h1>{{ tag.name }}</h1></a>
+    {% for tag_with_products in tags_with_products %}
+        <a href="/products?tag={{ tag_with_products.name }}"><h1>{{ tag_with_products.name }}</h1></a>
         <div style="display:flex; flex-direction: row;">
-        {% for product in products %}
+        {% for product in tag_with_products.products %}
                     {% include 'proto_products/proto_landing_product.html' with product=product %}
         {% endfor %}
         </div>
