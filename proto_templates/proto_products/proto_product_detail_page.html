@@ -1,24 +1,37 @@
 {% extends "base_page.html" %}
 {% block content %}
-<div id="ProductImages">
-    {% for product_image in product.productimage_set.all %}
-    <div class="singleProductImageDiv">
-        <img src="{{ product_image.image }}" class="singleProductImage"/>
+<link rel="stylesheet" href="../static/css/single_product_style.css">
+
+<div id="mainProductDiv">
+    <div id="ProductImages">
+        <div id="largeProductImage">
+
+        </div>
+        <div id="smallProductImages">
+        {% for product_image in product.productimage_set.all %}
+        <div class="singleProductImageDiv">
+            <img src="{{ product_image.image }}" alt="A product image" class="singleProductImage"/>
+        </div>
+        {% endfor %}
+        </div>
     </div>
-    {% endfor %}
-</div>
-<div id="ProductInfo">
-    <h1>{{ product.name }}</h1>
-    <p>{{ product.description }}</p>
-    <p>{{ product.description }}</p>
-    <p>{{ product.price }}</p>
-    <p>{{ product.category }}</p>
-    <p>{{ product.manufacturer}}</p>
-    <p>{{ product.nutritional_info.energy }}</p>
-    <p>{{ product.nutritional_info.sugar }}</p>
-    <p>{{ product.nutritional_info.fat }}</p>
-    <p>{{ product.nutritional_info.saturates }}</p>
-    {% include 'proto_products/proto_quantity_counter.html' %}
-    <input type="submit" name="submit" class="btn btn-primary" value="Add to cart"></input>
+    <div id="ProductInfoDiv">
+        <div id="CartInfo">
+            {% include 'proto_products/proto_quantity_counter.html' %}
+            <input type="submit" name="submit" class="btn btn-primary" value="Add to cart"></input>
+        </div>
+        <div id="ProductInfo">
+            <h1>{{ product.name }}</h1>
+            <p>{{ product.description }}</p>
+            <p>{{ product.description }}</p>
+            <p>{{ product.price }}</p>
+            <p>{{ product.category }}</p>
+            <p>{{ product.manufacturer}}</p>
+            <p>{{ product.nutritional_info.energy }}</p>
+            <p>{{ product.nutritional_info.sugar }}</p>
+            <p>{{ product.nutritional_info.fat }}</p>
+            <p>{{ product.nutritional_info.saturates }}</p>
+        </div>
+    </div>
 </div>
 {% endblock %}
