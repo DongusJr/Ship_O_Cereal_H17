@@ -1,8 +1,16 @@
 {% extends 'base_page.html' %}
 {% block content %}
+<link rel="stylesheet" href="../static/css/landing_style.css">
+
+<div class="ad_section">
+    <h1>AD GOES HERE</h1>
+</div>
+
     {% for tag, products in  tags_with_products.items %}
-        <a href="/products?tag={{ tag.name }}"><h1>{{ tag.name }}</h1></a>
-        <div style="display:flex; flex-direction: row;">
+        <div class="tag_name">
+            <a href="/products?tag={{ tag.name }}"><h1>{{ tag.name }}</h1></a>
+        </div>
+        <div class="tag_div">
         {% for product in products %}
                     {% include 'proto_products/proto_landing_product.html' with product=product %}
         {% endfor %}

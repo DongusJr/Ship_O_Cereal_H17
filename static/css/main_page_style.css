@@ -74,11 +74,10 @@ header h1 {
     text-align: center;
 }
 
-/* TODO: placeholder text needs to disappear*/
-
 .product-list {
     display: flex;
     justify-content: start;
+    background-color: #f5f5f5;
 }
 
 .product-list img {

@@ -22,3 +22,19 @@
     margin-right: auto;
 }
 
+.tag_div {
+    display:flex;
+    flex-direction: row;
+}
+
+.tag_name {
+    background-color: var(--light);
+    padding-left: 1rem;
+}
+
+.ad_section{
+    width: 100%;
+    height: 25%;
+    background-color: black;
+}
+
