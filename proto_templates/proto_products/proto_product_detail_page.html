@@ -32,6 +32,12 @@
             <p>{{ product.nutritional_info.fat }}</p>
             <p>{{ product.nutritional_info.saturates }}</p>
         </div>
+     {% if user.is_authenticated%}
+        <a type="submit" name="add" class="btn btn-primary" value="Add to cart" href="{% url 'product_detail' product.id %}">Add to cart</a>
+    {% endif %}
+    {% if success %}
+        <p>Added to cart</p>
+    {% endif %}
     </div>
 </div>
 {% endblock %}

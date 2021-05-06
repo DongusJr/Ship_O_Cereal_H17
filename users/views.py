@@ -4,7 +4,8 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
-from users.models import Order
+
+from users.models import Order, Profile
 
 # Create your views here.
 
@@ -48,6 +49,12 @@ def _register(request):
     form = UserCreationForm(data=request.POST)
     if form.is_valid():
         form.save()
+        user = authenticate(username=request.POST['username'], password=request.POST['password1'])
+        user_profile = Profile(user=user,
+                               image="https://www.edmundsgovtech.com/wp-content/uploads/2020/01/default-picture_0_0.png",
+                               description=""
+                               )
+        user_profile.save()
         login_success = _login(request)
         if login_success:
             return True
@@ -56,22 +63,22 @@ def _register(request):
 
 
 # Create your views here.
-class Profile(TemplateView):
-    template_name = 'proto_account/proto_order.html'
+class UserProfile(TemplateView):
+    template_name = 'proto_account/proto_profile.html'
 
     def get_context_data(self, **kwargs):
-        data = super(Profile, self).get_context_data(**kwargs)
-        user = Account.objects.get(user=self.request.user)
-        data['user'] = user
-        try:
-            prev_ord = user.order
-        except:
-            data['previous_order'] = None
-            return data
-        data['previous_order'] = prev_ord
-        previous_order = Order.objects.get(prev=prev_ord)
-        dic = {}
-        for order in previous_order:
-            dic[order] = OrderProduct.objects.get(order=order)
-        data['order'] = dic
+        data = super(UserProfile, self).get_context_data(**kwargs)
+        user_profile = Profile.objects.get(user=self.request.user)
+        data['profile'] = user_profile
+        # try:
+        #     prev_ord = user.order
+        # except:
+        #     data['previous_order'] = None
+        #     return data
+        # data['previous_order'] = prev_ord
+        # previous_order = Order.objects.get(prev=prev_ord)
+        # dic = {}
+        # for order in previous_order:
+        #     dic[order] = OrderProduct.objects.get(order=order)
+        # data['order'] = dic
         return data

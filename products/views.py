@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from products.models import Products, ProductTag
 from django.views.generic import TemplateView
+from cart.models import Cart
 
 # Create your views here.
 
@@ -17,10 +18,10 @@ def get_product_by_tags(request):
             tag_maps_product_dict['tags_with_products'][tag] = Products.objects.filter(producttag__id=tag.id)
         return render(request, 'main_page.html', tag_maps_product_dict)
 
-def get_product_by_id(request, id):
-    return render(request, 'proto_products/proto_product_detail_page.html', {
-        'product' : get_object_or_404(Products, pk=id)
-    })
+#def get_product_by_id(request, id):
+#    return render(request, 'proto_products/proto_product_detail_page.html', {
+#        'product' : get_object_or_404(Products, pk=id)
+#    })
 
 class ProductLogic(TemplateView):
     template_name = 'proto_products/proto_products.html'
@@ -29,6 +30,7 @@ class ProductLogic(TemplateView):
         data = super(ProductLogic, self).get_context_data(**kwargs)
         data['products'] = Products.objects.all()
         data['tags'] = ProductTag.objects.all()
+        print(self.request)
         if 'name' in self.request.GET:
             name_order = self.request.GET.get('name')
             if name_order == 'ascending':
@@ -76,3 +78,18 @@ class ProductLogic(TemplateView):
             if elem.tag.name.lower() == tag:
                 all_products_with_tag.append(elem.product)
         return all_products_with_tag
+
+class SingleProduct(TemplateView):
+    template_name = 'proto_products/proto_product_detail_page.html'
+
+    def get_context_data(self, **kwargs):
+        data = super(SingleProduct, self).get_context_data(**kwargs)
+        id = self.kwargs['id']
+        data['product'] = get_object_or_404(Products, pk=id)
+        if 'add' in self.request.GET and 'quant' in self.request.GET:
+            cart = Cart.objects.get_or_create(user=self.request.user)
+            quant = self.request.GET.get('quant')
+            if quant.isdigit():
+                cart.add_to_cart(quant, data['product'])
+                data['success'] = True
+        return data
