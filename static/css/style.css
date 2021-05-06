@@ -48,5 +48,11 @@ header h1 {
     color: var(--dark);
     font-size: xxx-large;
 }
-
+button {
+    background-color: var(--dark);
+    color: var(--light);
+}
+button:hover{
+    background-color: var(--darkHover);
+}
 
