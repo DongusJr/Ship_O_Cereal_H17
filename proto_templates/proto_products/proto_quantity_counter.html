@@ -5,7 +5,12 @@
             <span class="glyphicon glyphicon-minus">-</span>
         </button>
     </span>
-    <input type="text" name="quant" class="form-control input-number" value="1" min="1" max="10">
+    {% if user.is_authenticated%}
+    <form method="get">
+        <a type="submit" name="add" class="btn btn-primary" value="Add to cart" href="{% url 'product_detail' product.id %}">Add to cart</a>
+        <input type="text" name="quant" class="form-control input-number" value="1" min="1" max="10">
+    </form>
+    {% endif %}
     <span class="input-group-btn">
         <button type="button" class="btn btn-success btn-number" data-type="plus">
             <span class="glyphicon glyphicon-plus">+</span>
