@@ -14,7 +14,10 @@ class CartView(TemplateView):
         if 'remove' in self.request.GET:
             primary_key = self.request.GET.get('remove')
             Contains.remove_item(primary_key)
-        data['has'] = True
+        if contains_list:
+            data['has'] = True
+        else:
+            data['has'] = False
         data['purchase'] = cart
         data['cart'] = contains_list
         return data
