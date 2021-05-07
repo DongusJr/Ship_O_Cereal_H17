@@ -31,6 +31,15 @@ class Profile(models.Model):
     description = models.CharField(max_length=512, blank=True)
     # One profile can have many orders
 
+    @staticmethod
+    def get_profile_info_for_user(user_id):
+        profile = Profile.objects.filter(user_id=user_id)[0]
+        profile_information = {'id': profile.id,
+                               'description': profile.description,
+                               'image': profile.image,
+                               'username': profile.user.username}
+        return profile_information
+
 
 class Order(models.Model):
     total = models.IntegerField(default=0)

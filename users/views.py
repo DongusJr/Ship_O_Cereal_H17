@@ -71,10 +71,10 @@ class UserProfile(TemplateView):
     template_name = 'proto_account/proto_profile.html'
 
     def get_context_data(self, **kwargs):
+        user_id = self.request.user.id
         data = super(UserProfile, self).get_context_data(**kwargs)
-        user_profile = Profile.objects.get(user=self.request.user)
-        # print(user_profile)
+        user_profile = Profile.get_profile_info_for_user(user_id)
         data['profile'] = user_profile
-        order_history_list = Order.get_order_history_for_user(user_profile.user_id)
+        order_history_list = Order.get_order_history_for_user(user_id)
         data['order_history'] = order_history_list
         return data
