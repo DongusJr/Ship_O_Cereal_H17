@@ -2,9 +2,11 @@ import django.utils.datastructures
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib import messages
+from django.db.models import Prefetch
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
 
+from products.models import ProductImage
 from users.models import Order, Profile
 
 # Create your views here.

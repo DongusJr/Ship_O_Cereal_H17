@@ -54,6 +54,12 @@ class Order(models.Model):
 
     @staticmethod
     def get_order_history_for_user(user_id):
+        ''' function that returns a list of dictionary that contains information on a order and products associated with it
+
+            :returns
+            orders : list[dict<id, total, products>]
+                   : products : list[dict<id, name, price, image>]
+        '''
         order_queryset = Order.objects.prefetch_related(
             Prefetch('profile', queryset=Profile.objects.filter(user_id=user_id)))
 
