@@ -6,22 +6,10 @@ from cart.models import Contains
 # Create your views here.
 
 def get_product_by_tags(request):
-    ''' GET request when loading the landing page
-
-        :returns
-        it renders the landing page, with a dictionary that contains tag and products list pair. for every tag, we list
-        every product associated with that tag'''
-    if request.method == 'GET':
-        tags = ProductTag.objects.all()
-        tag_maps_product_dict = {'tags_with_products' : {}}
-        for tag in tags:
-            tag_maps_product_dict['tags_with_products'][tag] = Products.objects.filter(producttag__id=tag.id)
-        return render(request, 'main_page.html', tag_maps_product_dict)
-
-def get_product_by_tags(request):
     if request.method == 'GET':
         tags_with_products = ProductTag.select_all_related_products()
         context = {'tags_with_products' : tags_with_products}
+        print(context)
         return render(request, 'main_page.html', context)
 
 class ProductLogic(TemplateView):
