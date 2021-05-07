@@ -2,20 +2,41 @@
     display: flex;
     flex-direction: row;
 }
+
+#ProductImages{
+    display: flex;
+    max-width: 600px;
+    margin: 20px;
+    flex-direction: column;
+}
+#largeProductImage{
+    background-color: antiquewhite;
+    width: 598px;
+    height: 598px;
+    border: 1px solid var(--dark);
+}
+#smallProductImages{
+    display: flex;
+    flex-direction: row;
+}
+.singleProductImageDiv{
+    display: flex;
+    border: 2px solid var(--dark);
+    width: 196px;
+    height: 196px;
+}
+.singleProductImage{
+    margin: auto;
+    max-width: 196px;
+    max-height: 196px;
+}
+
 #ProductInfoDiv{
     width: 100%;
     display: flex;
     flex-direction: column;
     margin: 20px;
     margin-left: 0;
-}
-
-#ProductInfo{
-    background-color: whitesmoke;
-    border: 3px solid var(--dark);
-    width: unset;
-    padding: 20px;
-
 }
 
 #CartProdInfo {
@@ -60,42 +81,29 @@
 #CartProdInfo .btn-success {
     border-radius: 0 10px 0 0;
 }
-#ProductImages{
-    display: flex;
-    max-width: 600px;
-    margin: 20px;
-    flex-direction: column;
+#ProductInfo{
+    background-color: whitesmoke;
+    border: 3px solid var(--dark);
+    width: unset;
+    padding: 20px;
+
 }
-#largeProductImage{
-    background-color: antiquewhite;
-    width: 598px;
-    height: 598px;
-    border: 1px solid var(--dark);
-}
-#smallProductImages{
+#ProductRatingInfo{
     display: flex;
     flex-direction: row;
 }
-.singleProductImageDiv{
-    display: flex;
-    border: 2px solid var(--dark);
-    width: 196px;
-    height: 196px;
-}
-.singleProductImage{
-    margin: auto;
-    max-width: 196px;
-    max-height: 196px;
-}
+
 
 #ProductNutrDiv{
-    width: 500px;
+    width: 100px;
     margin: 20px;
     margin-left: -10px;
     display: flex;
+    flex-direction: column;
 }
 #ProductFancyNutrDiv{
-    width: 210px;
+    margin-top: -10px;
+    width: 100px;
     flex-direction: row;
     flex-wrap: wrap;
 }
@@ -116,7 +124,18 @@
     border-radius: 25px;
 }
 #servings{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column-reverse;
     color: var(--dark);
-    size: 25px;
+    font-size: 30px;
     height: 80px;
+    text-align: center;
+}
+#servings div{
+    margin-top: 10px;
+    margin-inline: auto;
+}
+#servings p{
+    margin-bottom: -30px;
 }

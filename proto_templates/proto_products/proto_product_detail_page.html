@@ -38,11 +38,67 @@
         <p>Added to cart</p>
     {% endif %}
     -->
+        <div id="ProductRatingInfo">
+            <!--{#{% load Rating = round(3.5*2)/2 %}#}-->
+
+            {% if 3.5 < 0.5 %}
+                <img src="../static/images/empty_bowl.svg" alt="0">
+            {% else %}
+                {% if 3.5 == 0.5 %}
+                    <img src="../static/images/half_bowl.svg" alt="0.5">
+                {% else %}
+                    <img src="../static/images/full_bowl.svg" alt="1">
+                {% endif %}
+            {% endif %}
+
+            {% if 3.5 < 1.5 %}
+                <img src="../static/images/empty_bowl.svg" alt="0">
+            {% else %}
+                {% if 3.5 == 1.5 %}
+                    <img src="../static/images/half_bowl.svg" alt="0.5">
+                {% else %}
+                    <img src="../static/images/full_bowl.svg" alt="1">
+                {% endif %}
+            {% endif %}
+
+            {% if 3.5 < 2.5 %}
+                <img src="../static/images/empty_bowl.svg" alt="0">
+            {% else %}
+                {% if 3.5 == 2.5 %}
+                    <img src="../static/images/half_bowl.svg" alt="0.5">
+                {% else %}
+                    <img src="../static/images/full_bowl.svg" alt="1">
+                {% endif %}
+            {% endif %}
+
+            {% if 3.5 < 3.5 %}
+                <img src="../static/images/empty_bowl.svg" alt="0">
+            {% else %}
+                {% if 3.5 == 3.5 %}
+                    <img src="../static/images/half_bowl.svg" alt="0.5">
+                {% else %}
+                    <img src="../static/images/full_bowl.svg" alt="1">
+                {% endif %}
+            {% endif %}
+
+            {% if 3.5 < 4.5 %}
+                <img src="../static/images/empty_bowl.svg" alt="0">
+            {% else %}
+                {% if 3.5 == 4.5 %}
+                    <img src="../static/images/half_bowl.svg" alt="0.5">
+                {% else %}
+                    <img src="../static/images/full_bowl.svg" alt="1">
+                {% endif %}
+            {% endif %}
+
+        </div>
     </div>
     <div id="ProductNutrDiv">
         <div id="servings">
-            14<!--{{ product.nutritional_info.servings }}-->
-            <img src="../static/images/servings_bowl" alt="bowls">
+            <div>
+                <img src="../static/images/servings_bowl.svg" alt="bowls">
+            </div>
+            <p>14<!--{{ product.nutritional_info.servings }}--> </p>
         </div>
         <div id="ProductFancyNutrDiv">
             <div class="fancyNutrDiv">energy<div class="fancyInfo">{{ product.nutritional_info.energy }} </div> </div>
