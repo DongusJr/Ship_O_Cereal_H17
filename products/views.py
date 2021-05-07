@@ -1,7 +1,8 @@
 from django.shortcuts import render, get_object_or_404
 from products.models import Products, ProductTag
 from django.views.generic import TemplateView
-from cart.models import Contains
+from cart.models import Contains, ProductViewed
+from users.models import SearchHistory
 
 # Create your views here.
 
@@ -28,6 +29,10 @@ class ProductLogic(TemplateView):
                 data['products'] = data['products'].order_by('name')
         if self.request.GET.get('criteria') != "" and self.request.GET.get('criteria') != None:
             specified_criteria = self.request.GET.get('criteria')
+            try:
+                SearchHistory.add_to_search_history(specified_criteria, self.request.user).save()
+            except:
+                pass
             data['products'] = data['products'].filter(name__icontains=specified_criteria)
         if 'price' in self.request.GET:
             order = self.request.GET['price']
@@ -75,6 +80,7 @@ class SingleProduct(TemplateView):
         data = super(SingleProduct, self).get_context_data(**kwargs)
         id = self.kwargs['id']
         product = get_object_or_404(Products, pk=id)
+        ProductViewed.add_to_previously_viewed(product, self.request.user).save()
         data['product'] = product
         if 'quant' in self.request.GET:
             quantity = self.request.GET.get('quant')

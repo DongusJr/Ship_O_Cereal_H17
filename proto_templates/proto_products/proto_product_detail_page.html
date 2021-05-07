@@ -38,7 +38,7 @@
      {% if user.is_authenticated %}
         <form method="get">
             {% csrf_token %}
-            <button value="{{product.pk}}" name="remove" class="btn btn-outline-success" type="submit">Write review</button>
+            <button value="{{product.pk}}" name="review" class="btn btn-outline-success" type="submit">Write review</button>
         </form>
     {% endif %}
     </div>

@@ -33,7 +33,7 @@ class Profile(models.Model):
 
     @staticmethod
     def get_profile_info_for_user(user_id):
-        profile = Profile.objects.filter(user_id=user_id)[0]
+        profile = Profile.objects.get(pk=user_id)
         profile_information = {'id': profile.id,
                                'description': profile.description,
                                'image': profile.image,
@@ -82,3 +82,17 @@ class Order(models.Model):
     #         total += product.price * (product.quantity)
     #     order.total = total
     #     return total
+
+class SearchHistory(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    previous_searches = models.TextField(max_length=128)
+
+    @staticmethod
+    def add_to_search_history(text, user):
+        return SearchHistory.objects.create(previous_searches=text, user=user)
+
+
+    @staticmethod
+    def get_all_previous_searches(user):
+        all_searches = SearchHistory.objects.filter(user=user)
+        return all_searches

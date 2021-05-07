@@ -1,6 +1,5 @@
 from django.contrib.auth.models import User
 from django.db import models
-from django.contrib.postgres.fields import ArrayField
 from products.models import Products
 from users.models import Order
 
@@ -67,3 +66,17 @@ class Contains(models.Model):
         contains.delete()
         Cart.update_total(cart).save()
         Cart.update_number_of_items(cart).save()
+
+
+class ProductViewed(models.Model):
+    product = models.ForeignKey(Products, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    @staticmethod
+    def add_to_previously_viewed(product, user):
+        try:
+            ProductViewed.objects.get(user=user, product=product)
+            ProductViewed.objects.get(user=user, product=product).delete()
+        except:
+            pass
+        return ProductViewed.objects.create(user=user, product=product)
