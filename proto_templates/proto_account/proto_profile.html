@@ -1,6 +1,6 @@
 {% extends 'proto_base.html' %}
 {% block content %}
-<div style="display: flex; float:left;">
+<div style="display: float;">
     <div class="profile info" style="display: float;">
         <h1>{{profile.user.username}}</h1>
         <img src="{{ profile.image }}"/>
@@ -10,9 +10,19 @@
         </div>
 
     </div>
+    <h1>Order history</h1>
+    <div name="Order history box" style="border:solid black 2px; width: 80%;>
+    {% for order, products in order_history.items %}
+        <div name="single order" box style="border:solid black 2px; width: 80%;>
+            <p> order_id : {{ order }}</p>
+            {% include 'proto_account/proto_order.html' with products=products %}
+            <p>total: {{ products.0.total }}$</p>
+        </div>
+    {% endfor %}
+    </div>
 </div>
 
-<h1>Previous Orders</h1>
+
 {#{% if previous_order %}#}
 {#<div style="display: flex; float: right;">#}
 {#    {% for order, order_product in previous_orders.iteritems() %}#}
