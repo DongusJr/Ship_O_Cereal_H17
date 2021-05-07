@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {% load static %}
 <div style="width=1em;">
     <h1>{{contains.product.name}}</h1>
@@ -6,5 +7,12 @@
     <form method="delete">
         {% csrf_token %}
         <button value="{{contains.pk}}" name="delete" class="btn btn-outline-success" type="submit">X</button>
+{% block content %}
+    <div style="display: flex; justify-content: space-evenly;">
+    <form method="post" class="form form-horizontal" style="border: solid 3px black;margin:auto; padding:5%;">
+        {% csrf_token %}
+        {{  form }}
+    <input type="submit" name="submit" class="btn btn-primary" value="confirm_payment"/>
     </form>
-</div>
+    </div>
+{% endblock %}
