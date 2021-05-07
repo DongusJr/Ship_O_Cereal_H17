@@ -5,7 +5,7 @@
 <div id="mainProductDiv">
     <div id="ProductImages">
         <div id="largeProductImage">
-
+            place holder for a large image
         </div>
         <div id="smallProductImages">
         {% for product_image in product.productimage_set.all %}
@@ -18,7 +18,8 @@
     <div id="ProductInfoDiv">
         <div id="CartProdInfo">
             {% include 'proto_products/proto_quantity_counter.html' %}
-            <input type="submit" name="submit" class="btn btn-primary" value="Add to cart">
+            <!--<input type="submit" name="add" class="btn btn-primary" value="Add to cart" href="{% url 'product_detail' product.id %}"></input>-->
+
         </div>
         <div id="ProductInfo">
             <h1>{{ product.name }}</h1>
@@ -27,20 +28,87 @@
             <p>{{ product.price }}</p>
             <p>{{ product.category }}</p>
             <p>{{ product.manufacturer}}</p>
-            <p>{{ product.nutritional_info.energy }}</p>
-            <p>{{ product.nutritional_info.sugar }}</p>
-            <p>{{ product.nutritional_info.fat }}</p>
-            <p>{{ product.nutritional_info.saturates }}</p>
+
         </div>
+
+    <!-- VG: IDK  why cant we just always se the add to cart
+    {% if user.is_authenticated%}
+        <a type="submit" name="add" class="btn btn-primary" value="Add to cart" href="{% url 'product_detail' product.id %}">Add to cart</a>
+    {% endif %}
     {% if success %}
         <p>Added to cart</p>
     {% endif %}
-     {% if user.is_authenticated %}
-        <form method="get">
-            {% csrf_token %}
-            <button value="{{product.pk}}" name="review" class="btn btn-outline-success" type="submit">Write review</button>
-        </form>
-    {% endif %}
+    -->
+        <div id="ProductRatingInfo">
+            <!--{#{% load Rating = round(3.5*2)/2 %}#}-->
+
+            {% if 3.5 < 0.5 %}
+                <img src="../static/images/empty_bowl.svg" alt="0">
+            {% else %}
+                {% if 3.5 == 0.5 %}
+                    <img src="../static/images/half_bowl.svg" alt="0.5">
+                {% else %}
+                    <img src="../static/images/full_bowl.svg" alt="1">
+                {% endif %}
+            {% endif %}
+
+            {% if 3.5 < 1.5 %}
+                <img src="../static/images/empty_bowl.svg" alt="0">
+            {% else %}
+                {% if 3.5 == 1.5 %}
+                    <img src="../static/images/half_bowl.svg" alt="0.5">
+                {% else %}
+                    <img src="../static/images/full_bowl.svg" alt="1">
+                {% endif %}
+            {% endif %}
+
+            {% if 3.5 < 2.5 %}
+                <img src="../static/images/empty_bowl.svg" alt="0">
+            {% else %}
+                {% if 3.5 == 2.5 %}
+                    <img src="../static/images/half_bowl.svg" alt="0.5">
+                {% else %}
+                    <img src="../static/images/full_bowl.svg" alt="1">
+                {% endif %}
+            {% endif %}
+
+            {% if 3.5 < 3.5 %}
+                <img src="../static/images/empty_bowl.svg" alt="0">
+            {% else %}
+                {% if 3.5 == 3.5 %}
+                    <img src="../static/images/half_bowl.svg" alt="0.5">
+                {% else %}
+                    <img src="../static/images/full_bowl.svg" alt="1">
+                {% endif %}
+            {% endif %}
+
+            {% if 3.5 < 4.5 %}
+                <img src="../static/images/empty_bowl.svg" alt="0">
+            {% else %}
+                {% if 3.5 == 4.5 %}
+                    <img src="../static/images/half_bowl.svg" alt="0.5">
+                {% else %}
+                    <img src="../static/images/full_bowl.svg" alt="1">
+                {% endif %}
+            {% endif %}
+
+        </div>
+    </div>
+    <div id="ProductNutrDiv">
+        <div id="servings">
+            <div>
+                <img src="../static/images/servings_bowl.svg" alt="bowls">
+            </div>
+            <p>14<!--{{ product.nutritional_info.servings }}--> </p>
+        </div>
+        <div id="ProductFancyNutrDiv">
+            <div class="fancyNutrDiv">energy<div class="fancyInfo">{{ product.nutritional_info.energy }} </div> </div>
+            <div class="fancyNutrDiv">sugar<div class="fancyInfo">{{ product.nutritional_info.sugar }}g </div> </div>
+            <div class="fancyNutrDiv">fat<div class="fancyInfo">{{ product.nutritional_info.fat }} </div> </div>
+            <div class="fancyNutrDiv">saturates<div class="fancyInfo"> {{ product.nutritional_info.saturates }} </div> </div>
+
+        </div>
+
     </div>
 </div>
 {% endblock %}

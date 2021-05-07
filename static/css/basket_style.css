@@ -4,12 +4,43 @@
 }
 
 .cart {
-    width: 60%;
-    background-color: blueviolet;
+    width: 40%;
+    border: 5px solid var(--dark);
+    border-radius: 10px;
+    height: 20rem;
+    margin: auto;
+    margin-block: 2rem;
+}
+
+.cart_item {
+    border-top: 2px solid var(--dark);
+    margin: 2rem;
 }
 
 .summary {
-    width: 20%;
-    background-color: azure;
+    display: flex;
+    flex-direction: column;
+    width: 15%;
+    border: 5px solid var(--dark);
+    border-radius: 10px;
+    height: fit-content;
+    margin-top: 2rem;
+    margin-bottom: auto;
+    margin-inline: auto;
+}
+
+.summary button {
+    margin-left: auto;
+    width: 5rem;
+    height: 1.5rem;
+    color: var(--dark);
+    background-color: var(--light);
+}
+.summary h1 {
+    color: var(--dark);
+}
+
+summary p {
+    margin: auto;
 }
 

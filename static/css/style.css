@@ -4,11 +4,12 @@
     --light: #F0C965;
     --lightHover: yellow;
     --backgroundWhite: white;
+    --pageWidth: 1400px;
+    --marginsWidth: calc( calc(100vw - var(--pageWidth)) / 2);
 }
 html, body {
     margin: 0 !important;
     padding: 0 !important;
-    height: 100%;
 }
 body, header {
     font-family: Roboto, sans-serif;
@@ -18,23 +19,10 @@ body {
     background-color: var(--backgroundWhite);
 }
 body {
-    border-right: calc(50% - 700px) solid #F0F0F0;
-    border-left: calc(50% - 700px) solid #F0F0F0;
+    border-right: var(--marginsWidth) solid #F0F0F0;
+    border-left: var(--marginsWidth) solid #F0F0F0;
 }
-/*
-@media screen and (min-width: 1400Px) {
-    html, body {
-        border-right: calc(50% - 700px) solid #F0F0F0;
-        border-left: calc(50% - 700px) solid #F0F0F0;
-    }
-}
-@media screen and (max-width: 1400px) {
-    html, body {
-        border-right: 0 solid #F0F0F0;
-        border-left: 0 solid #F0F0F0;
-    }
-}
-*/
+
 h1 {
     color: var(--dark);
 }
@@ -60,5 +48,14 @@ header h1 {
     color: var(--dark);
     font-size: xxx-large;
 }
+button {
+    background-color: var(--dark);
+    color: var(--light);
+}
+button:hover{
+    background-color: var(--darkHover);
+}
 
-
+#contentDiv{
+    min-height: 75vh;
+}

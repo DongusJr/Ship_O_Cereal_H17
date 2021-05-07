@@ -3,27 +3,6 @@
     flex-direction: row;
 }
 
-#ProductInfo{
-    background-color: whitesmoke;
-    border: 3px solid var(--dark);
-    width: 100%;
-    padding: 20px;
-    margin: 20px;
-    align-self: flex-end;
-}
-#ProductInfoDiv{
-    width: 30%;
-    display: flex;
-    flex-direction: column;
-}
-#CartProdInfo{
-    display: flex;
-    flex-direction: row;
-}
-#CartProdInfo .inline-group{
-    display: flex;
-    flex-direction: row;
-}
 #ProductImages{
     display: flex;
     max-width: 600px;
@@ -31,6 +10,7 @@
     flex-direction: column;
 }
 #largeProductImage{
+    background-color: antiquewhite;
     width: 598px;
     height: 598px;
     border: 1px solid var(--dark);
@@ -49,4 +29,113 @@
     margin: auto;
     max-width: 196px;
     max-height: 196px;
+}
+
+#ProductInfoDiv{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+    margin-left: 0;
+}
+
+#CartProdInfo {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+#CartProdInfo form{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+#CartProdInfo .input-group {
+    display: flex;
+    flex-direction: row;
+
+}
+
+#CartProdInfo .input-number{
+    text-align: center;
+    width: 30px;
+    height: 75%;
+    margin: 0;
+    border-width: 0;
+    border-top: 2px solid var(--dark);
+}
+
+#CartProdInfo .btn{
+    border: solid var(--dark);
+    background-color: var(--dark);
+    color: var(--light)
+}
+#CartProdInfo .btn-primary {
+    border-radius: 10px 10px 0 0;
+    padding-inline: 15px;
+    margin-left: 50px;
+
+}
+#CartProdInfo .btn-danger {
+    border-radius: 10px 0 0 0;
+}
+#CartProdInfo .btn-success {
+    border-radius: 0 10px 0 0;
+}
+#ProductInfo{
+    background-color: whitesmoke;
+    border: 3px solid var(--dark);
+    width: unset;
+    padding: 20px;
+
+}
+#ProductRatingInfo{
+    display: flex;
+    flex-direction: row;
+}
+
+
+#ProductNutrDiv{
+    width: 100px;
+    margin: 20px;
+    margin-left: -10px;
+    display: flex;
+    flex-direction: column;
+}
+#ProductFancyNutrDiv{
+    margin-top: -10px;
+    width: 100px;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.fancyNutrDiv{
+    width: 80px;
+    color: var(--dark);
+    border: 3px solid var(--dark);
+    border-radius: 25px;
+    margin: 10px;
+    margin-right: 0;
+    text-align: center;
+
+}
+.fancyInfo{
+
+    background-color: var(--dark);
+    color: var(--backgroundWhite);
+    border-radius: 25px;
+}
+#servings{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column-reverse;
+    color: var(--dark);
+    font-size: 30px;
+    height: 80px;
+    text-align: center;
+}
+#servings div{
+    margin-top: 10px;
+    margin-inline: auto;
+}
+#servings p{
+    margin-bottom: -30px;
 }

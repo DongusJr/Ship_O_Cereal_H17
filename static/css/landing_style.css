@@ -22,3 +22,22 @@
     margin-right: auto;
 }
 
+.tag_div {
+    display:flex;
+    flex-direction: row;
+}
+
+.tag_name {
+    background-color: var(--light);
+    padding-left: 1rem;
+}
+
+.ad_section{
+    padding-left: 1rem;
+    width: auto;
+    height: 25vh;
+    background-color: greenyellow;
+}
+.ad_section h1{
+    margin: auto;
+}
