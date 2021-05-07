@@ -110,11 +110,13 @@
 
 }
 .fancyInfo{
-    
+
     background-color: var(--dark);
     color: var(--backgroundWhite);
     border-radius: 25px;
 }
 #servings{
+    color: var(--dark);
+    size: 25px;
     height: 80px;
 }

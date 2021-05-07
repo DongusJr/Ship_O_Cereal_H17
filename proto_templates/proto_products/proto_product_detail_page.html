@@ -40,7 +40,10 @@
     -->
     </div>
     <div id="ProductNutrDiv">
-        <div id="servings">{{ product.nutritional_info.servings }}</div>
+        <div id="servings">
+            14<!--{{ product.nutritional_info.servings }}-->
+            <img src="../static/images/servings_bowl" alt="bowls">
+        </div>
         <div id="ProductFancyNutrDiv">
             <div class="fancyNutrDiv">energy<div class="fancyInfo">{{ product.nutritional_info.energy }} </div> </div>
             <div class="fancyNutrDiv">sugar<div class="fancyInfo">{{ product.nutritional_info.sugar }}g </div> </div>
