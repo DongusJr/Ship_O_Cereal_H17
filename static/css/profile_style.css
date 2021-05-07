@@ -1,0 +1,22 @@
+.profile_container {
+    display: flex;
+    flex-direction: row;
+    margin: auto;
+}
+
+.description_box {
+    width: 50%;
+    border: 2px solid black;
+}
+
+.profile_info {
+    width: 30%;
+}
+
+.prev_order_container {
+
+}
+
+.prev_orders {
+
+}
