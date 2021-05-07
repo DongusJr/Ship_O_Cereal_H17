@@ -18,7 +18,7 @@
     <div id="ProductInfoDiv">
         <div id="CartProdInfo">
             {% include 'proto_products/proto_quantity_counter.html' %}
-            <input type="submit" name="add" class="btn btn-primary" value="Add to cart" href="{% url 'product_detail' product.id %}"></input>
+            <!--<input type="submit" name="add" class="btn btn-primary" value="Add to cart" href="{% url 'product_detail' product.id %}"></input>-->
         </div>
         <div id="ProductInfo">
             <h1>{{ product.name }}</h1>
@@ -27,11 +27,9 @@
             <p>{{ product.price }}</p>
             <p>{{ product.category }}</p>
             <p>{{ product.manufacturer}}</p>
-            <p>{{ product.nutritional_info.energy }}</p>
-            <p>{{ product.nutritional_info.sugar }}</p>
-            <p>{{ product.nutritional_info.fat }}</p>
-            <p>{{ product.nutritional_info.saturates }}</p>
+
         </div>
+
     <!-- VG: IDK  why cant we just always se the add to cart
     {% if user.is_authenticated%}
         <a type="submit" name="add" class="btn btn-primary" value="Add to cart" href="{% url 'product_detail' product.id %}">Add to cart</a>
@@ -40,6 +38,19 @@
         <p>Added to cart</p>
     {% endif %}
     -->
+    </div>
+    <div id="ProductNutrDiv">
+        <div id="servings">
+            14<!--{{ product.nutritional_info.servings }}-->
+            <img src="../static/images/servings_bowl" alt="bowls">
+        </div>
+        <div id="ProductFancyNutrDiv">
+            <div class="fancyNutrDiv">energy<div class="fancyInfo">{{ product.nutritional_info.energy }} </div> </div>
+            <div class="fancyNutrDiv">sugar<div class="fancyInfo">{{ product.nutritional_info.sugar }}g </div> </div>
+            <div class="fancyNutrDiv">fat<div class="fancyInfo">{{ product.nutritional_info.fat }} </div> </div>
+            <div class="fancyNutrDiv">saturates<div class="fancyInfo"> {{ product.nutritional_info.saturates }} </div> </div>
+
+        </div>
     </div>
 </div>
 {% endblock %}

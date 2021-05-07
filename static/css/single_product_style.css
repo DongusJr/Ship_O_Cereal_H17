@@ -7,17 +7,23 @@
     display: flex;
     flex-direction: column;
     margin: 20px;
+    margin-left: 0;
 }
 
 #ProductInfo{
     background-color: whitesmoke;
     border: 3px solid var(--dark);
-    width: -webkit-fill-available;
+    width: unset;
     padding: 20px;
-    align-self: flex-end;
+
 }
 
-#CartProdInfo{
+#CartProdInfo {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+#CartProdInfo form{
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
@@ -31,6 +37,10 @@
 #CartProdInfo .input-number{
     text-align: center;
     width: 30px;
+    height: 75%;
+    margin: 0;
+    border-width: 0;
+    border-top: 2px solid var(--dark);
 }
 
 #CartProdInfo .btn{
@@ -41,6 +51,7 @@
 #CartProdInfo .btn-primary {
     border-radius: 10px 10px 0 0;
     padding-inline: 15px;
+    margin-left: 50px;
 
 }
 #CartProdInfo .btn-danger {
@@ -60,7 +71,6 @@
     width: 598px;
     height: 598px;
     border: 1px solid var(--dark);
-    padding: ;
 }
 #smallProductImages{
     display: flex;
@@ -76,4 +86,37 @@
     margin: auto;
     max-width: 196px;
     max-height: 196px;
+}
+
+#ProductNutrDiv{
+    width: 500px;
+    margin: 20px;
+    margin-left: -10px;
+    display: flex;
+}
+#ProductFancyNutrDiv{
+    width: 210px;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.fancyNutrDiv{
+    width: 80px;
+    color: var(--dark);
+    border: 3px solid var(--dark);
+    border-radius: 25px;
+    margin: 10px;
+    margin-right: 0;
+    text-align: center;
+
+}
+.fancyInfo{
+
+    background-color: var(--dark);
+    color: var(--backgroundWhite);
+    border-radius: 25px;
+}
+#servings{
+    color: var(--dark);
+    size: 25px;
+    height: 80px;
 }
