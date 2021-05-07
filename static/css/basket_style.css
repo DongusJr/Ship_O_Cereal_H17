@@ -22,7 +22,7 @@
     width: 15%;
     border: 5px solid var(--dark);
     border-radius: 10px;
-    
+
     height: auto;
     flex-direction: column;
 }
