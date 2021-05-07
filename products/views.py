@@ -49,13 +49,14 @@ class ProductLogic(TemplateView):
 
         if 'tag' in self.request.GET:
             tag = self.request.GET['tag'].lower()
-            tags = ListedAs.objects.all()
-            all_products_with_tag = self.get_all_unique_tags(tags, tag)
-            new_list = []
-            for elem in data['products']:
-                if elem in all_products_with_tag:
-                    new_list.append(elem)
-            data['products'] = new_list
+            products = ProductTag.get_products_with_tag(tag)
+            print(products)
+            # all_products_with_tag = self.get_all_unique_tags(tags, tag)
+            # new_list = []
+            # for elem in data['products']:
+            #     if elem in all_products_with_tag:
+            #         new_list.append(elem)
+            data['products'] = products
         return data
 
     def get_all_unique_categories(self):
