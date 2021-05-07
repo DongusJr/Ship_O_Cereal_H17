@@ -36,7 +36,7 @@
         <p>Added to cart</p>
     {% endif %}
      {% if user.is_authenticated %}
-        <form action="{%url 'review_form'%}" method="get">
+        <form method="get">
             {% csrf_token %}
             <button value="{{product.pk}}" name="remove" class="btn btn-outline-success" type="submit">Write review</button>
         </form>

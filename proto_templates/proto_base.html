@@ -38,8 +38,8 @@
             <a class="nav-link active" aria-current="page" href="{% url 'profile' %}">Profile</a>
           </li>
           <li class="nav-item">
-            <form method="get">
-              <a class="nav-link active" aria-current="page" href="{% url 'cart_page' %}">Cart: {{cart.number_of_items}}</a>
+            <form method="get" action="{% url 'cart_items' %}">
+              <a class="nav-link active" aria-current="page" href="{% url 'cart_page' %}">Cart: {{cart_amount}}</a>
             </form>
           </li>
 
@@ -59,8 +59,8 @@
  {% if user.is_authenticated %}
      <h1>LOGGED IN</h1>
  {% endif %}
-{% block content %}
-{% endblock %}
+  {% block content %}
+  {% endblock %}
     <!-- Optional JavaScript; choose one of the two! -->
 
 
