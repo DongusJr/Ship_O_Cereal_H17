@@ -1,3 +1,6 @@
+from datetime import datetime
+
+from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 from django.db.models import Prefetch
 
@@ -21,9 +24,10 @@ class PersonInfo(models.Model):
 
 class PaymentInfo(models.Model):
     full_name = models.CharField(max_length=80)
-    card_number = models.IntegerField()
-    expiration_date = models.IntegerField()
-    cvc = models.IntegerField()
+    card_number = models.CharField(max_length=16)
+    year = models.IntegerField(validators=[MinValueValidator(datetime.now().year - 1), MaxValueValidator(datetime.now().year + 80)])
+    month = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(12)])
+    cvc = models.CharField(max_length=3)
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)

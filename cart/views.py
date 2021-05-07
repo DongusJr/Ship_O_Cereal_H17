@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
+
+from cart.forms.creditcard_form import PaymentForm
 from cart.models import Cart, Contains
 
 # Create your views here.
@@ -20,4 +22,18 @@ class CartView(TemplateView):
             data['has'] = False
         data['purchase'] = cart
         data['cart'] = contains_list
+        return data
+
+
+class CredicCardField:
+    pass
+
+
+class CompletePurchase(TemplateView):
+    template_name = 'proto_cart/proto_payment_form.html'
+
+    def get_context_data(self, **kwargs):
+        data = super(CompletePurchase, self).get_context_data(**kwargs)
+        creditcard_form = PaymentForm()
+        data['form'] = creditcard_form
         return data
