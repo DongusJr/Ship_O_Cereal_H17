@@ -1,9 +1,19 @@
 {% extends 'base_page.html' %}
 {% block content %}
-    {% for tag_with_products in tags_with_products %}
-        <a href="/products?tag={{ tag_with_products.name }}"><h1>{{ tag_with_products.name }}</h1></a>
-        <div style="display:flex; flex-direction: row;">
-        {% for product in tag_with_products.products %}
+
+<link rel="stylesheet" href="../static/css/landing_style.css">
+
+<div class="ad_section">
+    <h1>AD GOES HERE</h1>
+</div>
+
+    {% for tag, products in  tags_with_products.items %}
+        <div class="tag_name">
+            <a href="/products?tag={{ tag.name }}"><h1>{{ tag.name }}</h1></a>
+        </div>
+        <div class="tag_div">
+        {% for product in products %}
+
                     {% include 'proto_products/proto_landing_product.html' with product=product %}
         {% endfor %}
         </div>

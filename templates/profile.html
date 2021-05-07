@@ -1,0 +1,46 @@
+{% extends 'base_page.html' %}
+{% block content %}
+
+<link rel="stylesheet" href="../static/css/profile_style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<div class="profile_page">
+    <div class="profile_container">
+        <div class="profile_pic">
+            <img src="{{ profile.image }}"/>
+            <a href="#">Change profile picture</a>
+        </div>
+        <div class="profile_info">
+            <div class="profile_name">
+                    <h1>{{profile.user.username}}</h1>
+                    <button class="btn">EDIT</button>
+                </div>
+            <div class="description_box">
+                <h4>Description:</h4>
+                <p>{{profile.description}}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="prev_order_container">
+        <div class="prev_order_title">
+            <div id="clock_div">
+                <img src="../static/images/clock.svg">
+            </div>
+            <h3>Order history</h3>
+        </div>
+        {#{% if previous_order %}#}
+        {#<div class="prev_orders">#}
+        {#    {% for order, order_product in previous_orders.iteritems() %}#}
+        {#        {% include 'proto_account/proto_order.html' with order=order %}#}
+        {#        {% for product in order_product %}#}
+        {#            {% include 'proto_account/proto_order_info.html' with order_product = order_product %}#}
+        {#        {% endfor %}#}
+        {#    {% endfor %}#}
+        {#</div>#}
+        {#{% else %}#}
+        {#    <p>No previous orders to display.</p>#}
+        {#{% endif %}#}
+    </div>
+</div>
+{% endblock %}
