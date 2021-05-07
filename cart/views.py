@@ -27,6 +27,7 @@ class CartItems(TemplateView):
 
     def get_context_data(self, **kwargs):
         data = super(CartItems, self).get_context_data(**kwargs)
-        cart = Cart.objects.get(user=self.request.user)
-        data['cart'] = cart
+        cart = Cart.objects.get_object_or_404(user=self.request.user)
+        print(cart)
+        data['number'] = cart.number_of_items
         return data
