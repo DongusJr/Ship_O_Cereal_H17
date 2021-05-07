@@ -73,36 +73,8 @@ class UserProfile(TemplateView):
     def get_context_data(self, **kwargs):
         data = super(UserProfile, self).get_context_data(**kwargs)
         user_profile = Profile.objects.get(user=self.request.user)
+        # print(user_profile)
         data['profile'] = user_profile
-        order_history_dict = self._create_order_dictionary_dict(user_profile)
-        data['order_history'] = order_history_dict
-        # try:
-        #     prev_ord = user.order
-        # except:
-        #     data['previous_order'] = None
-        #     return data
-        # data['previous_order'] = prev_ord
-        # previous_order = Order.objects.get(prev=prev_ord)
-        # dic = {}
-        # for order in previous_order:
-        #     dic[order] = OrderProduct.objects.get(order=order)
-        # data['order'] = dic
+        order_history_list = Order.get_order_history_for_user(user_profile.user_id)
+        data['order_history'] = order_history_list
         return data
-
-    def _create_order_dictionary_dict(self, user_profile):
-        order_history_dict = {}
-        print(user_profile.user_id)
-        fetched_data = list(Order.objects.filter(profile__id=user_profile.user_id).values('id',
-                                                 'total',
-                                                 'product__id',
-                                                 'product__name',
-                                                 'product__price'))
-                                                 # 'product__productimage__image'))
-        for item in fetched_data:
-            order_id = item['id']
-            try:
-                order_history_dict[order_id].append(item)
-            except:
-                order_history_dict[order_id] = [item]
-        return order_history_dict
-

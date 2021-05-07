@@ -1,23 +1,20 @@
 {% extends 'proto_base.html' %}
 {% block content %}
-<div style="display: float;">
-    <div class="profile info" style="display: float;">
+<div>
+    <div class="profile info">
         <h1>{{profile.user.username}}</h1>
         <img src="{{ profile.image }}"/>
         <div class="description-box" style="border: solid black 3px;padding: 10%;">
             <h4>Description:</h4>
             <p>{{profile.description}}</p>
         </div>
-
     </div>
     <h1>Order history</h1>
     <div name="Order history box" style="border:solid black 2px; width: 80%;>
-    {% for order, products in order_history.items %}
-        <div name="single order" box style="border:solid black 2px; width: 80%;>
-            <p> order_id : {{ order }}</p>
-            {% include 'proto_account/proto_order.html' with products=products %}
-            <p>total: {{ products.0.total }}$</p>
-        </div>
+    {% for order_with_products in order_history %}
+            <p> order_id : {{ order_with_products.id }}</p>
+                {% include 'proto_account/proto_order.html' with products=order_with_products.products %}
+            <p>total: {{ order_with_products.total }}$</p>
     {% endfor %}
     </div>
 </div>

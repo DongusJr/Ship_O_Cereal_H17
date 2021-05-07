@@ -1,5 +1,7 @@
 from django.db import models
-from products.models import Products
+from django.db.models import Prefetch
+
+from products.models import Products, ProductImage
 from django.contrib.auth.models import User
 
 # Create your models here.
@@ -23,10 +25,16 @@ class PaymentInfo(models.Model):
     expiration_date = models.IntegerField()
     cvc = models.IntegerField()
 
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    image = models.CharField(max_length=9999)
+    description = models.CharField(max_length=512, blank=True)
+    # One profile can have many orders
+
 
 class Order(models.Model):
     total = models.IntegerField(default=0)
-    profile = models.ForeignKey(User, on_delete=models.CASCADE) # Order can only have 1 profile
+    profile = models.ForeignKey(User, on_delete=models.CASCADE)  # Order can only have 1 profile
     person_info = models.ForeignKey(PersonInfo, on_delete=models.CASCADE)
     payment_info = models.ForeignKey(PaymentInfo, on_delete=models.CASCADE)
     delivery = models.BooleanField()
@@ -34,6 +42,24 @@ class Order(models.Model):
 
     def __str__(self):
         return f"Order number {self.id}, for user {self.profile.username}"
+
+    @staticmethod
+    def get_order_history_for_user(user_id):
+        order_queryset = Order.objects.prefetch_related(
+            Prefetch('profile', queryset=Profile.objects.filter(user_id=user_id)))
+
+        product_image_map = ProductImage.get_first_image_for_each_product()
+        orders = []
+        for order in order_queryset:
+            products = [{'id': product.id,
+                         'name': product.name,
+                         'price': product.price,
+                         'image': product_image_map[product.id]
+                         }
+                        for product in order.product.all()]
+            orders.append({'id':order.id, 'total': order.total, 'products': products})
+        return orders
+
     # def order_total(self, order):
     #     total = 0
     #     contains = OrderProduct.objects.get(order=order)
@@ -41,9 +67,3 @@ class Order(models.Model):
     #         total += product.price * (product.quantity)
     #     order.total = total
     #     return total
-
-class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    image = models.CharField(max_length=9999)
-    description = models.CharField(max_length=512, blank=True)
-    # One profile can have many orders
