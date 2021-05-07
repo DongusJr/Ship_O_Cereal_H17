@@ -1,0 +1,30 @@
+{% extends 'base_page.html' %}
+{% block content %}
+
+<div style="display: flex; float:left;">
+    <div class="profile info" style="display: float;">
+        <h1>{{profile.user.username}}</h1>
+        <img src="{{ profile.image }}"/>
+        <div class="description-box" style="border: solid black 3px;padding: 10%;">
+            <h4>Description:</h4>
+            <p>{{profile.description}}</p>
+        </div>
+
+    </div>
+</div>
+
+<h1>Previous Orders</h1>
+{#{% if previous_order %}#}
+{#<div style="display: flex; float: right;">#}
+{#    {% for order, order_product in previous_orders.iteritems() %}#}
+{#        {% include 'proto_account/proto_order.html' with order=order %}#}
+{#        {% for product in order_product %}#}
+{#            {% include 'proto_account/proto_order_info.html' with order_product = order_product %}#}
+{#        {% endfor %}#}
+{#    {% endfor %}#}
+{#</div>#}
+{#{% else %}#}
+{#    <p>No previous orders to display.</p>#}
+{#{% endif %}#}
+
+{% endblock %}

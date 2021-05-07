@@ -5,21 +5,21 @@
 
 <div class="cart_page">
     <div class="cart">
-        <div class="cart_item">
-            in cart itme
-        </div>
-        <div class="cart_item">
-            in cart itme
-        </div>
-        <div class="cart_item">
-            in cart itme
-        </div>
+        {% if product %}
+            {% for product in cart %}
+                <div class="cart_item">
+                    {% include 'proto_cart/proto_cart_product.html' with product=product%}
+                </div>
+            {% endfor %}
+        {% else %}
+        <p style="margin:3rem">No items in cart</p>
     </div>
     <div class="summary">
-        <h4>Summary</h4>
-        4100kr
+        <h1>Summary</h1>
+        <h4>{{purchase.total}}</h4>
         <button type="button">Buy</button>
     </div>
+    {% endif %}
 </div>
 
 {% endblock %}

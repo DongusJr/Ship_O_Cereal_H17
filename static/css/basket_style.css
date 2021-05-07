@@ -19,15 +19,28 @@
 
 .summary {
     display: flex;
+    flex-direction: column;
     width: 15%;
     border: 5px solid var(--dark);
     border-radius: 10px;
-
-    height: auto;
-    flex-direction: column;
+    height: fit-content;
+    margin-top: 2rem;
+    margin-bottom: auto;
+    margin-inline: auto;
 }
 
 .summary button {
-    width: 25%;
+    margin-left: auto;
+    width: 5rem;
+    height: 1.5rem;
+    color: var(--dark);
+    background-color: var(--light);
+}
+.summary h1 {
+    color: var(--dark);
+}
+
+summary p {
+    margin: auto;
 }
 
