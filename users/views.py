@@ -8,6 +8,7 @@ from django.views.generic import TemplateView
 
 from products.models import ProductImage
 from users.models import Order, Profile, SearchHistory
+from cart.models import ProductViewed
 
 # Create your views here.
 
@@ -75,7 +76,6 @@ class UserProfile(TemplateView):
     def get_context_data(self, **kwargs):
         user_id = self.request.user.id
         data = super(UserProfile, self).get_context_data(**kwargs)
-        print(user_id)
         user_profile = Profile.get_profile_info_for_user(user_id)
         data['profile'] = user_profile
         order_history_list = Order.get_order_history_for_user(user_id)
@@ -84,5 +84,7 @@ class UserProfile(TemplateView):
             data['searches'] = all_searches[:10]
         else:
             data['no_searches'] = True
+        viewed_products = ProductViewed.get_all_viewed_products(self.request.user)
+        data['products'] = viewed_products
         data['order_history'] = order_history_list
         return data

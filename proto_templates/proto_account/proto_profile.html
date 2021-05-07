@@ -17,6 +17,14 @@
             {% include 'proto_account/proto_search.html' with search=search%}
         {% endfor %}
     {% endif %}
+    <h1>Recently viewed</h1>
+    {% if nothing_viewed%}
+        <a href="product_index">Go to products</a>
+    {% else %}
+        {% for product in products%}
+            {% include 'proto_account/proto_products_viewed'%}
+        {% endfor %}
+    {% endif %}
     <h1>Order history</h1>
     <div name="Order history box" style="border:solid black 2px; width: 80%;>
     {% for order_with_products in order_history %}

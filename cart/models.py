@@ -80,3 +80,7 @@ class ProductViewed(models.Model):
         except:
             pass
         return ProductViewed.objects.create(user=user, product=product)
+
+    @staticmethod
+    def get_all_viewed_products(user):
+        return ProductViewed.objects.filter(user=user)
