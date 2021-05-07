@@ -9,6 +9,7 @@ from users.models import Order
 class Cart(models.Model):
     # Possibly have user id
     total = models.IntegerField(default=0)
+    number_of_items = models.IntegerField(default=0)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     @staticmethod
@@ -17,6 +18,13 @@ class Cart(models.Model):
         for item in contains_list:
             total += item.quantity*(item.product.price)
         cart_object.total = total
+        return cart_object
+
+    @staticmethod
+    def update_number_of_items(cart_object):
+        contains_list = Contains.objects.filter(cart=cart_object)
+        number = len(contains_list)
+        cart_object.number_of_items = number
         return cart_object
 
 
@@ -49,6 +57,7 @@ class Contains(models.Model):
         cart.save()
         contains = Contains.objects.create(cart=cart, product=product, quantity=quantity)
         Cart.update_total(cart).save()
+        Cart.update_number_of_items(cart).save()
         return contains
 
     @staticmethod
@@ -57,3 +66,4 @@ class Contains(models.Model):
         cart = contains.cart
         contains.delete()
         Cart.update_total(cart).save()
+        Cart.update_number_of_items(cart).save()
