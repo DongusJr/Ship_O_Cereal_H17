@@ -34,7 +34,7 @@
 
 .ad_section{
     padding-left: 1rem;
-    width: 100%;
+    width: auto;
     height: 25vh;
     background-color: greenyellow;
 }
