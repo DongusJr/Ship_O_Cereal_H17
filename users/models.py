@@ -82,3 +82,16 @@ class Order(models.Model):
     #         total += product.price * (product.quantity)
     #     order.total = total
     #     return total
+
+class SearchHistory(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    previous_searches = models.TextField(max_length=128)
+
+    @staticmethod
+    def add_to_search_history(text, user):
+        SearchHistory.objects.create(previous_searches=text, user=user).save()
+
+    @staticmethod
+    def get_all_previous_searches(user):
+        all_searches = SearchHistory.objects.filter(user=user)
+        return all_searches

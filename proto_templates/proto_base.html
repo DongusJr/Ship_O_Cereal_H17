@@ -38,7 +38,7 @@
             <a class="nav-link active" aria-current="page" href="{% url 'profile' %}">Profile</a>
           </li>
           <li class="nav-item">
-            <form method="get" action="{% url 'cart_items' %}">
+            <form method="get">
               <a class="nav-link active" aria-current="page" href="{% url 'cart_page' %}">Cart: {{cart_amount}}</a>
             </form>
           </li>

@@ -7,7 +7,7 @@ from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
 
 from products.models import ProductImage
-from users.models import Order, Profile
+from users.models import Order, Profile, SearchHistory
 
 # Create your views here.
 
@@ -78,5 +78,10 @@ class UserProfile(TemplateView):
         user_profile = Profile.get_profile_info_for_user(user_id)
         data['profile'] = user_profile
         order_history_list = Order.get_order_history_for_user(user_id)
+        all_searches = SearchHistory.get_all_previous_searches(self.request.user)
+        if all_searches != None:
+            data['searches'] = all_searches
+        else:
+            data['no_searches'] = True
         data['order_history'] = order_history_list
         return data
