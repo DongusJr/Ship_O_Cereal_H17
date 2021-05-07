@@ -37,7 +37,7 @@ class Profile(models.Model):
 
     @staticmethod
     def get_profile_info_for_user(user_id):
-        profile = Profile.objects.get(user_id=user_id)
+        profile = Profile.objects.get(id=user_id)
         profile_information = {'id': profile.id,
                                'description': profile.description,
                                'image': profile.image,

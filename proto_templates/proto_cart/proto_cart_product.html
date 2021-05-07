@@ -3,8 +3,8 @@
     <h1>{{contains.product.name}}</h1>
     <p>Quantity: {{contains.quantity}}</p>
     <p>Price of product: {{contains.product.price}}</p>
-    <form action="{%url 'cart_page'%}" method="get">
+    <form method="delete">
         {% csrf_token %}
-        <button value="{{contains.pk}}" name="remove" class="btn btn-outline-success" type="submit">X</button>
+        <button value="{{contains.pk}}" name="delete" class="btn btn-outline-success" type="submit">X</button>
     </form>
 </div>

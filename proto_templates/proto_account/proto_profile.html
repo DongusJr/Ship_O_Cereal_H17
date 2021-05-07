@@ -22,7 +22,7 @@
         <a href="product_index">Go to products</a>
     {% else %}
         {% for product in products%}
-            {% include 'proto_account/proto_products_viewed'%}
+            {% include 'proto_account/proto_products_viewed.html'%}
         {% endfor %}
     {% endif %}
     <h1>Order history</h1>
