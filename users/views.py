@@ -75,12 +75,13 @@ class UserProfile(TemplateView):
     def get_context_data(self, **kwargs):
         user_id = self.request.user.id
         data = super(UserProfile, self).get_context_data(**kwargs)
+        print(user_id)
         user_profile = Profile.get_profile_info_for_user(user_id)
         data['profile'] = user_profile
         order_history_list = Order.get_order_history_for_user(user_id)
         all_searches = SearchHistory.get_all_previous_searches(self.request.user)
         if all_searches != None:
-            data['searches'] = all_searches
+            data['searches'] = all_searches[:10]
         else:
             data['no_searches'] = True
         data['order_history'] = order_history_list

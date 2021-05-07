@@ -74,6 +74,9 @@ class ProductViewed(models.Model):
 
     @staticmethod
     def add_to_previously_viewed(product, user):
-        if ProductViewed.objects.get(user=user, product=product) != None:
+        try:
+            ProductViewed.objects.get(user=user, product=product)
             ProductViewed.objects.get(user=user, product=product).delete()
-        ProductViewed.objects.create(user=user, product=product).save()
+        except:
+            pass
+        return ProductViewed.objects.create(user=user, product=product)

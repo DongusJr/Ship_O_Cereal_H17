@@ -30,7 +30,7 @@ class ProductLogic(TemplateView):
         if self.request.GET.get('criteria') != "" and self.request.GET.get('criteria') != None:
             specified_criteria = self.request.GET.get('criteria')
             try:
-                SearchHistory.add_to_search_history(specified_criteria, self.request.user)
+                SearchHistory.add_to_search_history(specified_criteria, self.request.user).save()
             except:
                 pass
             data['products'] = data['products'].filter(name__icontains=specified_criteria)
