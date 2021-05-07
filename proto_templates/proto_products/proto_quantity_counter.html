@@ -1,4 +1,5 @@
 {% load static %}
+
 <div class="input-group">
     <form action="{% url 'product_detail' product.id %}" method="get">
         <span class="input-group-btn">
@@ -16,6 +17,7 @@
         </span>
         <button type="submit" name="add" class="btn btn-primary" value="Add to cart">Add to cart</button>
     </form>
+
 </div>
 {# Scripts #}
 <script src="{% static 'js/quantity_button_script.js' %}"></script>

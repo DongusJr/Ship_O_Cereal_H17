@@ -19,6 +19,7 @@
         <div id="CartProdInfo">
             {% include 'proto_products/proto_quantity_counter.html' %}
             <!--<input type="submit" name="add" class="btn btn-primary" value="Add to cart" href="{% url 'product_detail' product.id %}"></input>-->
+
         </div>
         <div id="ProductInfo">
             <h1>{{ product.name }}</h1>
@@ -107,6 +108,7 @@
             <div class="fancyNutrDiv">saturates<div class="fancyInfo"> {{ product.nutritional_info.saturates }} </div> </div>
 
         </div>
+
     </div>
 </div>
 {% endblock %}

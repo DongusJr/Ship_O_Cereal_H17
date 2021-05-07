@@ -38,7 +38,7 @@
             <a class="nav-link active" aria-current="page" href="{% url 'profile' %}">Profile</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{% url 'cart_page' %}">Cart</a>
+              <a class="nav-link active" aria-current="page" href="{% url 'cart_page' %}">Cart: {{cart_amount}}</a>
           </li>
 
           {% else %}
@@ -57,8 +57,8 @@
  {% if user.is_authenticated %}
      <h1>LOGGED IN</h1>
  {% endif %}
-{% block content %}
-{% endblock %}
+  {% block content %}
+  {% endblock %}
     <!-- Optional JavaScript; choose one of the two! -->
 
 

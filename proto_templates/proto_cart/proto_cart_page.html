@@ -1,14 +1,20 @@
 {% extends 'proto_base.html' %}
 {% block content %}
-
+{% load static %}
     <h1>Cart</h1>
-    {% if product %}
-    {% for product in cart %}
-        {% include 'proto_cart/proto_cart_product.html' with product=product%}
+    {% if has %}
+    {% for contains in cart %}
+        {% include 'proto_cart/proto_cart_product.html' with contains=contains%}
     {% endfor %}
+    <h4>Total: {{purchase.total}}</h4>
     {% else %}
     <p>No items in cart</p>
-    <h4>{{purchase.total}}</h4>
     {% endif %}
-
+    {% if has%}
+        <button name="complete_purchase" type="submit"><a href="{% url 'complete_order'%}">Complete order</a></button>
+    {% else %}
+    <form method="get">
+        <button class="btn btn-outline-success" type="submit" href="{% url 'product_index' %}">View products</button>
+    </form>
+    {% endif %}
 {% endblock %}

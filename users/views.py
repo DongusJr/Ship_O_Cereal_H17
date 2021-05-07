@@ -2,17 +2,19 @@ import django.utils.datastructures
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib import messages
+from django.db.models import Prefetch
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
 
-from users.models import Order, Profile
+from products.models import ProductImage
+from users.models import Order, Profile, SearchHistory
+from cart.models import ProductViewed
 
 # Create your views here.
 
 def login_register(request):
-    print(request.POST)
     if request.user.is_authenticated:
-        return redirect('landing_page')
+        return redirect('profile')
     register_form = UserCreationForm()
     login_form = AuthenticationForm()
     if request.method == 'POST':
@@ -27,7 +29,7 @@ def login_register(request):
             success = _register(request)
             print("register success: " + str(success))
             if success:
-                return redirect('landing_page')
+                return redirect('profile')
     # return render(request, 'proto_users/account.html', {
     #     'form_1' : register_form,
     #     'form_2' : login_form
@@ -72,18 +74,17 @@ class UserProfile(TemplateView):
     template_name = 'profile.html'
 
     def get_context_data(self, **kwargs):
+        user_id = self.request.user.id
         data = super(UserProfile, self).get_context_data(**kwargs)
-        user_profile = Profile.objects.get(user=self.request.user)
+        user_profile = Profile.get_profile_info_for_user(user_id)
         data['profile'] = user_profile
-        # try:
-        #     prev_ord = user.order
-        # except:
-        #     data['previous_order'] = None
-        #     return data
-        # data['previous_order'] = prev_ord
-        # previous_order = Order.objects.get(prev=prev_ord)
-        # dic = {}
-        # for order in previous_order:
-        #     dic[order] = OrderProduct.objects.get(order=order)
-        # data['order'] = dic
+        order_history_list = Order.get_order_history_for_user(user_id)
+        all_searches = SearchHistory.get_all_previous_searches(self.request.user)
+        if all_searches != None:
+            data['searches'] = all_searches[:10]
+        else:
+            data['no_searches'] = True
+        viewed_products = ProductViewed.get_all_viewed_products(self.request.user)
+        data['products'] = viewed_products
+        data['order_history'] = order_history_list
         return data

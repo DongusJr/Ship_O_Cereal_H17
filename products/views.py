@@ -1,27 +1,17 @@
 from django.shortcuts import render, get_object_or_404
 from products.models import Products, ProductTag
 from django.views.generic import TemplateView
-from cart.models import Cart
+from cart.models import Contains, ProductViewed
+from users.models import SearchHistory
 
 # Create your views here.
 
 def get_product_by_tags(request):
-    ''' GET request when loading the landing page
-
-        :returns
-        it renders the landing page, with a dictionary that contains tag and products list pair. for every tag, we list
-        every product associated with that tag'''
     if request.method == 'GET':
-        tags = ProductTag.objects.all()
-        tag_maps_product_dict = {'tags_with_products' : {}}
-        for tag in tags:
-            tag_maps_product_dict['tags_with_products'][tag] = Products.objects.filter(producttag__id=tag.id)
-        return render(request, 'main_page.html', tag_maps_product_dict)
-
-#def get_product_by_id(request, id):
-#    return render(request, 'proto_products/proto_product_detail_page.html', {
-#        'product' : get_object_or_404(Products, pk=id)
-#    })
+        tags_with_products = ProductTag.select_all_related_products()
+        context = {'tags_with_products' : tags_with_products}
+        print(context)
+        return render(request, 'main_page.html', context)
 
 class ProductLogic(TemplateView):
     template_name = 'proto_products/proto_products.html'
@@ -39,6 +29,10 @@ class ProductLogic(TemplateView):
                 data['products'] = data['products'].order_by('name')
         if self.request.GET.get('criteria') != "" and self.request.GET.get('criteria') != None:
             specified_criteria = self.request.GET.get('criteria')
+            try:
+                SearchHistory.add_to_search_history(specified_criteria, self.request.user).save()
+            except:
+                pass
             data['products'] = data['products'].filter(name__icontains=specified_criteria)
         if 'price' in self.request.GET:
             order = self.request.GET['price']
@@ -85,11 +79,12 @@ class SingleProduct(TemplateView):
     def get_context_data(self, **kwargs):
         data = super(SingleProduct, self).get_context_data(**kwargs)
         id = self.kwargs['id']
-        data['product'] = get_object_or_404(Products, pk=id)
-        if 'add' in self.request.GET and 'quant' in self.request.GET:
-            cart = Cart.objects.get_or_create(user=self.request.user)
-            quant = self.request.GET.get('quant')
-            if quant.isdigit():
-                cart.add_to_cart(quant, data['product'])
-                data['success'] = True
+        product = get_object_or_404(Products, pk=id)
+        ProductViewed.add_to_previously_viewed(product, self.request.user).save()
+        data['product'] = product
+        if 'quant' in self.request.GET:
+            quantity = self.request.GET.get('quant')
+            Contains.add_to_cart(self.request.user, product, int(quantity)).save()
+            data['success'] = True
+
         return data
