@@ -9,6 +9,7 @@ class NutritionalInfo(models.Model):
     sugar = models.FloatField()
     fat = models.FloatField()
     saturates = models.FloatField()
+    serving_amount = models.IntegerField(default=14)
 
 class Products(models.Model):
     name = models.CharField(max_length=64)
