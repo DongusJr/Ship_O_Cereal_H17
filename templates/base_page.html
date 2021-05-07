@@ -38,20 +38,36 @@
             <div id="header_top">
                 <a href="/"><h1>Ship O' Cereal</h1></a>
                 <div id="main_search">
-                    <input type="text" placeholder="Search" id="navbarSearch">
+                    <form >
+                        <input id="navbarSearch" class="form-control me-2" name="criteria" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success" type="submit" href="{% url 'product_index' %}">Search</button>
+                    </form>
                 </div>
+
                 <div id="profile&CartDiv">
-                <a href="/user/account"><div id="topProfileImgDiv"><!-- go to profile -->
+                    <a href="/user/account"><div id="topProfileImgDiv"><!-- go to profile -->
 
-                    <img src="../static/images/Profile.svg" alt="Profile" id="topProfileImg">
-                </div></a>
+                        <img src="../static/images/Profile.svg" alt="Profile" id="topProfileImg">
+                    </div></a>
 
-                <a href="/user/cart"> <!-- go to cart -->
-                    <div id="cart">
-                        <img src="../static/images/cart.svg" alt="cart">
-                        <a href="#" id="cartItems">2 items</a> <!-- needs number of items-->
-                    </div>
-                </a>
+                    <a href="/user/cart"> <!-- go to cart -->
+                        <div id="cart">
+                            <img src="../static/images/cart.svg" alt="cart">
+                            {{cart_amount}}
+
+                            <form method="get">
+                                {% if not number %}
+                                    <a href="/user/cart"> 0 items </a>
+                                {% else %}
+                                    {% if number == 1 %}
+                                        <a href="/user/cart" > 1 item </a>
+                                    {% else %}
+                                        <a class="nav-link active" aria-current="page" href="{% url 'cart_page' %}">{{number}} items</a>
+                                    {% endif %}
+                                {% endif %}
+                            </form>
+                        </div>
+                    </a>
                 </div>
             </div>
             <div id="header_bottom">
@@ -74,9 +90,11 @@
         </div>
         <div id="footer_info">
             <ul>
-                <li>Opening times 21:00-9:00</li>
-                <li>Phone</li>
-                <li>ship@cereal.co.uk</li>
+                <a href="#">
+                    <li>Opening times 21:00-9:00</li>
+                    <li>Phone</li>
+                    <li>ship@cereal.co.uk</li>
+                </a>
             </ul>
             <ul>
                 <li><a href="#">About us</a></li>

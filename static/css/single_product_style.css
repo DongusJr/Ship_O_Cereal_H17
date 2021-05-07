@@ -60,6 +60,7 @@
     width: 598px;
     height: 598px;
     border: 1px solid var(--dark);
+    padding: ;
 }
 #smallProductImages{
     display: flex;
