@@ -1,3 +1,6 @@
+.padding{
+    padding: 20px
+}
 #mainH1{
     text-align: center;
 }
@@ -13,4 +16,8 @@
     width: 16%;
     height: 150px;
     margin: auto;
+}
+
+.paragraph{
+    width: 50%;
 }
