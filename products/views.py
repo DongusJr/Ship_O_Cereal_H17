@@ -91,9 +91,9 @@ class SingleProduct(TemplateView):
         all_reviews = Review.objects.filter(product=product)
         if all_reviews:
             self.data['reviews'] = all_reviews
+            self.data['rating'] = self.calculate_mean_rating(product)
         else:
             self.data['reviews'] = None
-        self.data['rating'] = self.calculate_mean_rating(product)
         return render(request, self.template_name, self.data)
 
     def post(self, request, *args, **kwargs):

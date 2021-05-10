@@ -102,4 +102,8 @@ class ProductViewed(models.Model):
 
     @staticmethod
     def get_all_viewed_products(user):
-        return ProductViewed.objects.filter(user=user)
+        products_viewed = ProductViewed.objects.filter(user=user)
+        product_list = []
+        for product in products_viewed:
+            product_list.append(product.product)
+        return product_list

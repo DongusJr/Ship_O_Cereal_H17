@@ -1,0 +1,4 @@
+{% load static %}
+{% block content%}
+<a href="{% url 'product_detail' product.id %}" type="submit" value="{{product.id}}" name="{{product.name}}">{{product.name}}</a>
+{% endblock %}

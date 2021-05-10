@@ -35,4 +35,12 @@
             <p>total: {{ order_with_products.total }}$</p>
     {% endfor %}
 </div>
+            <h1>Recently viewed</h1>
+    {% if nothing_viewed%}
+        <a href="product_index">Go to products</a>
+    {% else %}
+        {% for product in products%}
+            {% include 'proto_products_viewed.html' with product=product %}
+        {% endfor %}
+    {% endif %}
 {% endblock %}
