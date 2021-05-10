@@ -1,0 +1,29 @@
+.email_page {
+    margin: auto;
+    justify-content: center;
+}
+
+.email_box {
+    display: flex;
+    flex-direction: column;
+}
+
+input[type=text]{
+  width: 20%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+.email_box button {
+    background-color: black;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 6rem;
+    height: 3rem;
+}
