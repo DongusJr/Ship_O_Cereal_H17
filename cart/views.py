@@ -10,25 +10,30 @@ from cart.models import Cart, Contains
 
 class CartView(TemplateView):
     template_name = 'proto_cart/proto_cart_page.html'
+    data = {}
 
-    def get_context_data(self, **kwargs):
-        data = super(CartView, self).get_context_data(**kwargs)
-        cart = Cart.objects.get(user=self.request.user)
+    def get(self, request, *args, **kwargs):
+        cart = Cart.objects.get(user=request.user)
         contains_list = Contains.objects.filter(cart=cart)
-        if self.request.method == 'DELETE':
-            self.delete(self.request)
-        if contains_list:
-            data['has'] = True
-        else:
-            data['has'] = False
-        data['purchase'] = cart
-        data['cart'] = contains_list
-        return data
+        self.data['purchase'] = cart
+        self.data['cart'] = contains_list
+        self.data['has'] = self.helper()
+        return render(request, self.template_name, self.data)
 
-    def delete(self, request):
-        primary_key = request.DELETE.get('delete')
+    def post(self, request, *args, **kwargs):
+        primary_key = request.POST.get('delete')
         Contains.remove_item(primary_key)
-        return render('proto_cart/proto_cart_page.html')
+        cart = Cart.objects.get(user=request.user)
+        self.data['cart'] = Contains.objects.filter(cart=self.data['purchase'])
+        self.data['has'] = self.helper()
+        self.data['purchase'] = Cart.update_total(cart)
+        return render(request, self.template_name, self.data)
+
+    def helper(self):
+        if self.data['cart'] != []:
+            return True
+        else:
+            return False
 
 class CredicCardField:
     pass
