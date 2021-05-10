@@ -1,5 +1,6 @@
 {% load static %}
 
+{% block content%}
 <h4>{{review.user}}</h4>
 <div class="review_text">
     <p>{{review.comment}}</p>
@@ -7,3 +8,4 @@
 <div class="review_rating">
     <p>{{review.rating}}</p>
 </div>
+{% endblock %}

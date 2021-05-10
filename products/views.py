@@ -3,6 +3,7 @@ from products.models import Products, ProductTag
 from django.views.generic import TemplateView
 from cart.models import Contains, ProductViewed
 from users.models import SearchHistory
+from reviews.models import Review
 
 # Create your views here.
 
@@ -76,16 +77,49 @@ class ProductLogic(TemplateView):
 
 class SingleProduct(TemplateView):
     template_name = 'proto_products/proto_product_detail_page.html'
+    data = {}
 
-    def get_context_data(self, **kwargs):
-        data = super(SingleProduct, self).get_context_data(**kwargs)
+    def get(self, request, *args, **kwargs):
         id = self.kwargs['id']
         product = get_object_or_404(Products, pk=id)
         ProductViewed.add_to_previously_viewed(product, self.request.user).save()
-        data['product'] = product
+        self.data['product'] = product
         if 'quant' in self.request.GET:
             quantity = self.request.GET.get('quant')
             Contains.add_to_cart(self.request.user, product, int(quantity)).save()
-            data['success'] = True
+            self.data['success'] = True
+        all_reviews = Review.objects.filter(product=product)
+        if all_reviews:
+            self.data['reviews'] = all_reviews
+        else:
+            self.data['reviews'] = None
+        self.data['rating'] = self.calculate_mean_rating(product)
+        return render(request, self.template_name, self.data)
 
-        return data
+    def post(self, request, *args, **kwargs):
+        product = Products.objects.get(id=kwargs['id'])
+        review_object = Review.objects.create(user=request.user, product=product)
+        if 'rating' in request.POST and review_object.rating:
+            rating = request.POST.get('rating')
+            if rating:
+                if int(rating) > 10:
+                    rating = 10
+                elif int(rating) < 1:
+                    rating = 1
+                review_object.rating = rating
+                review_object.save()
+        if 'review' in self.request.POST and review_object.comment:
+            review = self.request.POST.get('review')
+            if review:
+                review_object.comment = review
+                review_object.save()
+        self.data['reviews'] = Review.objects.filter(product=product)
+        self.data['rating'] = self.calculate_mean_rating(product)
+        return render(request, self.template_name, self.data)
+
+    def calculate_mean_rating(self, product):
+        review_objects = Review.objects.filter(product=product)
+        rating = 0
+        for review in review_objects:
+            rating += review.rating
+        return round(rating/len(review_objects))
