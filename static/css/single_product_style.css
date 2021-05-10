@@ -69,6 +69,11 @@
     background-color: var(--dark);
     color: var(--light)
 }
+#CartProdInfo .btn:hover {
+    background-color: var(--darkHover);
+    border: solid var(--darkHover);
+}
+
 #CartProdInfo .btn-primary {
     border-radius: 10px 10px 0 0;
     padding-inline: 15px;

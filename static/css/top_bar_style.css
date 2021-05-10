@@ -69,9 +69,13 @@
     margin-inline: 0;
 }
 #main_search button{
+    border: solid var(--dark);
     height: 1.5rem;
     border-radius: 0 10px 10px 0;
     margin-inline: 0;
+}
+#main_search button:hover {
+    border: solid var(--darkHover);
 }
 .header_top h1 {
     font-family: Roboto, sans-serif;

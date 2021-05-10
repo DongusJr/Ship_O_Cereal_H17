@@ -54,16 +54,15 @@
                     <a href="/user/cart"> <!-- go to cart -->
                         <div id="cart">
                             <img src="../static/images/cart.svg" alt="cart">
-                            {{cart_amount}}
 
                             <form method="get">
-                                {% if not number %}
+                                {% if not cart_amount %}
                                     <a href="/user/cart"> 0 items </a>
                                 {% else %}
-                                    {% if number == 1 %}
+                                    {% if cart_amount == 1 %}
                                         <a href="/user/cart" > 1 item </a>
                                     {% else %}
-                                        <a class="nav-link active" aria-current="page" href="{% url 'cart_page' %}">{{number}} items</a>
+                                        <a class="nav-link active" aria-current="page" href="{% url 'cart_page' %}">{{cart_amount}} items</a>
                                     {% endif %}
                                 {% endif %}
                             </form>
@@ -74,10 +73,10 @@
             </div>
             <div id="header_bottom">
                 <a href="/products">Products</a>
-                <a href="#">Category 2</a>
-                <a href="#">Category 3</a>
-                <a href="#">Category 4</a>
-                <a href="#">About us</a>
+                <a href="/products/?category=cereal">Cereals</a>
+                <a href="/products/?category=cook_books">Cook Books</a>
+                <a href="/products/?category=dinnerware">Dinnerware</a>
+                <a href="/about_us">About us</a>
                 <a href="/user/logout">log out</a>
             </div>
         </div>
@@ -92,16 +91,16 @@
         </div>
         <div id="footer_info">
             <ul>
-                <a href="#">
+                <a href="/openinghours">
                     <li>Opening times 21:00-9:00</li>
                     <li>Phone</li>
                     <li>ship@cereal.co.uk</li>
                 </a>
             </ul>
             <ul>
-                <li><a href="#">About us</a></li>
-                <li><a href="#">Email newsletter</a></li>
-                <li><a href="#">Terms and conditions</a></li>
+                <li><a href="/aboutus">About us</a></li>
+                <li><a href="/aboutus">Email newsletter</a></li>
+                <li><a href="/aboutus">Terms and conditions</a></li>
             </ul>
         </div>
     </footer>
