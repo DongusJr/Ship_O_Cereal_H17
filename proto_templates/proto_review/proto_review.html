@@ -1,0 +1,19 @@
+{% load static %}
+
+<h1>Write a review</h1>
+<form method="post">
+    <label>Write a review: </label>
+    <input type="text" id="review" name="review"><br><br>
+    <input type="number" name="rating"><br><br>
+    <input type="submit" value="Submit">
+</form>
+<h1>Reviews</h1>
+{% if reviews %}
+<form method="get">
+{% for review in reviews %}
+    {% include 'proto_review/proto_single_review.html' review=review %}
+{% endfor %}
+    </form>
+{% else %}
+    <h4>No reviews</h4>
+{% endif %}
