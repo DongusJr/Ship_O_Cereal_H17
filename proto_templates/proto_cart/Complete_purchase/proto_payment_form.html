@@ -1,0 +1,6 @@
+
+    <form method="post" class="form form-horizontal" style="border: solid 3px black;margin:auto; padding:5%;">
+        {% csrf_token %}
+        {{  form }}
+        <input type="submit" name="personinfo_step" value="Continue"/>
+    </form>

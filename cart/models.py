@@ -26,6 +26,7 @@ class Cart(models.Model):
         for item in contains_list:
             total += item.quantity*(item.product.price)
         cart_object.total = total
+        cart_object.save()
         return cart_object
 
     @staticmethod
@@ -41,23 +42,24 @@ class Cart(models.Model):
         contains_list = Contains.objects.filter(cart=cart_object)
         number = len(contains_list)
         cart_object.number_of_items = number
+        cart_object.save()
         return cart_object
 
-
-
-    # def complete_cart(self, user_id):
-    #     try:
-    #         cart = Cart.objects.get(user=self.request.user)
-    #     except:
-    #         return
-    #     contains_of_cart = Contains.objects.get(cart=cart)
-    #     prev_order = self.request.user.order
-    #     order = Order.objects.create(prev=prev_order)
-    #     for contain in contains_of_cart:
-    #         OrderProduct.objects.create(quantity=contain.quantity, order=order, product=contain.product)
-    #         del contain
-    #     Cart.update_total(cart)
-    #     return True
+    def complete_cart(self, user_id, payment_obj, person_info_obj):
+        try:
+            cart = Cart.objects.get(user=user_id)
+        except:
+            return False
+        contains_of_cart = Contains.objects.filter(cart=cart)
+        products = []
+        print(products)
+        for contain in contains_of_cart:
+            products.append(contain.product)
+            contain.delete()
+        Order.create_order(payment_obj, person_info_obj, user_id, cart.total, products)
+        Cart.update_total(cart)
+        Cart.update_number_of_items(cart)
+        return True
 
 class Contains(models.Model):
     quantity = models.IntegerField()
