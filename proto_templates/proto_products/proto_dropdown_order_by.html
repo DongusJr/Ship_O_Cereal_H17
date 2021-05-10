@@ -1,11 +1,12 @@
+{% load get_list_tag %}
 <div class="dropdown">
   <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
     Order by
   </button>
   <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-    <li><a class="dropdown-item" href="/products?name=ascending">Name ></a></li>
-    <li><a class="dropdown-item" href="/products?name=descending">Name <</a></li>
-    <li><a class="dropdown-item" href="/products?price=ascending">Price ></a></li>
-    <li><a class="dropdown-item" href="/products?price=descending">Price <</a></li>
+    <li><a class="dropdown-item" href="?name=ascending&category={{ request.GET.category }}{% for tag in request.GET|get_list:'tag' %}&tag={{ tag }}{% endfor %}">Name ></a></li>
+    <li><a class="dropdown-item" href="?name=descending&category={{ request.GET.category }}{% for tag in request.GET|get_list:'tag' %}&tag={{ tag }}{% endfor %}">Name <</a></li>
+    <li><a class="dropdown-item" href="?price=ascending&category={{ request.GET.category }}{% for tag in request.GET|get_list:'tag' %}&tag={{ tag }}{% endfor %}">Price ></a></li>
+    <li><a class="dropdown-item" href="?price=descending&category={{ request.GET.category }}{% for tag in request.GET|get_list:'tag' %}&tag={{ tag }}{% endfor %}">Price <</a></li>
   </ul>
 </div>
