@@ -1,0 +1,9 @@
+#selectDiv{
+    display: flex;
+    flex-direction: row;
+}
+.GoToAnchorThing{
+    border: 3px solid var(--dark);
+    width: 30%;
+    height: ;
+}
