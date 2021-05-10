@@ -1,9 +1,16 @@
+#mainH1{
+    text-align: center;
+}
 #selectDiv{
     display: flex;
     flex-direction: row;
+    height: 350px;
 }
 .GoToAnchorThing{
+    background-color: antiquewhite;
+    text-align: center;
     border: 3px solid var(--dark);
-    width: 30%;
-    height: ;
+    width: 16%;
+    height: 150px;
+    margin: auto;
 }
