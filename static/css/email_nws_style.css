@@ -1,25 +1,34 @@
 .email_page {
+    width: 100%;
+    display: flex;
     margin: auto;
+    align-items: center;
     justify-content: center;
 }
 
 .email_box {
+
+    color: var(--dark);
+    width: 100%;
     display: flex;
     flex-direction: column;
+    text-align: center;
 }
 
 input[type=text]{
-  width: 20%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  display: block;
-  border: 1px solid #ccc;
-  box-sizing: border-box;
+    justify-content: center;
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
 }
 
 .email_box button {
-    background-color: black;
-    color: white;
+    align-self: center;
+    background-color: var(--dark);
+    color: var(--light);
     padding: 14px 20px;
     margin: 8px 0;
     border: none;
