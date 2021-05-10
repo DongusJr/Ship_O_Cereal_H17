@@ -54,16 +54,15 @@
                     <a href="/user/cart"> <!-- go to cart -->
                         <div id="cart">
                             <img src="../static/images/cart.svg" alt="cart">
-                            {{cart_amount}}
 
                             <form method="get">
-                                {% if not number %}
+                                {% if not cart_amount %}
                                     <a href="/user/cart"> 0 items </a>
                                 {% else %}
-                                    {% if number == 1 %}
+                                    {% if cart_amount == 1 %}
                                         <a href="/user/cart" > 1 item </a>
                                     {% else %}
-                                        <a class="nav-link active" aria-current="page" href="{% url 'cart_page' %}">{{number}} items</a>
+                                        <a class="nav-link active" aria-current="page" href="{% url 'cart_page' %}">{{cart_amount}} items</a>
                                     {% endif %}
                                 {% endif %}
                             </form>

@@ -79,3 +79,22 @@ class ProductTag(models.Model):
             # Add tag to return list
             tags.append({'id':tag.id, 'name':tag.name, 'products':products})
         return tags
+
+    @staticmethod
+    def get_products_with_tag(tag_name):
+        print(tag_name)
+        tag = ProductTag.objects.get(name__iexact=(tag_name))
+        tag_queryset = ProductTag.objects.prefetch_related('product')
+
+        product_image_map = ProductImage.get_first_image_for_each_product()
+
+        products = [{'id': product.id,
+                     'name': product.name,
+                     'description': product.description,
+                     'price': product.price,
+                     'category': product.category,
+                     'image': product_image_map[product.id]
+                     }
+                    for product in tag.product.all()]
+        return products
+
