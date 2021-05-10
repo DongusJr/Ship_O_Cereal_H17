@@ -9,6 +9,7 @@ class ReviewLogic(TemplateView):
     data = {}
 
     def get(self, request, *args, **kwargs):
+        print(*args)
         product = Products.objects.get(pk=request.GET.get('product_id'))
         all_reviews = Review.objects.filter(product=product)
         self.data['reviews'] = all_reviews
