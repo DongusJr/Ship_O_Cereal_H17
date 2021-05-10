@@ -73,8 +73,7 @@ class Order(models.Model):
             orders : list[dict<id, total, products>]
                    : products : list[dict<id, name, price, image>]
         '''
-        order_queryset = Order.objects.prefetch_related(
-            Prefetch('profile', queryset=Profile.objects.filter(user_id=user_id)))
+        order_queryset = Order.objects.filter(profile_id=user_id).prefetch_related('product')
 
         product_image_map = ProductImage.get_first_image_for_each_product()
         orders = []

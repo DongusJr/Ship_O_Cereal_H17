@@ -75,6 +75,7 @@ class UserProfile(TemplateView):
 
     def get_context_data(self, **kwargs):
         user_id = self.request.user.id
+        print(user_id)
         data = super(UserProfile, self).get_context_data(**kwargs)
         user_profile = Profile.get_profile_info_for_user(user_id)
         data['profile'] = user_profile
