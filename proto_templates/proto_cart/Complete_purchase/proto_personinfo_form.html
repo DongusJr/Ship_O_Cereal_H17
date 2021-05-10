@@ -1,10 +1,6 @@
-{% extends 'proto_base.html' %}
-{% block content %}
-    <div style="display: flex; justify-content: space-evenly;">
+
     <form method="post" class="form form-horizontal" style="border: solid 3px black;margin:auto; padding:5%;">
         {% csrf_token %}
         {{  form }}
-    <input type="submit" name="submit" class="btn btn-primary" value="Continue"/>
+        <input type="submit" name="review_step" value="Continue"/>
     </form>
-    </div>
-{% endblock %}

@@ -11,7 +11,7 @@
     <p>No items in cart</p>
     {% endif %}
     {% if has%}
-        <button name="complete_purchase" type="submit"><a href="{% url 'complete_order'%}">Complete order</a></button>
+        <button name="complete_purchase" type="submit" value="test"><a href="{% url 'complete_order'%}">Complete order</a></button>
     {% else %}
     <form method="get">
         <button class="btn btn-outline-success" type="submit" href="{% url 'product_index' %}">View products</button>
