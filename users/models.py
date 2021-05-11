@@ -44,6 +44,17 @@ class Profile(models.Model):
                                'username': profile.user.username}
         return profile_information
 
+    @staticmethod
+    def update_img(image, user_id):
+        profile = Profile.objects.get(id=user_id)
+        profile.image = image
+        profile.save()
+
+    @staticmethod
+    def update_desc(desc, user_id):
+        profile = Profile.objects.get(id=user_id)
+        profile.description = desc
+        profile.save()
 
 class Order(models.Model):
     total = models.IntegerField(default=0)
@@ -73,8 +84,7 @@ class Order(models.Model):
             orders : list[dict<id, total, products>]
                    : products : list[dict<id, name, price, image>]
         '''
-        order_queryset = Order.objects.prefetch_related(
-            Prefetch('profile', queryset=Profile.objects.filter(user_id=user_id)))
+        order_queryset = Order.objects.filter(profile_id=user_id).prefetch_related('product')
 
         product_image_map = ProductImage.get_first_image_for_each_product()
         orders = []

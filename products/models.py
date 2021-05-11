@@ -13,6 +13,7 @@ class NutritionalInfo(models.Model):
 
 class Products(models.Model):
     name = models.CharField(max_length=64)
+    short_description = models.CharField(max_length=100)
     description = models.CharField(max_length=512)
     price = models.FloatField()
     category = models.CharField(max_length=64)
@@ -27,9 +28,11 @@ class Products(models.Model):
             product.in_stock += quantity
 
     @staticmethod
-    def get_products():
+    def get_products(product_query=None):
         product_image_map = ProductImage.get_first_image_for_each_product()
 
+        if product_query is None:
+            product_query = Products.objects.all()
         products = [{'id': product.id,
                      'name': product.name,
                      'description': product.description,
@@ -37,7 +40,7 @@ class Products(models.Model):
                      'category': product.category,
                      'image': product_image_map[product.id]
                      }
-                    for product in Products.objects.all()]
+                    for product in product_query]
         return products
 
 

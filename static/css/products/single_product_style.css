@@ -94,11 +94,21 @@
 
 }
 #ProductRatingInfo{
+    margin-top: 20px;
     display: flex;
     flex-direction: row;
+    height: 50px;
 }
+#ProductRatingInfo img{
+    height: 100%;
+}
+#rating\/5{
 
-
+    color: var(--dark);
+}
+#rating\/5 h1{
+    margin: 6px;
+}
 #ProductNutrDiv{
     width: 100px;
     margin: 20px;
@@ -143,4 +153,17 @@
 }
 #servings p{
     margin-bottom: -30px;
+}
+
+#writeReview{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}
+#writeReview form{
+    display: flex;
+    flex-direction: column;
+}
+#writeReview rate{
+
 }

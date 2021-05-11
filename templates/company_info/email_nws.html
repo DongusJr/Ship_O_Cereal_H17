@@ -5,23 +5,28 @@
 <link rel="stylesheet" href="../static/css/company_info/email_nws_style.css">
 
 <div class="email_page">
-  <form action={% url 'login_register' %} method="post">
+  <form method="post">
         {% csrf_token %}
         <div class="email_box">
-            <h3>Sign up for newsletter</h3>
-            <label for="email"><b>Email</b></label>
+
+            <h3>Log in</h3>
+
+            <label><b>Email</b></label>
+
             <input type="text" placeholder="Enter email" name="email" required>
 
-            <label for="name"><b>Full name</b></label>
+            <label><b>Full name</b></label>
             <input type="text" placeholder="Enter full name" name="name" required>
 
-            <label for="phonenr"><b>Phone number</b></label>
+            <label><b>Phone number</b></label>
             <input type="text" placeholder="Enter phone number" name="phonenr" required>
 
-            <label for="town"><b>Zip code</b></label>
-            <input type="text" placeholder="Enter zip code" name="town" required>
 
-            <button type="submit" name="submit" value="submit">Submit</button>
+            <label><b>Zip code</b></label>
+            <input type="text" placeholder="Enter Zip code" name="town" required>
+
+
+            <input type="submit" value="Submit">
 
         </div>
     </form>
