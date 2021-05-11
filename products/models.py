@@ -27,6 +27,7 @@ class Products(models.Model):
             product.in_stock -= quantity
         else:
             product.in_stock += quantity
+        product.save()
 
     @staticmethod
     def get_products(product_query=None):

@@ -66,7 +66,8 @@ class ProductLogic(TemplateView):
             criteria = self.request.GET.get('criteria')
             if criteria != '':
                 products = products.filter(name__icontains=criteria)
-                SearchHistory.add_to_search_history(criteria, self.request.user)
+                if self.request.user:
+                    SearchHistory.add_to_search_history(criteria, self.request.user)
 
         if 'category' in self.request.GET:
             list_of_all_categories = self.get_all_unique_categories()
@@ -95,7 +96,8 @@ class SingleProduct(TemplateView):
     def get(self, request, *args, **kwargs):
         id = self.kwargs['id']
         product = get_object_or_404(Products, pk=id)
-        ProductViewed.add_to_previously_viewed(product, self.request.user).save()
+        if self.request.user:
+            ProductViewed.add_to_previously_viewed(product, self.request.user).save()
         self.data['product'] = product
         if 'quant' in self.request.GET:
             quantity = self.request.GET.get('quant')
@@ -164,7 +166,7 @@ def update_product(request, id):
         pass
     else:
         form = ProductUpdateForm(data=product_data)
-    return render(request, 'proto_products/proto_update_product.html', {
+    return render(request, 'proto_update_product.html', {
         'form': form,
         'id': id
     })
