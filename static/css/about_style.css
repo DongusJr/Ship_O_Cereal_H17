@@ -14,10 +14,20 @@
     text-align: center;
     border: 3px solid var(--dark);
     width: 16%;
-    height: 150px;
+    height: 200px;
     margin: auto;
 }
-
+.paragraphsFRow{
+    display: flex;
+    flex-direction: row;
+}
 .paragraph{
-    width: 50%;
+    width: 60%;
+}
+.imageInPar{
+    padding: 20px;
+    width: 40%;
+}
+.imageInPar img{
+    width: 100%;
 }
