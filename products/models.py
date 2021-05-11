@@ -2,6 +2,7 @@ from django.db import models
 
 # Create your models here.
 from django.db.models import Prefetch
+from django.shortcuts import get_object_or_404
 
 
 class NutritionalInfo(models.Model):
@@ -43,6 +44,26 @@ class Products(models.Model):
                      }
                     for product in product_query]
         return products
+
+    @staticmethod
+    def get_detail_data_for_product(id):
+        product = get_object_or_404(Products, pk=id)
+        tags = ProductTag.objects.filter(product=product).values()
+        data = {'name': product.name,
+                'description': product.description,
+                'short_description': product.short_description,
+                'price': product.price,
+                'category': product.category,
+                'in_stock': product.in_stock,
+                'energy': product.nutritional_info.energy,
+                'sugar': product.nutritional_info.sugar,
+                'fat': product.nutritional_info.fat,
+                'saturates': product.nutritional_info.saturates,
+                'serving_amount': product.nutritional_info.serving_amount,
+                'tags': tags
+                }
+        return data
+
 
 
 class ProductImage(models.Model):
