@@ -31,6 +31,9 @@
             <p>{{ product.manufacturer}}</p>
 
         </div>
+        <div class="Update Button">
+        <a href="{% url 'update_product' product.id %}" class='block btn btn-primary'>Edit Product</a>
+    </div>
 
     <!-- VG: IDK  why cant we just always se the add to cart
     {% if user.is_authenticated%}
