@@ -46,13 +46,13 @@ class Profile(models.Model):
 
     @staticmethod
     def update_img(image, user_id):
-        profile = Profile.objects.get(id=user_id)
+        profile = Profile.objects.get(user_id=user_id)
         profile.image = image
         profile.save()
 
     @staticmethod
     def update_desc(desc, user_id):
-        profile = Profile.objects.get(id=user_id)
+        profile = Profile.objects.get(user_id=user_id)
         profile.description = desc
         profile.save()
 
