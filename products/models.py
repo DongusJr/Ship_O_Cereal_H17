@@ -13,6 +13,7 @@ class NutritionalInfo(models.Model):
 
 class Products(models.Model):
     name = models.CharField(max_length=64)
+    short_description = models.CharField(max_length=100)
     description = models.CharField(max_length=512)
     price = models.FloatField()
     category = models.CharField(max_length=64)
