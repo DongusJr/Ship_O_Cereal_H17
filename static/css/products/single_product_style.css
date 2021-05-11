@@ -5,30 +5,31 @@
 
 #ProductImages{
     display: flex;
-    max-width: 600px;
+    width: 300px;
     margin: 20px;
     flex-direction: column;
 }
 #largeProductImage{
     background-color: antiquewhite;
-    width: 598px;
-    height: 598px;
+    width: 298px;
+    height: 298px;
     border: 1px solid var(--dark);
 }
 #smallProductImages{
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
 }
 .singleProductImageDiv{
     display: flex;
-    border: 2px solid var(--dark);
-    width: 196px;
-    height: 196px;
+    border: 3px solid var(--dark);
+    width: 94px;
+    height: 94px;
 }
 .singleProductImage{
     margin: auto;
-    max-width: 196px;
-    max-height: 196px;
+    max-width: 100%;
+    max-height: 100%;
 }
 
 #ProductInfoDiv{
@@ -93,14 +94,30 @@
     padding: 20px;
 
 }
+
+#ProductInfo h2{
+    color: var(--dark);
+    float: right;
+    margin-bottom: 0;
+}
 #ProductRatingInfo{
+    margin-top: 20px;
     display: flex;
     flex-direction: row;
+    height: 50px;
 }
+#ProductRatingInfo img{
+    height: 100%;
+}
+#rating\/5{
 
-
+    color: var(--dark);
+}
+#rating\/5 h1{
+    margin: 6px;
+}
 #ProductNutrDiv{
-    width: 100px;
+    width: fit-content;
     margin: 20px;
     margin-left: -10px;
     display: flex;
@@ -108,7 +125,8 @@
 }
 #ProductFancyNutrDiv{
     margin-top: -10px;
-    width: 100px;
+    width: 192px;
+    display: flex;
     flex-direction: row;
     flex-wrap: wrap;
 }
@@ -143,4 +161,48 @@
 }
 #servings p{
     margin-bottom: -30px;
+}
+
+#writeReview{
+    border-top: 3px solid var(--dark);
+    margin: 20px;
+
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}
+#writeReview form{
+    display: flex;
+    flex-direction: column;
+}
+#writeReview .rate{
+    width: fit-content;
+}
+#review{
+    padding: 10px;
+    height: 75px;
+    border-style: solid;
+    border-color: var(--dark);
+}
+.reviews{
+    border-top: 3px var(--dark);
+    border-top-style: dotted;
+    margin: 20px;
+}
+#ratingSubmit{
+    width: fit-content;
+}
+
+.review_rating{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    height: 35px;
+}
+.reviews h3{
+    color: var(--dark);
+}
+.review_text{
+    border-bottom: 2px solid var(--dark);
+    width: 50%;
 }
