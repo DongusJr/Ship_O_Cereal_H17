@@ -37,7 +37,7 @@ class Profile(models.Model):
 
     @staticmethod
     def get_profile_info_for_user(user_id):
-        profile = Profile.objects.get(id=user_id)
+        profile = Profile.objects.get(user_id=user_id)
         profile_information = {'id': profile.id,
                                'description': profile.description,
                                'image': profile.image,
@@ -58,7 +58,7 @@ class Order(models.Model):
 
     @classmethod
     def create_order(cls, payment_obj, person_info_obj, user_id, total, products, delivery=False):
-        user = User.objects.get(user_id=user_id)
+        user = User.objects.get(id=user_id)
         new_order = cls(total=total, profile=user, person_info=person_info_obj, payment_info=payment_obj, delivery=delivery)
         new_order.save()
         for product in products:

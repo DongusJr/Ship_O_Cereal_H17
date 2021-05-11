@@ -114,4 +114,4 @@ class SingleProduct(TemplateView):
         rating = 0
         for review in review_objects:
             rating += review.rating
-        return rating/len(review_objects)
+        return float(round(2 * (rating/len(review_objects)))/2)
