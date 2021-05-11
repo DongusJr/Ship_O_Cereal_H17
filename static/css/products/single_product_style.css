@@ -5,7 +5,7 @@
 
 #ProductImages{
     display: flex;
-    width: fit-content;
+    width: 300px;
     margin: 20px;
     flex-direction: column;
 }
@@ -18,12 +18,13 @@
 #smallProductImages{
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
 }
 .singleProductImageDiv{
     display: flex;
-    border: 1% solid var(--dark);
-    width: 30%;
-    height: 30%;
+    border: 3px solid var(--dark);
+    width: 94px;
+    height: 94px;
 }
 .singleProductImage{
     margin: auto;
@@ -93,6 +94,12 @@
     padding: 20px;
 
 }
+
+#ProductInfo h2{
+    color: var(--dark);
+    float: right;
+    margin-bottom: 0;
+}
 #ProductRatingInfo{
     margin-top: 20px;
     display: flex;
@@ -110,7 +117,7 @@
     margin: 6px;
 }
 #ProductNutrDiv{
-    width: 100px;
+    width: fit-content;
     margin: 20px;
     margin-left: -10px;
     display: flex;
@@ -118,7 +125,8 @@
 }
 #ProductFancyNutrDiv{
     margin-top: -10px;
-    width: 100px;
+    width: 192px;
+    display: flex;
     flex-direction: row;
     flex-wrap: wrap;
 }
@@ -171,6 +179,8 @@
     width: fit-content;
 }
 #review{
+    padding: 10px;
+    height: 75px;
     border-style: solid;
     border-color: var(--dark);
 }
@@ -181,4 +191,18 @@
 }
 #ratingSubmit{
     width: fit-content;
+}
+
+.review_rating{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    height: 35px;
+}
+.reviews h3{
+    color: var(--dark);
+}
+.review_text{
+    border-bottom: 2px solid var(--dark);
+    width: 50%;
 }
