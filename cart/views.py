@@ -11,7 +11,7 @@ from users.models import PaymentInfo
 
 
 class CartView(TemplateView):
-    template_name = 'basket.html'
+    template_name = 'account/basket.html'
     data = {}
 
     def get(self, request, *args, **kwargs):

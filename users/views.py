@@ -71,7 +71,7 @@ def _register(request):
 
 # Create your views here.
 class UserProfile(TemplateView):
-    template_name = 'profile.html'
+    template_name = 'account/profile.html'
 
     def get_context_data(self, **kwargs):
         user_id = self.request.user.id
