@@ -75,7 +75,6 @@ class UserProfile(TemplateView):
 
     def get_context_data(self, **kwargs):
         user_id = self.request.user.id
-        print(user_id)
         data = super(UserProfile, self).get_context_data(**kwargs)
         user_profile = Profile.get_profile_info_for_user(user_id)
         data['profile'] = user_profile
@@ -89,3 +88,16 @@ class UserProfile(TemplateView):
         data['products'] = viewed_products
         data['order_history'] = order_history_list
         return data
+
+class UpdateProfile(TemplateView):
+    template_name = 'update_profile.html'
+    data = {}
+
+    def post(self, request, *args, **kwargs):
+        if 'update_img' in request.POST:
+            img = request.POST.get('update_img')
+            Profile.update_img(img, request.user.id)
+        if 'update_des' in request.POST:
+            desc = request.POST.get('update_des')
+            Profile.update_desc(desc, request.user.id)
+        return redirect('profile')

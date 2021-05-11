@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 
 import products.views
+import aboutus.views
 
 urlpatterns = [
     path('', products.views.get_product_by_tags, name='landing_page'),
@@ -25,5 +26,6 @@ urlpatterns = [
     path('user/', include('users.urls')),
     path('user/', include('cart.urls')),
     path('aboutus/', include('aboutus.urls')),
-    path('openinghours/', include('opening_hours.urls'))
+    path('openinghours/', include('opening_hours.urls')),
+    path('newsletter/', aboutus.views.EmailNewsLetter.as_view(), name='newsletter')
 ]
