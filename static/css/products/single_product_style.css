@@ -5,14 +5,14 @@
 
 #ProductImages{
     display: flex;
-    max-width: 600px;
+    width: fit-content;
     margin: 20px;
     flex-direction: column;
 }
 #largeProductImage{
     background-color: antiquewhite;
-    width: 598px;
-    height: 598px;
+    width: 298px;
+    height: 298px;
     border: 1px solid var(--dark);
 }
 #smallProductImages{
@@ -21,14 +21,14 @@
 }
 .singleProductImageDiv{
     display: flex;
-    border: 2px solid var(--dark);
-    width: 196px;
-    height: 196px;
+    border: 1% solid var(--dark);
+    width: 30%;
+    height: 30%;
 }
 .singleProductImage{
     margin: auto;
-    max-width: 196px;
-    max-height: 196px;
+    max-width: 100%;
+    max-height: 100%;
 }
 
 #ProductInfoDiv{
@@ -156,6 +156,9 @@
 }
 
 #writeReview{
+    border-top: 3px solid var(--dark);
+    margin: 20px;
+
     display: flex;
     flex-direction: column;
     width: 50%;
@@ -164,6 +167,18 @@
     display: flex;
     flex-direction: column;
 }
-#writeReview rate{
-
+#writeReview .rate{
+    width: fit-content;
+}
+#review{
+    border-style: solid;
+    border-color: var(--dark);
+}
+.reviews{
+    border-top: 3px var(--dark);
+    border-top-style: dotted;
+    margin: 20px;
+}
+#ratingSubmit{
+    width: fit-content;
 }

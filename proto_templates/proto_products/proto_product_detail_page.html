@@ -1,5 +1,6 @@
 {% extends "base_page.html" %}
 {% block content %}
+
 <link rel="stylesheet" href="../static/css/products/single_product_style.css">
 <link rel="stylesheet" href="../static/css/products/cool_star_style.css">
 
@@ -119,7 +120,7 @@
     <form method="post">
         {% csrf_token %}
 
-        <label>Leave a Rating</label> <br><br>
+        <label>Leave a Rating</label>
         <div class="rate">
             <input type="radio" id="star5" name="rate" value="5" />
             <label for="star5" title="text">5 stars</label>
@@ -132,10 +133,10 @@
             <input type="radio" id="star1" name="rate" value="1" />
             <label for="star1" title="text">1 star</label>
 
-        </div> <br><br>
+        </div>
         <label>Write a review: </label>
-        <input type="text" id="review" name="review"><br><br>
-        <input type="submit" value="Submit">
+        <input type="text" id="review" name="review">
+        <input type="submit" value="Submit" id="ratingSubmit">
     </form>
 </div>
 {% endif %}
