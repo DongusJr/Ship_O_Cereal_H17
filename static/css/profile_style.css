@@ -1,8 +1,12 @@
+.profile_page {
+    display: flex;
+    flex-direction: column;
+}
+
 .profile_container {
     display: flex;
     flex-direction: row;
-    margin: auto;
-    margin-left: 4rem;
+    margin-inline: 10rem;
     height: auto;
 }
 
@@ -30,6 +34,7 @@
     display: flex;
     flex-direction: row;
     margin-left: auto;
+    align-items: center;
 }
 
 .profile_pic {
@@ -37,6 +42,7 @@
     flex-direction: column;
     margin-top: 4rem;
     width: 15%;
+    text-align: center;
 }
 
 .profile_pic img {
@@ -52,8 +58,7 @@
 }
 
 .prev_order_container {
-    margin-top: 10rem;
-    margin-left: 4rem;
+    margin: 10rem;
     color: var(--dark);
 }
 
@@ -85,4 +90,12 @@
 .btn {
     color: var(--light);
     height: fit-content;
+    margin-left: 1rem;
+}
+
+.prev_order_box {
+    border: 3px solid var(--dark);
+    border-radius: 10px;
+    padding: 1rem;
+    margin: auto;
 }

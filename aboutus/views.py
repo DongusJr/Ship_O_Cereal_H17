@@ -8,7 +8,7 @@ class AboutUs(TemplateView):
     This view class allows us to view the page which has all information
     regarding the Ship O' Cereal operation
     '''
-    template_name = 'proto_aboutus/proto_aboutus.html'
+    template_name = 'about_us.html'
     data = {}
 
     def get(self, request, *args, **kwargs):
@@ -44,3 +44,4 @@ class EmailNewsLetter(TemplateView):
         via the frontend
         '''
         return redirect('product_index')
+

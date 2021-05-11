@@ -8,8 +8,11 @@
   <form method="post">
         {% csrf_token %}
         <div class="email_box">
+
             <h3>Log in</h3>
+
             <label><b>Email</b></label>
+
             <input type="text" placeholder="Enter email" name="email" required>
 
             <label><b>Full name</b></label>
@@ -18,8 +21,10 @@
             <label><b>Phone number</b></label>
             <input type="text" placeholder="Enter phone number" name="phonenr" required>
 
-            <label><b>Town number</b></label>
-            <input type="text" placeholder="Enter town number" name="town" required>
+
+            <label><b>Zip code</b></label>
+            <input type="text" placeholder="Enter Zip code" name="town" required>
+
 
             <input type="submit" value="Submit">
 

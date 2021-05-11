@@ -7,9 +7,9 @@
     width: 40%;
     border: 5px solid var(--dark);
     border-radius: 10px;
-    height: 20rem;
+    height: fit-content;
     margin: auto;
-    margin-block: 2rem;
+    padding: 1rem;
 }
 
 .cart_item {
@@ -27,6 +27,7 @@
     margin-top: 2rem;
     margin-bottom: auto;
     margin-inline: auto;
+    padding: 1rem;
 }
 
 .summary button {
@@ -38,6 +39,7 @@
 }
 .summary h1 {
     color: var(--dark);
+    margin-top: 0px;
 }
 
 summary p {
