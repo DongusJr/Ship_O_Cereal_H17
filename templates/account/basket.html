@@ -4,21 +4,23 @@
 
 
 <div class="cart_page">
+
     <div class="cart">
         {% if cart %}
             {% for product in cart %}
                 <div class="cart_item">
-                    {% include 'proto_cart/proto_cart_product.html' with product=product%}
+                    {% include '../proto_cart/proto_cart_product.html' with product=product%}
                 </div>
             {% endfor %}
         {% else %}
         <p >No items in cart</p>
         {% endif %}
     </div>
+
     <div class="summary">
         <h1>Summary</h1>
-        <h4>{{purchase.total}}</h4>
-        <button type="button">Buy</button>
+        <h4>{{purchase.total}}£</h4>
+        <a href="{% url 'complete_order'%}" ><button type="button" >Buy</button> </a>
     </div>
 </div>
 
