@@ -34,7 +34,7 @@ def login_register(request):
     #     'form_1' : register_form,
     #     'form_2' : login_form
     # })
-    return render(request, 'login_page.html', {
+    return render(request, 'account/login_page.html', {
         'form_1' : register_form,
         'form_2' : login_form
     })
