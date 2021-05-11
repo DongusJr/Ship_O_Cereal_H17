@@ -13,6 +13,15 @@ class Cart(models.Model):
 
     @staticmethod
     def update_total(cart_object, total=0):
+        '''
+        update_total(cart_object, total)
+
+        parameters: cart_object: Cart, total: int
+        The method takes in the cart object and finds all Contains objects associated with the
+        cart. We then preceed to calculating the total of the cart.
+        We then change the cart object's class variable total to reflect the calculated total.
+        Then we return the cart object.
+        '''
         contains_list = Contains.objects.filter(cart=cart_object)
         for item in contains_list:
             total += item.quantity*(item.product.price)
@@ -22,6 +31,14 @@ class Cart(models.Model):
 
     @staticmethod
     def update_number_of_items(cart_object):
+        '''
+        update_number_of_items(cart_object)
+
+        parameters: cart_object: Cart
+        The method takes in the cart_object which we then preceed to find all associated
+        Contains objects then we find the length of the query set and update the Cart object
+        and return the cart object
+        '''
         contains_list = Contains.objects.filter(cart=cart_object)
         number = len(contains_list)
         cart_object.number_of_items = number
@@ -85,4 +102,8 @@ class ProductViewed(models.Model):
 
     @staticmethod
     def get_all_viewed_products(user):
-        return ProductViewed.objects.filter(user=user)
+        products_viewed = ProductViewed.objects.filter(user=user)
+        product_list = []
+        for product in products_viewed:
+            product_list.append(product.product)
+        return product_list
