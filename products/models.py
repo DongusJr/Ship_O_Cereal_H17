@@ -35,6 +35,7 @@ class Products(models.Model):
             product_query = Products.objects.all()
         products = [{'id': product.id,
                      'name': product.name,
+                     'short_description': product.short_description,
                      'description': product.description,
                      'price': product.price,
                      'category': product.category,
@@ -68,6 +69,9 @@ class ProductTag(models.Model):
     name = models.CharField(max_length=64)
     product = models.ManyToManyField(Products)
 
+    def __str__(self):
+        return self.name
+
     @staticmethod
     def select_all_related_products():
         ''' Function that returns a list with every tag and  every product that is associated with said tag.
@@ -88,6 +92,7 @@ class ProductTag(models.Model):
             # products associated with tag
             products = [{'id':product.id,
                          'name':product.name,
+                         'short_description': product.short_description,
                          'description':product.description,
                          'price':product.price,
                          'category':product.category,
