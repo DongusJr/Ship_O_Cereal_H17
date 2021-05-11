@@ -1,27 +1,27 @@
-{% load static %}
 {% extends 'base_page.html' %}
+{% load static %}
 {% block content %}
 
 <link rel="stylesheet" href="../static/css/email_nws_style.css">
 
 <div class="email_page">
-  <form action={% url 'login_register' %} method="post">
+  <form method="post">
         {% csrf_token %}
         <div class="email_box">
             <h3>Log in</h3>
-            <label for="email"><b>Email</b></label>
+            <label><b>Email</b></label>
             <input type="text" placeholder="Enter email" name="email" required>
 
-            <label for="name"><b>Full name</b></label>
+            <label><b>Full name</b></label>
             <input type="text" placeholder="Enter full name" name="name" required>
 
-            <label for="phonenr"><b>Phone number</b></label>
+            <label><b>Phone number</b></label>
             <input type="text" placeholder="Enter phone number" name="phonenr" required>
 
-            <label for="town"><b>Town number</b></label>
+            <label><b>Town number</b></label>
             <input type="text" placeholder="Enter town number" name="town" required>
 
-            <button type="submit" name="submit" value="submit">Submit</button>
+            <input type="submit" value="Submit">
 
         </div>
     </form>
