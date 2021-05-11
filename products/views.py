@@ -96,16 +96,11 @@ class SingleProduct(TemplateView):
     def post(self, request, *args, **kwargs):
         product = Products.objects.get(id=kwargs['id'])
         review_object = Review.objects.create(user=request.user, product=product)
-        if 'rating' in request.POST and review_object.rating:
-            rating = request.POST.get('rating')
-            if rating:
-                if int(rating) > 10:
-                    rating = 10
-                elif int(rating) < 1:
-                    rating = 1
-                review_object.rating = rating
-                review_object.save()
-        if 'review' in self.request.POST and review_object.comment:
+        if 'rate' in request.POST and review_object.rating:
+            rating = request.POST.get('rate')
+            review_object.rating = rating
+            review_object.save()
+        if 'review' in self.request.POST:
             review = self.request.POST.get('review')
             if review:
                 review_object.comment = review
@@ -119,4 +114,4 @@ class SingleProduct(TemplateView):
         rating = 0
         for review in review_objects:
             rating += review.rating
-        return round(rating/len(review_objects))
+        return rating/len(review_objects)
