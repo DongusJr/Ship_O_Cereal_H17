@@ -1,4 +1,4 @@
-#main_profile_connection {
+.main_profile_connection {
     display: flex;
     flex-direction: row;
     margin: 0px;
@@ -63,7 +63,7 @@ input[type=text], input[type=password] {
     width: 5rem;
 }
 
-button {
+.main_profile_connection button {
     background-color: var(--dark);
     color: white;
     padding: 14px 20px;
