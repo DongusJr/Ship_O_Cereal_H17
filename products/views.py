@@ -1,5 +1,8 @@
-from django.shortcuts import render, get_object_or_404
-from products.models import Products, ProductTag
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, get_object_or_404, redirect
+
+from products.forms.productform import ProductCreateForm
+from products.models import Products, ProductTag, ProductImage, NutritionalInfo
 from django.views.generic import TemplateView
 from cart.models import Contains, ProductViewed
 from django import template
@@ -24,6 +27,19 @@ class ProductLogic(TemplateView):
     def get_context_data(self, **kwargs):
         data = super(ProductLogic, self).get_context_data(**kwargs)
         products= Products.objects.all()
+
+        if 'criteria' in self.request.GET:
+            criteria = self.request.GET.get('criteria')
+            if criteria != '':
+                products = products.filter(name__icontains=criteria)
+
+        if 'category' in self.request.GET:
+            list_of_all_categories = self.get_all_unique_categories()
+            category = self.request.GET['category']
+            if category in list_of_all_categories:
+                data['category'] = category
+                products = products.filter(category__exact=category)
+
         if 'tag' in self.request.GET:
             tags_in_use = self.request.GET.getlist('tag')
             data['tags'] = ProductTag.objects.exclude(name__in=tags_in_use)
@@ -45,19 +61,6 @@ class ProductLogic(TemplateView):
                 products = products.order_by('price')
             elif order == 'ascending':
                 products = products.order_by('-price')
-
-        if 'criteria' in self.request.GET:
-            criteria = self.request.GET.get('criteria')
-            if criteria != '':
-                products = products.filter(name__icontains=criteria)
-
-        if 'category' in self.request.GET:
-            list_of_all_categories = self.get_all_unique_categories()
-            category = self.request.GET['category']
-            print(category)
-            if category in list_of_all_categories:
-                data['category'] = category
-                products = products.filter(category__exact=category)
 
         data['category'] = 'Cereal'
         data['products'] = Products.get_products(products)
@@ -115,3 +118,37 @@ class SingleProduct(TemplateView):
         for review in review_objects:
             rating += review.rating
         return float(round(2 * (rating/len(review_objects)))/2)
+
+
+@login_required
+def create_product(request):
+    if request.method == 'POST':
+        print(request.POST)
+        form = ProductCreateForm(data=request.POST)
+        if form.is_valid():
+            print("VALID")
+            nutritional_info = NutritionalInfo(energy=request.POST['energy'],
+                                               sugar=request.POST['sugar'],
+                                               fat=request.POST['fat'],
+                                               saturates=request.POST['saturates'],
+                                               serving_amount=request.POST['serving_amount'])
+            nutritional_info.save()
+            product = Products(name=request.POST['name'],
+                               short_description=request.POST['short_description'],
+                               description=request.POST['description'],
+                               price=request.POST['price'],
+                               category=request.POST['category'],
+                               nutritional_info=nutritional_info,
+                               in_stock=request.POST['in_stock'],)
+            product.save()
+            for tag_id in request.POST.getlist('tags'):
+                tag = ProductTag.objects.get(id=tag_id)
+                tag.product.add(product)
+            product_image = ProductImage(image=request.POST['image'], product=product)
+            product_image.save()
+            return redirect('product_index')
+    else:
+        form = ProductCreateForm()
+    return render(request, 'proto_products/proto_create_product.html', {
+        'form': form
+    })

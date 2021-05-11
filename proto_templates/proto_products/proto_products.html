@@ -5,6 +5,9 @@
         {% include 'proto_products/proto_dropdown_tags.html' %}
         {% include 'proto_products/proto_dropdown_order_by.html' %}
     </div>
+    <div class="Create Button">
+        <a href="{% url 'create_product' %}" class='block btn btn-primary'>Add a product</a>
+    </div>
 
     <h1>Products</h1>
     <div style="display:flex;flex-wrap: wrap" id="category">
