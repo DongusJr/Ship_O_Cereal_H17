@@ -44,6 +44,17 @@ class Profile(models.Model):
                                'username': profile.user.username}
         return profile_information
 
+    @staticmethod
+    def update_img(image, user_id):
+        profile = Profile.objects.get(id=user_id)
+        profile.image = image
+        profile.save()
+
+    @staticmethod
+    def update_desc(desc, user_id):
+        profile = Profile.objects.get(id=user_id)
+        profile.description = desc
+        profile.save()
 
 class Order(models.Model):
     total = models.IntegerField(default=0)

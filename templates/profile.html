@@ -8,12 +8,12 @@
     <div class="profile_container">
         <div class="profile_pic">
             <img src="{{ profile.image }}"/>
-            <a href="#">Change profile picture</a>
+            <a href="{% url 'update_profile' %}">Change profile picture</a>
         </div>
         <div class="profile_info">
             <div class="profile_name">
                     <h1>{{profile.username}}</h1>
-                    <button class="btn">EDIT</button>
+                    <a href="{% url 'update_profile' %}">Edit Profile</a>
                 </div>
             <div class="description_box">
                 <h4>Description:</h4>
