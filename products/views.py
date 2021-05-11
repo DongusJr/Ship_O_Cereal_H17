@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 
-from products.forms.productform import ProductCreateForm, ProductUpdateForm
+from products.forms.productform import ProductCreateForm
 from products.models import Products, ProductTag, ProductImage, NutritionalInfo
 from django.views.generic import TemplateView
 from cart.models import Contains, ProductViewed
@@ -66,8 +66,7 @@ class ProductLogic(TemplateView):
             criteria = self.request.GET.get('criteria')
             if criteria != '':
                 products = products.filter(name__icontains=criteria)
-                if self.request.user:
-                    SearchHistory.add_to_search_history(criteria, self.request.user)
+                SearchHistory.add_to_search_history(criteria, self.request.user)
 
         if 'category' in self.request.GET:
             list_of_all_categories = self.get_all_unique_categories()
@@ -96,8 +95,7 @@ class SingleProduct(TemplateView):
     def get(self, request, *args, **kwargs):
         id = self.kwargs['id']
         product = get_object_or_404(Products, pk=id)
-        if self.request.user:
-            ProductViewed.add_to_previously_viewed(product, self.request.user).save()
+        ProductViewed.add_to_previously_viewed(product, self.request.user).save()
         self.data['product'] = product
         if 'quant' in self.request.GET:
             quantity = self.request.GET.get('quant')
@@ -141,8 +139,21 @@ def create_product(request):
         print(request.POST)
         form = ProductCreateForm(data=request.POST)
         if form.is_valid():
-            nutritional_info = _create_nutritional_info(request.POST)
-            product = _create_product(request.POST, nutritional_info)
+            print("VALID")
+            nutritional_info = NutritionalInfo(energy=request.POST['energy'],
+                                               sugar=request.POST['sugar'],
+                                               fat=request.POST['fat'],
+                                               saturates=request.POST['saturates'],
+                                               serving_amount=request.POST['serving_amount'])
+            nutritional_info.save()
+            product = Products(name=request.POST['name'],
+                               short_description=request.POST['short_description'],
+                               description=request.POST['description'],
+                               price=request.POST['price'],
+                               category=request.POST['category'],
+                               nutritional_info=nutritional_info,
+                               in_stock=request.POST['in_stock'],)
+            product.save()
             for tag_id in request.POST.getlist('tags'):
                 tag = ProductTag.objects.get(id=tag_id)
                 tag.product.add(product)
@@ -154,41 +165,3 @@ def create_product(request):
     return render(request, 'proto_products/proto_create_product.html', {
         'form': form
     })
-
-
-@login_required
-def update_product(request, id):
-    product_data = Products.get_detail_data_for_product(id)
-    if request.method == 'POST':
-        # form = ProductUpdateForm(data=data)
-        # if form.is_valid():
-        #     print("VALID UPDATE")
-        pass
-    else:
-        form = ProductUpdateForm(data=product_data)
-    return render(request, 'proto_update_product.html', {
-        'form': form,
-        'id': id
-    })
-
-
-def _create_nutritional_info(data):
-    nutritional_info = NutritionalInfo(energy=data['energy'],
-                                       sugar=data['sugar'],
-                                       fat=data['fat'],
-                                       saturates=data['saturates'],
-                                       serving_amount=data['serving_amount'])
-    nutritional_info.save()
-    return nutritional_info
-
-
-def _create_product(data, nutritional_info):
-    product = Products(name=data['name'],
-                       short_description=data['short_description'],
-                       description=data['description'],
-                       price=data['price'],
-                       category=data['category'],
-                       nutritional_info=nutritional_info,
-                       in_stock=data['in_stock'])
-    product.save()
-    return product
