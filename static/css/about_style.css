@@ -31,3 +31,10 @@
 .imageInPar img{
     width: 100%;
 }
+.termsSpacer{
+    height: 50vh;
+}
+#termsCond{
+    width: 65%;
+    margin-inline: auto;
+}

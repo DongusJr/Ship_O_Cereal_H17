@@ -61,7 +61,7 @@ class Profile(models.Model):
         the profile associated with the user id and then saving the
         changes
         '''
-        profile = Profile.objects.get(id=user_id)
+        profile = Profile.objects.get(user_id=user_id)
         profile.image = image
         profile.save()
 
@@ -74,7 +74,7 @@ class Profile(models.Model):
         this method is similar to update image where we only
         update the profile's description and save
         '''
-        profile = Profile.objects.get(id=user_id)
+        profile = Profile.objects.get(user_id=user_id)
         profile.description = desc
         profile.save()
 
