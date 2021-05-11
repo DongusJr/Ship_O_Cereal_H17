@@ -45,4 +45,12 @@
             {% include 'proto_products_viewed.html' with product=product %}
         {% endfor %}
     {% endif %}
+
+    <h1>Search History</h1>
+    {% if searches %}
+        {% for search in searches %}
+            <a href="/products/?criteria={{search.previous_searches}}">{{search.previous_searches}}</a>
+        {% endfor %}
+    {% else %}
+    {% endif %}
 {% endblock %}

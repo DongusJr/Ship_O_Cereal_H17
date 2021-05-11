@@ -50,6 +50,7 @@ class ProductLogic(TemplateView):
             criteria = self.request.GET.get('criteria')
             if criteria != '':
                 products = products.filter(name__icontains=criteria)
+                SearchHistory.add_to_search_history(criteria, self.request.user)
 
         if 'category' in self.request.GET:
             list_of_all_categories = self.get_all_unique_categories()

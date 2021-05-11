@@ -37,6 +37,13 @@ class Profile(models.Model):
 
     @staticmethod
     def get_profile_info_for_user(user_id):
+        '''
+        get_profile_info_for_user(user_id)
+
+        parameters: user_id: int
+        this method finds the profile of an authenticated user and collects
+        the information in a dictionary which is then returned
+        '''
         profile = Profile.objects.get(user_id=user_id)
         profile_information = {'id': profile.id,
                                'description': profile.description,
@@ -46,12 +53,27 @@ class Profile(models.Model):
 
     @staticmethod
     def update_img(image, user_id):
+        '''
+        update_img(image, user_id)
+
+        parameters: image: string, user_id: int
+        this method sets a new image for the user by first getting
+        the profile associated with the user id and then saving the
+        changes
+        '''
         profile = Profile.objects.get(id=user_id)
         profile.image = image
         profile.save()
 
     @staticmethod
     def update_desc(desc, user_id):
+        '''
+        update_desc(desc, user_id)
+
+        parameters: desc: string, user_id: int
+        this method is similar to update image where we only
+        update the profile's description and save
+        '''
         profile = Profile.objects.get(id=user_id)
         profile.description = desc
         profile.save()
@@ -69,6 +91,14 @@ class Order(models.Model):
 
     @classmethod
     def create_order(cls, payment_obj, person_info_obj, user_id, total, products, delivery=False):
+        '''
+        create_order(cls, payment_obj, person_info_obj, user_id, total, products, delivery)
+
+        parameters: cls: class, payment_obj: PaymentInfoForm, person_info_obj: PersonInfoForm ,
+        user_id: int, total: int, products: Product list, delivery: boolean
+        the method retains the product list of a previous order and creates a new order class object instance which
+        is associated with the user we then return the class instance
+        '''
         user = User.objects.get(id=user_id)
         new_order = cls(total=total, profile=user, person_info=person_info_obj, payment_info=payment_obj, delivery=delivery)
         new_order.save()
@@ -112,7 +142,13 @@ class SearchHistory(models.Model):
 
     @staticmethod
     def add_to_search_history(text, user):
-        return SearchHistory.objects.create(previous_searches=text, user=user)
+        '''
+        add_to_search_history(text, user)
+
+        parameters: text: string, user: User
+        this method creates a new instance of
+        '''
+        SearchHistory.objects.create(previous_searches=text, user=user).save()
 
 
     @staticmethod

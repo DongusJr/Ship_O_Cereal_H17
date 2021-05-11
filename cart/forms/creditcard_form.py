@@ -7,6 +7,10 @@ from users.models import PaymentInfo
 
 class PaymentForm(ModelForm):
     class Meta:
+        '''
+        this meta class allows to retain and make sure that the user
+        inputs all information which is required to complete a payment process
+        '''
         model = PaymentInfo
         exclude = ['id']
         widgets = {

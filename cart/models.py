@@ -46,13 +46,21 @@ class Cart(models.Model):
         return cart_object
 
     def complete_cart(self, user_id, payment_obj, person_info_obj):
+        '''
+        complete_cart(user_id, payment_obj, person_info_obj)
+
+        parameters: user_id: int, payment_obj: PaymentForm, person_info_obj: PersonInfoForm
+        The method accepts the objects and the user_id to associate cart with user
+        and all Contains objects with that cart then we delete all contains objects
+        and create an order for the user and then update the information of the cart
+        then we return true
+        '''
         try:
             cart = Cart.objects.get(user=user_id)
         except:
             return False
         contains_of_cart = Contains.objects.filter(cart=cart)
         products = []
-        print(products)
         for contain in contains_of_cart:
             products.append(contain.product)
             contain.delete()
@@ -68,6 +76,16 @@ class Contains(models.Model):
 
     @staticmethod
     def add_to_cart(user, product, quantity=1):
+        '''
+        add_to_cart(user, product, quantity)
+
+        parameters: user: User, product: Product, quantity: int
+        This method gets or creates a cart for a registered user and is
+        associated with that cart then the product objects which the user
+        has selected will be associated with the cart and the update and
+        number of items in the cart will be updated with helper methods
+        we then return the contains object
+        '''
         try:
             cart = Cart.objects.get(user=user)
         except:
@@ -80,6 +98,15 @@ class Contains(models.Model):
 
     @staticmethod
     def remove_item(pk):
+        '''
+        remove_item(pk)
+
+        parameters: pk:int
+        this method gets the object associated with the contains object
+        then we find the cart and delete the contains object and save the cart object
+        after using the helper functions which update the number of items in the cart and
+        the total of the cart
+        '''
         contains = Contains.objects.get(pk=pk)
         cart = contains.cart
         contains.delete()
@@ -93,6 +120,15 @@ class ProductViewed(models.Model):
 
     @staticmethod
     def add_to_previously_viewed(product, user):
+        '''
+        add_to_previously_viewed(product, user)
+
+        parameters: product: Product, user: User
+        This method finds whether the product has recently been viewed
+        by the user then we create an object associated with the user as
+        a new item so we do not have a repition of ProductViewed objects
+        in the search history
+        '''
         try:
             ProductViewed.objects.get(user=user, product=product)
             ProductViewed.objects.get(user=user, product=product).delete()
@@ -102,6 +138,14 @@ class ProductViewed(models.Model):
 
     @staticmethod
     def get_all_viewed_products(user):
+        '''
+        get_all_viewed_products(user)
+
+        parameters: user:User
+        this method finds all objects associated with the user object
+        we then place all the viewed products in the product_list we then
+        return the product_list
+        '''
         products_viewed = ProductViewed.objects.filter(user=user)
         product_list = []
         for product in products_viewed:
