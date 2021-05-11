@@ -1,9 +1,33 @@
+.padding{
+    padding: 20px
+}
+#mainH1{
+    text-align: center;
+}
 #selectDiv{
     display: flex;
     flex-direction: row;
+    height: 350px;
 }
 .GoToAnchorThing{
+    background-color: antiquewhite;
+    text-align: center;
     border: 3px solid var(--dark);
-    width: 30%;
-    height: ;
+    width: 16%;
+    height: 200px;
+    margin: auto;
+}
+.paragraphsFRow{
+    display: flex;
+    flex-direction: row;
+}
+.paragraph{
+    width: 60%;
+}
+.imageInPar{
+    padding: 20px;
+    width: 40%;
+}
+.imageInPar img{
+    width: 100%;
 }
