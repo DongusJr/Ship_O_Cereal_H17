@@ -170,7 +170,6 @@ def update_product(request, id):
     })
 
 
-
 def _create_nutritional_info(data):
     nutritional_info = NutritionalInfo(energy=data['energy'],
                                        sugar=data['sugar'],
@@ -179,6 +178,7 @@ def _create_nutritional_info(data):
                                        serving_amount=data['serving_amount'])
     nutritional_info.save()
     return nutritional_info
+
 
 def _create_product(data, nutritional_info):
     product = Products(name=data['name'],
