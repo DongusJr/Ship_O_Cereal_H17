@@ -92,7 +92,7 @@
                     <img src="../static/images/full_bowl.svg" alt="1">
                 {% endif %}
             {% endif %}
-            <div id="rating/5"> <h2>{{rating}}/5</h2> </div>
+            <div id="rating/5"> <h1>{{rating}}/5</h1> </div>
 
         </div>
     </div>
@@ -114,26 +114,30 @@
     </div>
 </div>
 {% if user.is_authenticated %}
-<h1>Write a review</h1>
-<form method="post">
-    {% csrf_token %}
-    <label>Write a review: </label>
-    <input type="text" id="review" name="review"><br><br>
-    <label>Leave a Rating</label> <br><br>
-    <div class="rate">
-    <input type="radio" id="star5" name="rate" value="5" />
-    <label for="star5" title="text">5 stars</label>
-    <input type="radio" id="star4" name="rate" value="4" />
-    <label for="star4" title="text">4 stars</label>
-    <input type="radio" id="star3" name="rate" value="3" />
-    <label for="star3" title="text">3 stars</label>
-    <input type="radio" id="star2" name="rate" value="2" />
-    <label for="star2" title="text">2 stars</label>
-    <input type="radio" id="star1" name="rate" value="1" />
-    <label for="star1" title="text">1 star</label>
-  </div> <br><br>
-    <input type="submit" value="Submit">
-</form>
+<div id="writeReview">
+    <h1>Write a review</h1>
+    <form method="post">
+        {% csrf_token %}
+
+        <label>Leave a Rating</label> <br><br>
+        <div class="rate">
+            <input type="radio" id="star5" name="rate" value="5" />
+            <label for="star5" title="text">5 stars</label>
+            <input type="radio" id="star4" name="rate" value="4" />
+            <label for="star4" title="text">4 stars</label>
+            <input type="radio" id="star3" name="rate" value="3" />
+            <label for="star3" title="text">3 stars</label>
+            <input type="radio" id="star2" name="rate" value="2" />
+            <label for="star2" title="text">2 stars</label>
+            <input type="radio" id="star1" name="rate" value="1" />
+            <label for="star1" title="text">1 star</label>
+
+        </div> <br><br>
+        <label>Write a review: </label>
+        <input type="text" id="review" name="review"><br><br>
+        <input type="submit" value="Submit">
+    </form>
+</div>
 {% endif %}
 <div class="reviews">
     {% if reviews %}
