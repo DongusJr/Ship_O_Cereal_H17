@@ -15,11 +15,6 @@
                 <img src="{{ product_image.image }}" alt="A product image" class="singleProductImage"/>
             </div>
         {% endfor %}
-        {% for product_image in product.productimage_set.all %}
-            <div class="singleProductImageDiv">
-                <img src="{{ product_image.image }}" alt="A product image" class="singleProductImage"/>
-            </div>
-        {% endfor %}
         </div>
     </div>
     <div id="ProductInfoDiv">
@@ -32,9 +27,9 @@
             <h1>{{ product.name }}</h1>
             <p>{{ product.short_description }}</p>
             <p>{{ product.description }}</p>
-            <p>{{ product.price }}</p>
-            <p>{{ product.category }}</p>
             <p>{{ product.manufacturer}}</p>
+
+            <h2>{{ product.price }}£</h2>
 
         </div>
 
@@ -106,24 +101,25 @@
     </div>
     <div id="ProductNutrDiv">
         <div id="servings">
+            {% if product.category == "cereal" %}
             <div>
                 <img src="../static/images/servings_bowl.svg" alt="bowls">
             </div>
-            <p>15{{ product.nutritional_info.quant }}</p>
+            <p>{{ product.nutritional_info.serving_amount }}</p>
+            {% endif %}
         </div>
         <div id="ProductFancyNutrDiv">
-            {% for nutritionType, nutritionVal  in product.nutritional_info.items %}
-                <div class="fancyNutrDiv">{{nutritionType}}<div class="fancyInfo">{{ nutritionVal }} </div> </div>
-            {% endfor %}
+            {% if product.category == "cereal" %}
             <div class="fancyNutrDiv">energy<div class="fancyInfo">{{ product.nutritional_info.energy }} </div> </div>
             <div class="fancyNutrDiv">sugar<div class="fancyInfo">{{ product.nutritional_info.sugar }}g </div> </div>
             <div class="fancyNutrDiv">fat<div class="fancyInfo">{{ product.nutritional_info.fat }} </div> </div>
             <div class="fancyNutrDiv">saturates<div class="fancyInfo"> {{ product.nutritional_info.saturates }} </div> </div>
-
+            {% endif %}
         </div>
 
     </div>
 </div>
+<div class="relatedTag"></div>
 {% if user.is_authenticated %}
 <div id="writeReview">
     <h1>Write a review</h1>
@@ -144,8 +140,7 @@
             <label for="star1" title="text">1 star</label>
 
         </div>
-        <label>Write a review: </label>
-        <input type="text" id="review" name="review">
+        <textarea type="text" id="review" name="review" placeholder="Write a review:"></textarea>
         <input type="submit" value="Submit" id="ratingSubmit">
     </form>
 </div>
@@ -153,7 +148,9 @@
 <div class="reviews">
     {% if reviews %}
         {% for review in reviews %}
-            {% include 'proto_review/proto_single_review.html' %}
+            <div class="singleReview">
+                {% include 'products/product_single_review.html' %}
+            </div>
         {% endfor %}
     {% else %}
         <p>No reviews</p>

@@ -35,7 +35,11 @@ def login_register(request):
             success = _register(request)
             if success:
                 return redirect('profile')
-    return render(request, 'login_page.html', {
+    # return render(request, 'proto_users/account.html', {
+    #     'form_1' : register_form,
+    #     'form_2' : login_form
+    # })
+    return render(request, 'account/login_page.html', {
         'form_1' : register_form,
         'form_2' : login_form
     })
@@ -85,7 +89,7 @@ def _register(request):
 
 # Create your views here.
 class UserProfile(TemplateView):
-    template_name = 'profile.html'
+    template_name = 'account/profile.html'
 
     def get_context_data(self, **kwargs):
         '''

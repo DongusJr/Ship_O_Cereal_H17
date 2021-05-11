@@ -17,7 +17,7 @@ class CartView(TemplateView):
     objects selected for that cart with also the functionality
     to delete items from the cart
     '''
-    template_name = 'basket.html'
+    template_name = 'account/basket.html'
     data = {}
 
     def get(self, request, *args, **kwargs):

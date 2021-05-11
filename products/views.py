@@ -89,7 +89,7 @@ class ProductLogic(TemplateView):
 
 
 class SingleProduct(TemplateView):
-    template_name = 'proto_products/proto_product_detail_page.html'
+    template_name = 'products/single_product_page.html'
     data = {}
 
     def get(self, request, *args, **kwargs):
