@@ -129,10 +129,14 @@
     </div>
 </div>
 <div class="relatedTag">
-    <h3>Related products</h3>
-    {% for product in similar_products %}
-        {% include 'proto_products/proto_product.html' with product=product %}
-    {% endfor %}
+    <div class="related_title">
+        <h3>Related products</h3>
+    </div>
+    <div class="related_products">
+        {% for product in similar_products %}
+            {% include 'proto_products/proto_product.html' with product=product %}
+        {% endfor %}
+    </div>
 </div>
 {% if user.is_authenticated %}
 <div id="writeReview">
