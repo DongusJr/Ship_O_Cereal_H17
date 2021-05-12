@@ -9,23 +9,27 @@
     margin: 20px;
     flex-direction: column;
 }
+
 #largeProductImage{
     background-color: antiquewhite;
     width: 298px;
     height: 298px;
     border: 1px solid var(--dark);
 }
+
 #smallProductImages{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
 }
+
 .singleProductImageDiv{
     display: flex;
     border: 3px solid var(--dark);
     width: 94px;
     height: 94px;
 }
+
 .singleProductImage{
     margin: auto;
     max-width: 100%;
@@ -45,11 +49,13 @@
     flex-direction: row;
     justify-content: flex-end;
 }
+
 #CartProdInfo form{
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
 }
+
 #CartProdInfo .input-group {
     display: flex;
     flex-direction: row;
@@ -70,6 +76,7 @@
     background-color: var(--dark);
     color: var(--light)
 }
+
 #CartProdInfo .btn:hover {
     background-color: var(--darkHover);
     border: solid var(--darkHover);
@@ -81,12 +88,15 @@
     margin-left: 50px;
 
 }
+
 #CartProdInfo .btn-danger {
     border-radius: 10px 0 0 0;
 }
+
 #CartProdInfo .btn-success {
     border-radius: 0 10px 0 0;
 }
+
 #ProductInfo{
     background-color: whitesmoke;
     border: 3px solid var(--dark);
@@ -100,22 +110,27 @@
     float: right;
     margin-bottom: 0;
 }
+
 #ProductRatingInfo{
     margin-top: 20px;
     display: flex;
     flex-direction: row;
     height: 50px;
 }
+
 #ProductRatingInfo img{
     height: 100%;
 }
+
 #rating\/5{
 
     color: var(--dark);
 }
+
 #rating\/5 h1{
     margin: 6px;
 }
+
 #ProductNutrDiv{
     width: fit-content;
     margin: 20px;
@@ -123,6 +138,7 @@
     display: flex;
     flex-direction: column;
 }
+
 #ProductFancyNutrDiv{
     margin-top: -10px;
     width: 192px;
@@ -130,6 +146,7 @@
     flex-direction: row;
     flex-wrap: wrap;
 }
+
 .fancyNutrDiv{
     width: 80px;
     color: var(--dark);
@@ -140,12 +157,14 @@
     text-align: center;
 
 }
+
 .fancyInfo{
 
     background-color: var(--dark);
     color: var(--backgroundWhite);
     border-radius: 25px;
 }
+
 #servings{
     margin-top: 20px;
     display: flex;
@@ -155,6 +174,7 @@
     height: 80px;
     text-align: center;
 }
+
 #servings div{
     margin-top: 10px;
     margin-inline: auto;
@@ -171,6 +191,7 @@
     flex-direction: column;
     width: 50%;
 }
+
 #writeReview form{
     display: flex;
     flex-direction: column;
@@ -178,10 +199,12 @@
 #writeReview .rate{
     width: fit-content;
 }
+
 h2{
     color: var(--dark);
     margin-top: 20px;
 }
+
 #review{
     margin-top: 10px;
     font-family: Roboto, sans-serif;
@@ -190,11 +213,13 @@ h2{
     border: 2px solid var(--dark);
     border-radius: 10px 10px 0 10px;
 }
+
 .reviews{
     border-top: 3px var(--dark);
     border-top-style: dotted;
     margin: 20px;
 }
+
 #ratingSubmit{
     margin-left: auto;
     float: right;
@@ -205,6 +230,7 @@ h2{
     width: fit-content;
     border-radius: 0 0 10px 10px;
 }
+
 #ratingSubmit:hover{
     background-color: var(--darkHover);
     border-color: var(--darkHover);
@@ -216,10 +242,21 @@ h2{
     flex-direction: row;
     height: 35px;
 }
+
 .reviews h3{
     color: var(--dark);
 }
+
 .review_text{
     border-bottom: 2px solid var(--dark);
     width: 50%;
+}
+
+.relatedTag {
+    margin: 20px;
+    border-top: dotted var(--dark);
+}
+
+.relatedTag h3 {
+    color: var(--dark);
 }

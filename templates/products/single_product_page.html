@@ -128,7 +128,13 @@
 
     </div>
 </div>
-<div class="relatedTag"></div>
+<div class="relatedTag">
+    <h3>Related products</h3>
+    {% for product in product.category %}
+        {% block product %}
+        {% endblock %}
+    {% endfor %}
+</div>
 {% if user.is_authenticated %}
 <div id="writeReview">
     <form method="post">
