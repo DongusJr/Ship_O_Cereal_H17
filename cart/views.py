@@ -27,7 +27,7 @@ class CartView(TemplateView):
         and then proceeds to filling the data to be sent
         in the render request
         '''
-        cart = Cart.objects.get(user=request.user)
+        cart = Cart.get_or_create_cart(self.request.user.id)
         contains_list = Contains.objects.filter(cart=cart)
         self.data['purchase'] = cart
         self.data['cart'] = contains_list

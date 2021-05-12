@@ -3,6 +3,7 @@ from datetime import datetime
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 from django.db.models import Prefetch
+from django.core.exceptions import ObjectDoesNotExist
 
 from products.models import Products, ProductImage
 from django.contrib.auth.models import User
@@ -44,7 +45,11 @@ class Profile(models.Model):
         this method finds the profile of an authenticated user and collects
         the information in a dictionary which is then returned
         '''
-        profile = Profile.objects.get(user_id=user_id)
+        try:
+            profile = Profile.objects.get(user_id=user_id)
+        except ObjectDoesNotExist:
+            user = User.objects.get(id=user_id)
+            profile = Profile.objects.create(user=user)
         profile_information = {'id': profile.id,
                                'description': profile.description,
                                'image': profile.image,
