@@ -1,0 +1,25 @@
+{% extends 'base_page.html' %}
+{% load static %}
+{% block content %}
+    <link rel="stylesheet" href="{% static 'css/account/purchase_steps.css' %}">
+    <div id="divWithForm">
+        {% include form_html %} {# includeform #}
+    </div>
+    <div class="button-group">
+    <a href="{% url 'cart_page' %}"><button type="button" name="payment_step" value="navigate"class="btn btn-primary">Back to cart</button></a>
+    <div class="btn-group" role="group" aria-label="Basic example">
+      <button type="button" class="btn btn-primary btn-nav"><a href="{% url 'complete_order' %}?step=payment">Payment</a>
+      </button>
+        <button type="button" class="btn btn-primary btn-nav"
+                {% if not request.session.payment_form %}
+              disabled
+      {% endif %}>
+            <a href="{% url 'complete_order' %}?step=person_info">Person</a></button>
+        <button type="button" class="btn btn-primary btn-nav"
+                {% if not request.session.payment_form or not request.session.person_info_form %}
+                    disabled
+      {% endif %}><a href="{% url 'complete_order' %}?step=review">review</a></button>
+    </div>
+    <script src="{% static 'js/purchase_navigation.js' %}"></script>
+            </div>
+{% endblock %}

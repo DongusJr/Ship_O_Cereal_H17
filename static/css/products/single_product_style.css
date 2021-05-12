@@ -178,11 +178,17 @@
 #writeReview .rate{
     width: fit-content;
 }
+h2{
+    color: var(--dark);
+    margin-top: 20px;
+}
 #review{
+    margin-top: 10px;
+    font-family: Roboto, sans-serif;
     padding: 10px;
     height: 75px;
-    border-style: solid;
-    border-color: var(--dark);
+    border: 2px solid var(--dark);
+    border-radius: 10px 10px 0 10px;
 }
 .reviews{
     border-top: 3px var(--dark);
@@ -190,7 +196,18 @@
     margin: 20px;
 }
 #ratingSubmit{
+    margin-left: auto;
+    float: right;
+    padding-inline: 10px;
+    background-color: var(--dark);
+    border: solid var(--dark);
+    color: var(--light);
     width: fit-content;
+    border-radius: 0 0 10px 10px;
+}
+#ratingSubmit:hover{
+    background-color: var(--darkHover);
+    border-color: var(--darkHover);
 }
 
 .review_rating{

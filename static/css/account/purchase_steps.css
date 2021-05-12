@@ -1,0 +1,19 @@
+#divWithForm{
+    display: flex;
+    flex-direction: row;
+    margin: auto;
+    flex-wrap: wrap;
+    width: 30%;
+
+}
+
+
+#divWithForm .form{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+}
+#divWithForm .form input{
+    width: fit-content;
+}

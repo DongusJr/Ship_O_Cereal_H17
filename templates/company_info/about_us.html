@@ -1,62 +1,63 @@
 {% extends 'base_page.html' %}
+{% load static %}
 {% block content %}
-            <link rel="stylesheet" href="../static/css/company_info/about_style.css">
+<link rel="stylesheet" href="{% static 'css/company_info/about_style.css' %}">
 
-            <h1 id="mainH1">About Ship O' Cereal</h1>
-            <div id="selectDiv">
+<h1 id="mainH1">About Ship O' Cereal</h1>
+<div id="selectDiv">
 
-                <div class="GoToAnchorThing">
-                    <a href="#The_Company">
-                        <h2>Us as a company</h2>
-                        <p>Its all about the cereal</p>
-                    </a>
-                </div>
-                <div class="GoToAnchorThing">
-                    <a href="#How_we_came_to_be">
-                        <h2>How we came to be</h2>
-                        <p>This just started with one friend-group</p>
-                    </a>
-                </div>
-                <div class="GoToAnchorThing">
-                    <a href="#The_Delivery">
-                        <h2>Our delivery service</h2>
-                        <p>Ist a totally different system</p>
-                    </a>
-                </div>
-            </div>
+    <div class="GoToAnchorThing">
+        <a href="#The_Company">
+            <h2>Us as a company</h2>
+            <p>Its all about the cereal</p>
+        </a>
+    </div>
+    <div class="GoToAnchorThing">
+        <a href="#How_we_came_to_be">
+            <h2>How we came to be</h2>
+            <p>This just started with one friend-group</p>
+        </a>
+    </div>
+    <div class="GoToAnchorThing">
+        <a href="#The_Delivery">
+            <h2>Our delivery service</h2>
+            <p>Ist a totally different system</p>
+        </a>
+    </div>
+</div>
 
-    <div class="padding">
-        <div class="paragraphsFRow">
-            <div class="paragraph">
-                <h1 id="The_Company" class="beginningH1">The Company</h1>
-                <p>We pride ourself on being on the forefront of cereal goods. All we do is think about cereal we can't do any thing else. All of our goods are thoroughly tried and tested so that you only get the best and newest products</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean gravida egestas nunc, rutrum ornare orci finibus at. In vitae velit tellus. Praesent commodo egestas urna id convallis. Mauris feugiat cursus felis, mattis egestas magna tristique vel. Fusce faucibus scelerisque sagittis. Morbi ante elit, lacinia semper erat vel, feugiat gravida est. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nullam ac quam in est auctor cursus. Sed et tincidunt sapien, quis aliquet velit. Sed sed tellus imperdiet, ultrices elit varius, auctor lacus. Phasellus mi urna, rutrum vitae nulla non, cursus vestibulum urna. Sed imperdiet ante vel elementum mollis. Sed dapibus vehicula nulla, eget condimentum nisi dignissim sed.</p>
-            </div>
-            <div class="imageInPar" > <img src="../static/images/theCompImg.jpg"> </div>
+<div class="padding">
+    <div class="paragraphsFRow">
+        <div class="paragraph">
+            <h1 id="The_Company" class="beginningH1">The Company</h1>
+            <p>We pride ourself on being on the forefront of cereal goods. All we do is think about cereal we can't do any thing else. All of our goods are thoroughly tried and tested so that you only get the best and newest products</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean gravida egestas nunc, rutrum ornare orci finibus at. In vitae velit tellus. Praesent commodo egestas urna id convallis. Mauris feugiat cursus felis, mattis egestas magna tristique vel. Fusce faucibus scelerisque sagittis. Morbi ante elit, lacinia semper erat vel, feugiat gravida est. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nullam ac quam in est auctor cursus. Sed et tincidunt sapien, quis aliquet velit. Sed sed tellus imperdiet, ultrices elit varius, auctor lacus. Phasellus mi urna, rutrum vitae nulla non, cursus vestibulum urna. Sed imperdiet ante vel elementum mollis. Sed dapibus vehicula nulla, eget condimentum nisi dignissim sed.</p>
         </div>
-        <div class="paragraphsFRow">
-            <div class="imageInPar" > <img src="../static/images/HWCTB.jpg"> </div>
-            <div class="paragraph">
-                <h1 id="How_we_came_to_be" class="beginningH1">How we came to be</h1>
-                <p>This all started with just one friend-group that was adiment on trying all the best and newest cereal. In high school we were obsessed with cereals we just could not get enough of it we skipped most lunches just so we could have the best or newest cereal. But over time the group grew apart we found other interests and groups to hang out with. We still met upp on every wednesday just to have some good cereal. But when time came for universities we couldn't meet upp so easily so we started to send cereal to each other instead. Over time we had gotten good system for sending it to each other and even created a small craze in each of the universities. We started to notice the we weren't the only ones who enjoyed cereal so much. So a couple of us dropped out of university and we all founded this great company. In the beginnings we mostly targeted students but over time we grew into what you know today.    </p>
-            </div>
-        </div>
-          <div class="paragraphsFRow">
-            <div class="paragraph">
-                <h1 id="The_Delivery" class="beginningH1">The Delivery</h1>
-                <p>Our peer to peer delivery system works wonders and is highly efficient. We developed this system in our early days when we were just a couple of guys driving some boxes around. This delivery system was also great when we scaled up. The system works by one driver drives some product a small distance and drops them off then has another batch on the way back. Now with only one driver for every delivery station we can span over a large area at great speed. this will result in many people having contact with your package but you can't argue with the results. Now we can ship to virtually every were only using a local post service from our stations world wide.</p>
-            </div>
-            <div class="imageInPar" > <img src="../static/images/TheDeliveryImg.jpg"> </div>
-        </div>
-        <div class="termsSpacer"></div>
-        <div id="termsCond">
-            <h1 id="Terms_and_conditions" class="beginningH1">Terms and conditions</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam nec mauris at nulla congue bibendum in sed tortor. Praesent eget arcu velit. Duis finibus risus non tempor ullamcorper. Aliquam erat volutpat. Etiam non pulvinar purus. Sed porta justo condimentum dignissim fermentum. Aliquam vehicula pulvinar mauris, a cursus arcu. Sed nec nisi pellentesque ligula rhoncus aliquam vitae ut diam. Sed nunc metus, auctor ut est at, porttitor gravida diam. Nullam eu vestibulum purus. Donec sed purus porttitor, placerat lectus nec, sagittis felis.</p>
-            <p>Vivamus vitae auctor ex. Mauris rutrum libero neque, sit amet pharetra leo sollicitudin eget. Vestibulum fermentum nibh sed nibh commodo, at suscipit ex tempus. Ut mattis dui eu sem laoreet euismod. In venenatis sem vitae nulla aliquet efficitur. Duis quis egestas sapien, quis viverra sem. Suspendisse id sem bibendum, molestie libero at, consectetur libero. Fusce condimentum, ipsum consectetur consectetur maximus, nibh mauris placerat velit, non ullamcorper felis ex a nisi. Sed rhoncus tempus tristique. Fusce libero velit, tristique id faucibus ac, ornare at lectus.</p>
-            <p>Duis ultrices ultrices ligula, vitae interdum arcu ultrices pellentesque. Vestibulum viverra lacus at sapien rhoncus sodales. Fusce maximus nunc et ante feugiat vehicula quis a magna. Pellentesque convallis eget enim quis mollis. Sed volutpat leo vel varius condimentum. Fusce hendrerit, orci non convallis pretium, dolor dolor egestas erat, in aliquam urna nulla eget ex. In faucibus molestie nibh, ac egestas arcu iaculis eget. Maecenas nec nunc id sem suscipit ornare quis efficitur orci. Nullam enim risus, malesuada sit amet eros at, auctor condimentum nisi. Quisque convallis vel lectus sit amet rutrum. Proin ligula turpis, consequat et urna sed, pellentesque maximus odio. Quisque egestas venenatis ipsum quis cursus. Aliquam varius euismod sollicitudin. Suspendisse id elementum diam. Nam eget feugiat quam. Aenean malesuada felis vel blandit hendrerit.</p>
-            <p>Sed euismod ante in consectetur ultricies. Fusce pulvinar vulputate ipsum, eu porta odio finibus quis. Cras vitae purus condimentum ipsum dapibus lobortis eget sit amet risus. Etiam posuere elit eu turpis pellentesque scelerisque. Vivamus vel turpis feugiat, laoreet est sit amet, lobortis tortor. Nulla tristique consequat justo. Quisque lacinia in tellus at sollicitudin. Fusce non tellus consectetur dolor eleifend tempor sed sit amet nunc. Quisque nisi nibh, elementum sed metus eu, tincidunt luctus nulla. Quisque vitae sem nec ante placerat lacinia et a lorem. In nisl nulla, porta non sagittis non, sagittis non leo. Quisque congue finibus nisi ut pellentesque. Integer accumsan faucibus mi at tempus. Curabitur ullamcorper risus nec massa lobortis lacinia.</p>
-            <p>Vivamus a volutpat libero. Etiam at justo lobortis urna pretium posuere non nec lectus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Praesent sagittis laoreet felis, nec aliquam tellus euismod non. Etiam massa urna, varius sit amet sapien eget, tempor convallis magna. Sed at maximus ligula, id volutpat mi. Suspendisse laoreet lectus ac nisl sodales sagittis. Donec non nibh vitae nunc semper auctor. Sed eu dignissim urna, et sollicitudin massa. Donec varius enim egestas lorem fermentum, sed sagittis libero facilisis.</p>
-            <p>Nam ac velit ligula. Fusce sed sagittis eros. Phasellus sit amet enim mollis dolor condimentum tincidunt sed nec odio. Donec faucibus, ex ut malesuada ultrices, nunc velit pretium nibh, non bibendum mi justo eu arcu. Duis hendrerit felis quis lorem vulputate, ut hendrerit sem ultrices. Donec consequat laoreet eros vitae tincidunt. Nullam sed dignissim elit. Integer ex arcu, gravida pharetra condimentum eget, aliquet sit amet diam. Curabitur bibendum tincidunt luctus.</p>
+        <div class="imageInPar" > <img src="{% static 'images/theCompImg.jpg' %}"> </div>
+    </div>
+    <div class="paragraphsFRow">
+        <div class="imageInPar" > <img src="{% static 'images/HWCTB.jpg' %}"> </div>
+        <div class="paragraph">
+            <h1 id="How_we_came_to_be" class="beginningH1">How we came to be</h1>
+            <p>This all started with just one friend-group that was adiment on trying all the best and newest cereal. In high school we were obsessed with cereals we just could not get enough of it we skipped most lunches just so we could have the best or newest cereal. But over time the group grew apart we found other interests and groups to hang out with. We still met upp on every wednesday just to have some good cereal. But when time came for universities we couldn't meet upp so easily so we started to send cereal to each other instead. Over time we had gotten good system for sending it to each other and even created a small craze in each of the universities. We started to notice the we weren't the only ones who enjoyed cereal so much. So a couple of us dropped out of university and we all founded this great company. In the beginnings we mostly targeted students but over time we grew into what you know today.    </p>
         </div>
     </div>
-    {% endblock %}
+      <div class="paragraphsFRow">
+        <div class="paragraph">
+            <h1 id="The_Delivery" class="beginningH1">The Delivery</h1>
+            <p>Our peer to peer delivery system works wonders and is highly efficient. We developed this system in our early days when we were just a couple of guys driving some boxes around. This delivery system was also great when we scaled up. The system works by one driver drives some product a small distance and drops them off then has another batch on the way back. Now with only one driver for every delivery station we can span over a large area at great speed. this will result in many people having contact with your package but you can't argue with the results. Now we can ship to virtually every were only using a local post service from our stations world wide.</p>
+        </div>
+        <div class="imageInPar" > <img src="{% static 'images/TheDeliveryImg.jpg' %}"> </div>
+    </div>
+    <div class="termsSpacer"></div>
+    <div id="termsCond">
+        <h1 id="Terms_and_conditions" class="beginningH1">Terms and conditions</h1>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam nec mauris at nulla congue bibendum in sed tortor. Praesent eget arcu velit. Duis finibus risus non tempor ullamcorper. Aliquam erat volutpat. Etiam non pulvinar purus. Sed porta justo condimentum dignissim fermentum. Aliquam vehicula pulvinar mauris, a cursus arcu. Sed nec nisi pellentesque ligula rhoncus aliquam vitae ut diam. Sed nunc metus, auctor ut est at, porttitor gravida diam. Nullam eu vestibulum purus. Donec sed purus porttitor, placerat lectus nec, sagittis felis.</p>
+        <p>Vivamus vitae auctor ex. Mauris rutrum libero neque, sit amet pharetra leo sollicitudin eget. Vestibulum fermentum nibh sed nibh commodo, at suscipit ex tempus. Ut mattis dui eu sem laoreet euismod. In venenatis sem vitae nulla aliquet efficitur. Duis quis egestas sapien, quis viverra sem. Suspendisse id sem bibendum, molestie libero at, consectetur libero. Fusce condimentum, ipsum consectetur consectetur maximus, nibh mauris placerat velit, non ullamcorper felis ex a nisi. Sed rhoncus tempus tristique. Fusce libero velit, tristique id faucibus ac, ornare at lectus.</p>
+        <p>Duis ultrices ultrices ligula, vitae interdum arcu ultrices pellentesque. Vestibulum viverra lacus at sapien rhoncus sodales. Fusce maximus nunc et ante feugiat vehicula quis a magna. Pellentesque convallis eget enim quis mollis. Sed volutpat leo vel varius condimentum. Fusce hendrerit, orci non convallis pretium, dolor dolor egestas erat, in aliquam urna nulla eget ex. In faucibus molestie nibh, ac egestas arcu iaculis eget. Maecenas nec nunc id sem suscipit ornare quis efficitur orci. Nullam enim risus, malesuada sit amet eros at, auctor condimentum nisi. Quisque convallis vel lectus sit amet rutrum. Proin ligula turpis, consequat et urna sed, pellentesque maximus odio. Quisque egestas venenatis ipsum quis cursus. Aliquam varius euismod sollicitudin. Suspendisse id elementum diam. Nam eget feugiat quam. Aenean malesuada felis vel blandit hendrerit.</p>
+        <p>Sed euismod ante in consectetur ultricies. Fusce pulvinar vulputate ipsum, eu porta odio finibus quis. Cras vitae purus condimentum ipsum dapibus lobortis eget sit amet risus. Etiam posuere elit eu turpis pellentesque scelerisque. Vivamus vel turpis feugiat, laoreet est sit amet, lobortis tortor. Nulla tristique consequat justo. Quisque lacinia in tellus at sollicitudin. Fusce non tellus consectetur dolor eleifend tempor sed sit amet nunc. Quisque nisi nibh, elementum sed metus eu, tincidunt luctus nulla. Quisque vitae sem nec ante placerat lacinia et a lorem. In nisl nulla, porta non sagittis non, sagittis non leo. Quisque congue finibus nisi ut pellentesque. Integer accumsan faucibus mi at tempus. Curabitur ullamcorper risus nec massa lobortis lacinia.</p>
+        <p>Vivamus a volutpat libero. Etiam at justo lobortis urna pretium posuere non nec lectus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Praesent sagittis laoreet felis, nec aliquam tellus euismod non. Etiam massa urna, varius sit amet sapien eget, tempor convallis magna. Sed at maximus ligula, id volutpat mi. Suspendisse laoreet lectus ac nisl sodales sagittis. Donec non nibh vitae nunc semper auctor. Sed eu dignissim urna, et sollicitudin massa. Donec varius enim egestas lorem fermentum, sed sagittis libero facilisis.</p>
+        <p>Nam ac velit ligula. Fusce sed sagittis eros. Phasellus sit amet enim mollis dolor condimentum tincidunt sed nec odio. Donec faucibus, ex ut malesuada ultrices, nunc velit pretium nibh, non bibendum mi justo eu arcu. Duis hendrerit felis quis lorem vulputate, ut hendrerit sem ultrices. Donec consequat laoreet eros vitae tincidunt. Nullam sed dignissim elit. Integer ex arcu, gravida pharetra condimentum eget, aliquet sit amet diam. Curabitur bibendum tincidunt luctus.</p>
+    </div>
+</div>
+{% endblock %}
