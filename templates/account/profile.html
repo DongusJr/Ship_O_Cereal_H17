@@ -37,20 +37,28 @@
         {% endfor %}
     </div>
 </div>
-            <h1>Recently viewed</h1>
-    {% if nothing_viewed%}
-        <a href="product_index">Go to products</a>
-    {% else %}
-        {% for product in products%}
-            {% include 'proto_products_viewed.html' with product=product %}
-        {% endfor %}
-    {% endif %}
 
-    <h1>Search History</h1>
-    {% if searches %}
-        {% for search in searches %}
-            <a href="/products/?criteria={{search.previous_searches}}">{{search.previous_searches}}</a>
-        {% endfor %}
-    {% else %}
-    {% endif %}
+<div class="history">
+    <div class="rec_view">
+        <h1>Recently viewed</h1>
+        {% if nothing_viewed%}
+            <a href="product_index">Go to products</a>
+        {% else %}
+            {% for product in products%}
+                {% include 'proto_products_viewed.html' with product=product %}
+            {% endfor %}
+        {% endif %}
+    </div>
+
+    <div class="search_hist">
+        <h1>Search History</h1>
+        {% if searches %}
+            {% for search in searches %}
+                <a href="/products/?criteria={{search.previous_searches}}">{{search.previous_searches}}</a>
+            {% endfor %}
+        {% else %}
+            <p>No recent searches</p>
+        {% endif %}
+    </div>
+</div>
 {% endblock %}
