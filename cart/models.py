@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django.db import models
 from products.models import Products
 from users.models import Order
+from django.core.exceptions import ObjectDoesNotExist
 
 # Create your models here.
 
@@ -10,6 +11,17 @@ class Cart(models.Model):
     total = models.IntegerField(default=0)
     number_of_items = models.IntegerField(default=0)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+
+    @staticmethod
+    def get_or_create_cart(user_id):
+        user = User.objects.get(id=user_id)
+        try:
+            cart = Cart.objects.get(user=user)
+        except ObjectDoesNotExist:
+            cart = Cart.objects.create(user=user)
+        cart.save()
+        return cart
+
 
     @staticmethod
     def update_total(cart_object, total=0):
@@ -86,10 +98,7 @@ class Contains(models.Model):
         number of items in the cart will be updated with helper methods
         we then return the contains object
         '''
-        try:
-            cart = Cart.objects.get(user=user)
-        except:
-            cart = Cart.objects.create(user=user)
+        cart = Cart.get_or_create_cart(user.id)
         cart.save()
         contains = Contains.objects.create(cart=cart, product=product, quantity=quantity)
         Cart.update_total(cart).save()

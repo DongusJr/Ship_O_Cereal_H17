@@ -17,12 +17,15 @@
         {% endfor %}
         </div>
     </div>
+
     <div id="ProductInfoDiv">
+        {% if user.is_authenticated %}
         <div id="CartProdInfo">
             {% include 'proto_products/proto_quantity_counter.html' %}
             <!--<input type="submit" name="add" class="btn btn-primary" value="Add to cart" href="{% url 'product_detail' product.id %}"></input>-->
 
         </div>
+        {% endif %}
         <div id="ProductInfo">
             <h1>{{ product.name }}</h1>
             <p>{{ product.short_description }}</p>
@@ -32,10 +35,11 @@
             <h2>{{ product.price }}£</h2>
 
         </div>
-        <div class="Update Button">
-        <a href="{% url 'update_product' product.id %}" class='block btn btn-primary'>Edit Product</a>
-    </div>
-
+        {% if user.is_superuser %}
+            <div class="UpdateButton">
+                <a href="{% url 'update_product' product.id %}" class='block btn btn-primary'>Edit Product</a>
+            </div>
+        {% endif %}
 
     <!-- VG: IDK  why cant we just always se the add to cart
     {% if user.is_authenticated%}

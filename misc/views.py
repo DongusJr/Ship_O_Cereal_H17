@@ -18,8 +18,6 @@ class AboutUs(TemplateView):
         This method has a mock where we can send the proper information
         regarding the company through the logic rather than the frontend
         '''
-        self.data['aboutus'] = 'lorem ipsum'
-        self.data['terms'] = 'lorem ipsum'
         return render(request, self.template_name, self.data)
 
 class EmailNewsLetter(TemplateView):
@@ -45,3 +43,14 @@ class EmailNewsLetter(TemplateView):
         via the frontend
         '''
         return redirect('product_index')
+
+class OpeningHours(TemplateView):
+    template_name = 'proto_opening/proto_opening_hours.html'
+    data = {}
+
+    def get(self, request, *args, **kwargs):
+        self.data['default'] = '21:00 - 9:00'
+        self.data['weekend'] = 'Sat - Sun'
+        self.data['business_days'] = 'Mon - Fri'
+        self.data['hours_weekend'] = '22:00 - 8:00'
+        return render(request, self.template_name, self.data)
