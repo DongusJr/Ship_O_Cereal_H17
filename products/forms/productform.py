@@ -6,7 +6,7 @@ from products.models import Products, ProductTag
 class ProductCreateForm(forms.Form):
     name = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
     short_description = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
-    description = forms.CharField(required=True, widget=forms.TextArea(attrs={'class': 'form-control'}))
+    description = forms.CharField(required=True, widget=forms.Textarea(attrs={'class': 'form-control'}))
     price = forms.FloatField(required=True, widget=forms.NumberInput(attrs={'class': 'form-control'}))
     category = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
     in_stock = forms.IntegerField(required=True, widget=forms.NumberInput(attrs={'class': 'form-control'}))

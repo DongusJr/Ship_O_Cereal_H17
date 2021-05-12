@@ -66,7 +66,7 @@ class ProductLogic(TemplateView):
             criteria = self.request.GET.get('criteria')
             if criteria != '':
                 products = products.filter(name__icontains=criteria)
-                if self.request.user:
+                if str(self.request.user) != 'AnonymousUser':
                     SearchHistory.add_to_search_history(criteria, self.request.user)
 
         if 'category' in self.request.GET:
@@ -96,7 +96,7 @@ class SingleProduct(TemplateView):
     def get(self, request, *args, **kwargs):
         id = self.kwargs['id']
         product = get_object_or_404(Products, pk=id)
-        if self.request.user:
+        if str(self.request.user) != 'AnonymousUser':
             ProductViewed.add_to_previously_viewed(product, self.request.user).save()
         self.data['product'] = product
         if 'quant' in self.request.GET:
