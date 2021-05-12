@@ -90,6 +90,12 @@ class Profile(models.Model):
         profile.description = desc
         profile.save()
 
+    @staticmethod
+    def update_name(name, user_id):
+        user = User.objects.get(id=user_id)
+        user.username = name
+        user.save()
+
 class Order(models.Model):
     total = models.IntegerField(default=0)
     profile = models.ForeignKey(User, on_delete=models.CASCADE)  # Order can only have 1 profile

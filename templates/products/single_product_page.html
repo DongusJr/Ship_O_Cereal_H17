@@ -127,7 +127,12 @@
 
     </div>
 </div>
-<div class="relatedTag"></div>
+<div class="relatedTag">
+    <h4>More like this product</h4>
+    {% for product in similar_products %}
+        {% include 'proto_products/proto_product.html' with product=product %}
+    {% endfor %}
+</div>
 {% if user.is_authenticated %}
 <div id="writeReview">
     <h1>Write a review</h1>

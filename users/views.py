@@ -130,4 +130,8 @@ class UpdateProfile(TemplateView):
         if 'update_des' in request.POST:
             desc = request.POST.get('update_des')
             Profile.update_desc(desc, request.user.id)
+        if 'username' in request.POST:
+            name = request.POST.get('username')
+            if name != '':
+                Profile.update_name(name, request.user.id)
         return redirect('profile')
