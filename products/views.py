@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 
 from products.forms.productform import ProductCreateForm, ProductUpdateForm
@@ -16,10 +17,14 @@ from reviews.models import Review
 
 
 def get_product_by_tags(request):
+    return render(request, 'main_page.html', {})
+
+def get_tags_json(request):
     if request.method == 'GET':
         tags_with_products = ProductTag.select_all_related_products()
-        context = {'tags_with_products' : tags_with_products}
-        return render(request, 'main_page.html', context)
+
+        return JsonResponse({'data': tags_with_products})
+
 
 class ProductLogic(TemplateView):
     template_name = 'proto_products/proto_products.html'

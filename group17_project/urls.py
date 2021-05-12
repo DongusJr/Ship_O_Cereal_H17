@@ -27,5 +27,7 @@ urlpatterns = [
     path('user/', include('cart.urls')),
     path('aboutus/', include('aboutus.urls')),
     path('openinghours/', include('opening_hours.urls')),
-    path('newsletter/', aboutus.views.EmailNewsLetter.as_view(), name='newsletter')
+    path('newsletter/', aboutus.views.EmailNewsLetter.as_view(), name='newsletter'),
+    path('get_tags_json', products.views.get_tags_json, name='get_tags_json')
+
 ]
