@@ -105,7 +105,6 @@ class ProductTag(models.Model):
 
     @staticmethod
     def get_products_with_tag(tag_name):
-        print(tag_name)
         tag = ProductTag.objects.get(name__iexact=(tag_name))
         tag_queryset = ProductTag.objects.prefetch_related('product')
 

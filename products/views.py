@@ -133,19 +133,31 @@ class SingleProduct(TemplateView):
     def get(self, request, *args, **kwargs):
         id = self.kwargs['id']
         product = get_object_or_404(Products, pk=id)
+
         if str(self.request.user) != 'AnonymousUser':
             ProductViewed.add_to_previously_viewed(product, self.request.user).save()
         self.data['product'] = product
+
         if 'quant' in self.request.GET:
             quantity = self.request.GET.get('quant')
             Contains.add_to_cart(self.request.user, product, int(quantity)).save()
             self.data['success'] = True
+
         all_reviews = Review.objects.filter(product=product)
         if all_reviews:
             self.data['reviews'] = all_reviews
             self.data['rating'] = self.calculate_mean_rating(product)
         else:
             self.data['reviews'] = None
+
+        similar_tag = []
+        tags = ProductTag.objects.filter(product=product)
+        for tag in tags:
+            if len(similar_tag) <= 10:
+                similar_tag.extend(ProductTag.get_products_with_tag(tag.name))
+            else:
+                break
+        self.data['similar_products'] = similar_tag
         return render(request, self.template_name, self.data)
 
     def post(self, request, *args, **kwargs):
