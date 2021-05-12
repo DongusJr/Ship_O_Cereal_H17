@@ -79,12 +79,10 @@ class ProductLogic(TemplateView):
         page = self.request.GET.get('page', 1)
         products_paginated = self._paginate_data(products, page, 10)
 
-        print(products_paginated)
         data['category'] = 'Cereal'
         data['pages'] = products_paginated
         data['products'] = Products.get_products(products_paginated)
 
-        print(data['products'])
         return data
 
     def _paginate_data(self, data_list, page, num_per_page):
@@ -158,7 +156,6 @@ class SingleProduct(TemplateView):
 @login_required
 def create_product(request):
     if request.method == 'POST':
-        print(request.POST)
         form = ProductCreateForm(data=request.POST)
         if form.is_valid():
             nutritional_info = _create_nutritional_info(request.POST)
