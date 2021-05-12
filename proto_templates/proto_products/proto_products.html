@@ -1,10 +1,5 @@
 {% extends 'products/category_page.html' %}
 {% block products %}
-    <div class="landingTagDiv">
-        {% include 'proto_products/proto_dropdown_category.html' %}
-        {% include 'proto_products/proto_dropdown_tags.html' %}
-        {% include 'proto_products/proto_dropdown_order_by.html' %}
-    </div>
     <div class="Create Button">
         <a href="{% url 'create_product' %}" class='block btn btn-primary'>Add a product</a>
     </div>

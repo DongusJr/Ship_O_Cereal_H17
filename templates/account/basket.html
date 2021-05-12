@@ -7,9 +7,9 @@
 
     <div class="cart">
         {% if cart %}
-            {% for product in cart %}
+            {% for contains in cart %}
                 <div class="cart_item">
-                    {% include '../proto_cart/proto_cart_product.html' with product=product%}
+                    {% include '../proto_cart/proto_cart_product.html' with contains=contains %}
                 </div>
             {% endfor %}
         {% else %}

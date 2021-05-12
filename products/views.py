@@ -22,26 +22,31 @@ def get_product_by_tags(request):
 def get_tags_json(request):
     if request.method == 'GET':
         tags_with_products = ProductTag.select_all_related_products()
+
         return JsonResponse({'data': tags_with_products})
+
 
 class ProductLogic(TemplateView):
     template_name = 'proto_products/proto_products.html'
 
     def get_context_data(self, **kwargs):
         data = super(ProductLogic, self).get_context_data(**kwargs)
+        data['all_categories'] = self.get_all_unique_categories()
         products= Products.objects.all()
 
         if 'criteria' in self.request.GET:
             criteria = self.request.GET.get('criteria')
             if criteria != '':
-                products = products.filter(name__icontains=criteria)
+                if products != []:
+                    products = products.filter(name__icontains=criteria)
 
         if 'category' in self.request.GET:
             list_of_all_categories = self.get_all_unique_categories()
             category = self.request.GET['category']
             if category in list_of_all_categories:
                 data['category'] = category
-                products = products.filter(category__exact=category)
+                if products != []:
+                    products = products.filter(category__exact=category)
 
         if 'tag' in self.request.GET:
             tags_in_use = self.request.GET.getlist('tag')
@@ -51,38 +56,35 @@ class ProductLogic(TemplateView):
         else:
             data['tags'] = ProductTag.objects.all()
 
-        if 'name' in self.request.GET:
-            name_order = self.request.GET.get('name')
-            if name_order == 'ascending':
+        if 'order' in self.request.GET and products!=[]:
+            order = self.request.GET.get('order')
+            if order == 'name_ascending':
                 products = products.order_by('name')[::-1]
-            elif name_order == 'descending':
+            elif order == 'name_descending':
                 products = products.order_by('name')
-
-        if 'price' in self.request.GET:
-            order = self.request.GET['price']
-            if order == 'descending':
+            elif order == 'price_descending':
                 products = products.order_by('price')
-            elif order == 'ascending':
+            elif order == 'price_ascending':
                 products = products.order_by('-price')
 
         if 'criteria' in self.request.GET:
             criteria = self.request.GET.get('criteria')
             if criteria != '':
-                products = products.filter(name__icontains=criteria)
+                if products != []:
+                    products = products.filter(name__icontains=criteria)
                 if str(self.request.user) != 'AnonymousUser':
                     SearchHistory.add_to_search_history(criteria, self.request.user)
 
         if 'category' in self.request.GET:
-            list_of_all_categories = self.get_all_unique_categories()
             category = self.request.GET['category']
-            if category in list_of_all_categories:
+            if category in data['all_categories']:
                 data['category'] = category
-                products = products.filter(category__exact=category)
+                if products != []:
+                    products = products.filter(category__exact=category)
 
         page = self.request.GET.get('page', 1)
         products_paginated = self._paginate_data(products, page, 10)
 
-        data['category'] = 'Cereal'
         data['pages'] = products_paginated
         data['products'] = Products.get_products(products_paginated)
 
