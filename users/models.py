@@ -36,6 +36,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     image = models.CharField(max_length=9999)
     description = models.CharField(max_length=512, blank=True)
+    subscribed_to_newsletter = models.BooleanField(default=False)
     # One profile can have many orders
 
     @staticmethod
@@ -95,6 +96,23 @@ class Profile(models.Model):
         user = User.objects.get(id=user_id)
         user.username = name
         user.save()
+
+    @staticmethod
+    def subscribe_user_to_news_letter(user_id):
+        profile = Profile.objects.get(user_id=user_id)
+        profile.subscribed_to_newsletter = True
+        profile.save()
+
+    @staticmethod
+    def unsubscribe(user_id):
+        profile = Profile.objects.get(user_id=user_id)
+        profile.subscribed_to_newsletter = False
+        profile.save()
+
+    @staticmethod
+    def is_user_subscribed(user_id):
+        profile = Profile.objects.get(user_id=user_id)
+        return profile.subscribed_to_newsletter
 
 class Order(models.Model):
     total = models.IntegerField(default=0)

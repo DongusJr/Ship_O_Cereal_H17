@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
+from users.models import Profile
 # Create your views here.
 
 class AboutUs(TemplateView):
@@ -34,6 +35,7 @@ class EmailNewsLetter(TemplateView):
         get
         this method only renders the html requested by the user
         '''
+        self.data['sub'] = Profile.is_user_subscribed(request.user.id)
         return render(request, self.template_name, self.data)
 
     def post(self, request, *args, **kwargs):
@@ -42,6 +44,10 @@ class EmailNewsLetter(TemplateView):
         this method redirects the user after having submitted a post request
         via the frontend
         '''
+        if 'sub' in request.POST:
+            Profile.subscribed_to_newsletter(request.user.id)
+        elif 'unsub' in request.POST:
+            Profile.unsubscribe(request.user.id)
         return redirect('product_index')
 
 class OpeningHours(TemplateView):
