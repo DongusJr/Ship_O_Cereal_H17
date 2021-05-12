@@ -6,7 +6,7 @@
 
 <div class="email_page">
   {% if user.is_auhenticated %}
-    {% if !sub %}
+    {% if not sub %}
     <form method="post">
         {% csrf_token %}
         <div class="email_box">
@@ -38,6 +38,7 @@
         <form method="post">
             <input type="text" name="unsub" value="Unsubscribe to news letter">
         </form>
+    {% endif %}
     {% else %}
         <p>A user can only receive the news letter if an account is created on the website</p>
         <a href="{% url 'account' %}">Click here to register</a>

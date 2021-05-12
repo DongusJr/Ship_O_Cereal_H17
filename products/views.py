@@ -35,9 +35,7 @@ class ProductLogic(TemplateView):
         products= Products.objects.all()
 
         if 'tag' in self.request.GET:
-            print('tag in get')
             tags_in_use = self.request.GET.getlist('tag')
-            print(tags_in_use)
             data['tags'] = ProductTag.objects.exclude(name__in=tags_in_use)
             data['active_tags'] = ProductTag.objects.filter(name__in=tags_in_use)
             for tag in tags_in_use:

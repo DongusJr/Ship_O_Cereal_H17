@@ -1,17 +1,18 @@
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
 from users.models import Profile
+from django.contrib.auth.models import User
 # Create your views here.
 
 class AboutUs(TemplateView):
+    template_name = 'company_info/about_us.html'
+    data = {}
     '''
     AboutUs
     This view class allows us to view the page which has all information
     regarding the Ship O' Cereal operation
     '''
-    template_name = 'company_info/about_us.html'
 
-    data = {}
 
     def get(self, request, *args, **kwargs):
         '''
@@ -22,20 +23,26 @@ class AboutUs(TemplateView):
         return render(request, self.template_name, self.data)
 
 class EmailNewsLetter(TemplateView):
+    template_name = 'company_info/email_nws.html'
+    data = {}
     '''
     EmailNewsLetter
     This view class allows us to render the template which will enable the user
     to sign up for a news letter which has no functionality
     '''
-    template_name = 'company_info/email_nws.html'
-    data = {}
+
 
     def get(self, request, *args, **kwargs):
         '''
         get
         this method only renders the html requested by the user
         '''
-        self.data['sub'] = Profile.is_user_subscribed(request.user.id)
+        try:
+            user = User.objects.get(id=request.user.id)
+            if user.is_authenticated():
+                self.data['sub'] = Profile.is_user_subscribed(request.user.id)
+        except:
+            pass
         return render(request, self.template_name, self.data)
 
     def post(self, request, *args, **kwargs):
@@ -48,7 +55,7 @@ class EmailNewsLetter(TemplateView):
             Profile.subscribed_to_newsletter(request.user.id)
         elif 'unsub' in request.POST:
             Profile.unsubscribe(request.user.id)
-        return redirect('product_index')
+        return render(request, self.template_name, self.data)
 
 class OpeningHours(TemplateView):
     template_name = 'proto_opening/proto_opening_hours.html'
