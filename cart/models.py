@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
-from products.models import Products
+from products.models import Products, ProductImage
 from users.models import Order
 from django.core.exceptions import ObjectDoesNotExist
 
@@ -11,6 +11,24 @@ class Cart(models.Model):
     total = models.IntegerField(default=0)
     number_of_items = models.IntegerField(default=0)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+
+    @staticmethod
+    def get_products_from_cart_of_user_and_total(user_id):
+        user = User.objects.get(id=user_id)
+        cart = Cart.objects.get(user=user)
+        contains_list = Contains.objects.filter(cart=cart).prefetch_related('product')
+        products = []
+        product_image_map = ProductImage.get_first_image_for_each_product()
+        for contains in contains_list:
+            products.append({'id': contains.product.id,
+                             'name': contains.product.name,
+                             'price': contains.product.price,
+                             'category': contains.product.category,
+                             'description': contains.product.description,
+                             'image': product_image_map[contains.product.id]})
+
+        data = {'total': cart.total, 'products': products}
+        return data
 
     @staticmethod
     def get_or_create_cart(user_id):

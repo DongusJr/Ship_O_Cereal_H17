@@ -7,7 +7,7 @@ from cart.forms.personalinfo_form import PersonInfoForm
 from cart.models import Cart, Contains
 
 # Create your views here.
-from users.models import PaymentInfo
+from users.models import PaymentInfo, Country, ZipCodes
 
 
 class CartView(TemplateView):
@@ -60,9 +60,6 @@ class CartView(TemplateView):
         else:
             return False
 
-class CredicCardField:
-    pass
-
 
 class CompletePurchase(TemplateView):
     '''
@@ -83,12 +80,29 @@ class CompletePurchase(TemplateView):
         and a rendering of steps that have been completed
         '''
         step = self._get_step()
+        data = {}
         if step is not None:
             form = self._get_form(step)
-            return render(request, self.template_name, {'form_html' : self.html_template_names[step], 'form': form})
+            if form == 'review':
+                person_info = self._get_person_info_from_form(self.request.session['person_info_form'])
+                order_with_products = Cart.get_products_from_cart_of_user_and_total(self.request.user.id)
+                data = {'payment' : self.request.session['payment_form'], 'person_info': person_info, 'order_with_products': order_with_products}
+            return render(request, self.template_name, {'form_html' : self.html_template_names[step], 'form': form, 'data': data})
         else:
             self.request.session['step'] = 'payment'
             return render(request, self.template_name, {'form_html' : self.html_template_names['payment']})
+
+    def _get_person_info_from_form(self, person_info_form):
+        country_name = get_object_or_404(Country, pk=person_info_form['country']).name
+        zip_code = get_object_or_404(ZipCodes, pk=person_info_form['zip']).zip
+
+        data = {'first_name': person_info_form['first_name'],
+                'last_name': person_info_form['last_name'],
+                'country': country_name,
+                'zip': zip_code,
+                'street': person_info_form['Street']}
+        return data
+
 
     def _get_step(self):
         '''
@@ -121,6 +135,9 @@ class CompletePurchase(TemplateView):
                 return PersonInfoForm(data=self.request.session['person_info_form'])
             except:
                 return PersonInfoForm()
+        if step == 'review':
+            return 'review'
+
         return ''
 
 
@@ -156,5 +173,5 @@ class CompletePurchase(TemplateView):
             del request.session['step']
             del request.session['payment_form']
             del request.session['person_info_form']
-            return render(request, self.template_name, {'form_html': self.html_template_names['complete_order']})
+            return render(request, 'account/purchase_steps/proto_payment_successful.html', {})
         return redirect('complete_order')

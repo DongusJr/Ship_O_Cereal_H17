@@ -1,5 +1,31 @@
+<h1>Products</h1>
+<div class="products">
+{% for product in data.order_with_products.products %}
+        {% include 'proto_products/proto_product.html' with product=product %}
+    {% endfor %}
+    <p>total: {{ data.order_with_products.total }}</p>
+</div>
 
-    <form method="post" class="form form-horizontal" style="border: solid 3px black;margin:auto; padding:5%;">
-        {% csrf_token %}
-        <input type="submit" name="complete_order" value="Complete order"/>
-    </form>
+<h1>Payment info</h1>
+<div class="payment-info">
+<p>full name: {{ data.payment.full_name }}</p>
+<p>card_number: {{ data.payment.card_number }}</p>
+<p>year: {{ data.payment.year }}</p>
+<p>month: {{ data.payment.month }}</p>
+<p>cvc: {{ data.payment.cvc }}</p>
+</div>
+
+<h1>Person info</h1>
+<div class="person-info">
+<p>first_name: {{ data.person_info.first_name }}</p>
+<p>last_name: {{ data.person_info.last_name  }}</p>
+<p>country: {{ data.person_info.country }}</p>
+<p>zip: {{ data.person_info.zip  }}</p>
+<p>Street: {{ data.person_info.street }}</p>
+</div>
+
+
+<form method="post" class="form form-horizontal" style="border: solid 3px black;margin:auto; padding:5%;">
+    {% csrf_token %}
+    <input type="submit" name="complete_order" value="Complete order"/>
+</form>

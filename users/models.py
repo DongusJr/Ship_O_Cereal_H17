@@ -15,8 +15,14 @@ class ZipCodes(models.Model):
     zip = models.IntegerField()
     city_name = models.CharField(max_length=64)
 
+    def __str__(self):
+        return str(self.zip)
+
 class Country(models.Model):
     name = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.name
 
 class PersonInfo(models.Model):
     first_name = models.CharField(max_length=50)

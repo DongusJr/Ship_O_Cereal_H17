@@ -1,9 +1,8 @@
 <div class="categoryProductDiv">
     <a href="/products/{{ product.id }}">
-        <h1>{{ product.productimage }}</h1>
 
         <div class="categoryProductImageDiv">
-            <img class="categoryProductImage" src="{{ product.image }}" alt='image for {{ product.name }} missing' >
+            <img class="categoryProductImage" src="{{ product.image }}" alt='image for {{ product.name }} missing' style="width: 200px;">
         </div>
         <h4>{{ product.name }}</h4>
         <p>{{ product.short_description }}</p>
