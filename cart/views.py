@@ -70,11 +70,11 @@ class CompletePurchase(TemplateView):
     this view allows the user to render the pages pretaining to all the steps of
     a payment process and empties the cart object associated with the user
     '''
-    template_name = 'proto_cart/Complete_purchase/payment_template.html'
-    html_template_names = {'payment' : 'proto_cart/Complete_purchase/proto_payment_form.html',
-                           'person_info': 'proto_cart/Complete_purchase/proto_personinfo_form.html',
-                           'review': 'proto_cart/Complete_purchase/proto_review.html',
-                           'complete_order': 'proto_cart/Complete_purchase/proto_payment_successful.html'}
+    template_name = 'account/purchase_steps/payment_template.html'
+    html_template_names = {'payment' : 'account/purchase_steps/proto_payment_form.html',
+                           'person_info': 'account/purchase_steps/proto_personinfo_form.html',
+                           'review': 'account/purchase_steps/proto_review.html',
+                           'complete_order': 'account/purchase_steps/proto_payment_successful.html'}
 
     def get(self, request, *args, **kwargs):
         '''
