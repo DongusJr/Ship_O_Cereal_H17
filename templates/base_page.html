@@ -39,13 +39,13 @@
                 <div id="profile&CartDiv">
                     <a href="/user/account"><div id="topProfileImgDiv"><!-- go to profile -->
 
-                        <img src="../static/images/Profile.svg" alt="Profile" id="topProfileImg">
+                        <img src="{% static 'images/Profile.svg' %}" alt="Profile" id="topProfileImg">
                     </div></a>
 
 
                     <a href="/user/cart"> <!-- go to cart -->
                         <div id="cart">
-                            <img src="../static/images/cart.svg" alt="cart">
+                            <img src="{% static 'images/cart.svg' %}" alt="cart">
 
                             <form method="get">
                                 {% if not cart_amount %}
@@ -79,7 +79,7 @@
     </div>
     <footer>
         <div id="footer_logo">
-            <img src="../static/images/logo_w_circle.svg">
+            <img src="{% static 'images/logo_w_circle.svg' %}">
         </div>
         <div id="footer_info">
             <ul>
