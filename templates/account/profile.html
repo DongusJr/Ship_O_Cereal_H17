@@ -1,7 +1,8 @@
 {% extends 'base_page.html' %}
+{% load static %}
 {% block content %}
 
-<link rel="stylesheet" href="../static/css/account/profile_style.css">
+<link rel="stylesheet" href="{% static 'css/account/profile_style.css' %}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <div class="profile_page">
@@ -25,7 +26,7 @@
     <div class="prev_order_container">
         <div class="prev_order_title">
             <div id="clock_div">
-                <img src="../static/images/clock.svg">
+                <img src="{% static 'images/clock.svg' %}">
             </div>
             <h3>Order history</h3>
         </div>
@@ -37,20 +38,28 @@
         {% endfor %}
     </div>
 </div>
-            <h1>Recently viewed</h1>
-    {% if nothing_viewed%}
-        <a href="product_index">Go to products</a>
-    {% else %}
-        {% for product in products%}
-            {% include 'proto_products_viewed.html' with product=product %}
-        {% endfor %}
-    {% endif %}
 
-    <h1>Search History</h1>
-    {% if searches %}
-        {% for search in searches %}
-            <a href="/products/?criteria={{search.previous_searches}}">{{search.previous_searches}}</a>
-        {% endfor %}
-    {% else %}
-    {% endif %}
+<div class="history">
+    <div class="rec_view">
+        <h1>Recently viewed</h1>
+        {% if nothing_viewed%}
+            <a href="product_index">Go to products</a>
+        {% else %}
+            {% for product in products%}
+                {% include 'proto_products_viewed.html' with product=product %}
+            {% endfor %}
+        {% endif %}
+    </div>
+
+    <div class="search_hist">
+        <h1>Search History</h1>
+        {% if searches %}
+            {% for search in searches %}
+                <a href="/products/?criteria={{search.previous_searches}}">{{search.previous_searches}}</a>
+            {% endfor %}
+        {% else %}
+            <p>No recent searches</p>
+        {% endif %}
+    </div>
+</div>
 {% endblock %}
