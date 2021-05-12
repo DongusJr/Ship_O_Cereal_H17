@@ -4,52 +4,52 @@
 <h3>{{review.user}}</h3>
 <div class="review_rating">
     {% if review.rating < 0.5 %}
-                <img src="../static/images/empty_bowl.svg" alt="0">
+                <img src="{% static 'images/empty_bowl.svg' %}" alt="0">
             {% else %}
                 {% if review.rating == 0.5 %}
-                    <img src="../static/images/half_bowl.svg" alt="0.5">
+                    <img src="{% static 'images/half_bowl.svg' %}" alt="0.5">
                 {% else %}
-                    <img src="../static/images/full_bowl.svg" alt="1">
+                    <img src="{% static 'images/full_bowl.svg' %}" alt="1">
                 {% endif %}
             {% endif %}
 
             {% if review.rating < 1.5 %}
-                <img src="../static/images/empty_bowl.svg" alt="0">
+                <img src="{% static 'images/empty_bowl.svg' %}" alt="0">
             {% else %}
                 {% if review.rating == 1.5 %}
-                    <img src="../static/images/half_bowl.svg" alt="0.5">
+                    <img src="{% static 'images/half_bowl.svg' %}" alt="0.5">
                 {% else %}
-                    <img src="../static/images/full_bowl.svg" alt="1">
+                    <img src="{% static 'images/full_bowl.svg' %}" alt="1">
                 {% endif %}
             {% endif %}
 
             {% if review.rating < 2.5 %}
-                <img src="../static/images/empty_bowl.svg" alt="0">
+                <img src="{% static 'images/empty_bowl.svg' %}" alt="0">
             {% else %}
                 {% if review.rating == 2.5 %}
-                    <img src="../static/images/half_bowl.svg" alt="0.5">
+                    <img src="{% static 'images/half_bowl.svg' %}" alt="0.5">
                 {% else %}
-                    <img src="../static/images/full_bowl.svg" alt="1">
+                    <img src="{% static 'images/full_bowl.svg' %}" alt="1">
                 {% endif %}
             {% endif %}
 
             {% if review.rating < 3.5 %}
-                <img src="../static/images/empty_bowl.svg" alt="0">
+                <img src="{% static 'images/empty_bowl.svg' %}" alt="0">
             {% else %}
                 {% if review.rating == 3.5 %}
-                    <img src="../static/images/half_bowl.svg" alt="0.5">
+                    <img src="{% static 'images/half_bowl.svg' %}" alt="0.5">
                 {% else %}
-                    <img src="../static/images/full_bowl.svg" alt="1">
+                    <img src="{% static 'images/full_bowl.svg' %}" alt="1">
                 {% endif %}
             {% endif %}
 
             {% if review.rating < 4.5 %}
-                <img src="../static/images/empty_bowl.svg" alt="0">
+                <img src="{% static 'images/empty_bowl.svg' %}" alt="0">
             {% else %}
                 {% if review.rating == 4.5 %}
-                    <img src="../static/images/half_bowl.svg" alt="0.5">
+                    <img src="{% static 'images/half_bowl.svg' %}" alt="0.5">
                 {% else %}
-                    <img src="../static/images/full_bowl.svg" alt="1">
+                    <img src="{% static 'images/full_bowl.svg' %}" alt="1">
                 {% endif %}
             {% endif %}
 </div>

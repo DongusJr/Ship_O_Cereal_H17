@@ -1,11 +1,11 @@
 {% extends 'base_page.html' %}
 {% load static %}
 {% block content %}
-<link rel="stylesheet" href={% static 'css/landing_style.css' %}>
-<link rel="stylesheet" href="../static/css/base_look/landing_style.css">
+<link rel="stylesheet" href="{% static 'css/landing_style.css' %}">
+<link rel="stylesheet" href="{% static 'css/base_look/landing_style.css' %}">
 
 <div class="ad_section">
-    <img src="../static/images/random_ad_nr1.jpg"/>
+    <img src="{% static 'images/random_ad_nr1.jpg' %}"/>
 </div>
     {% for tag in tags_with_products %}
         <div class="tag_name">
