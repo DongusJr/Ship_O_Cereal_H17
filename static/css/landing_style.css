@@ -3,8 +3,8 @@
     display: flex;
     justify-content: space-evenly
 }
-.landingProductDiv {
-    margin: 20px;
+.landingProductDiv{
+    margin: 32px;
     max-width: 210px;
 }
 .landingProductImageDiv {
@@ -27,6 +27,8 @@
     flex-direction: row;
 }
 
+.
+
 .tag_name {
     background-color: var(--light);
     padding-left: 1rem;
@@ -42,4 +44,47 @@
 }
 .ad_section img{
     width: 100%;
+}
+
+/* BJARKA SHIT*/
+
+
+.inner-carousel {
+  width: 100%;
+  height: 400px;
+  overflow: hidden;
+}
+
+.carousel-nav button {
+    top: 50%;
+    transform: translatey(-50%);
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    outline: none;
+    border: 1px solid #000;
+    cursor: pointer;
+}
+
+
+
+.track {
+  display: inline-flex;
+  height: 100%;
+  transition: transform 0.2s ease-in-out;
+}
+
+.carousel-nav .prev {
+  left: -30px;
+  display: none;
+}
+
+.carousel-nav .prev.show {
+  display: block;
+}
+.carousel-nav .next {
+  right: -30px;
+}
+.carousel-nav .next.hide {
+  display: none;
 }

@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 
 from products.forms.productform import ProductCreateForm, ProductUpdateForm
@@ -16,11 +17,12 @@ from reviews.models import Review
 
 
 def get_product_by_tags(request):
+    return render(request, 'main_page.html', {})
+
+def get_tags_json(request):
     if request.method == 'GET':
         tags_with_products = ProductTag.select_all_related_products()
-        context = {'tags_with_products' : tags_with_products}
-        print(context)
-        return render(request, 'main_page.html', context)
+        return JsonResponse({'data': tags_with_products})
 
 class ProductLogic(TemplateView):
     template_name = 'proto_products/proto_products.html'
@@ -80,12 +82,10 @@ class ProductLogic(TemplateView):
         page = self.request.GET.get('page', 1)
         products_paginated = self._paginate_data(products, page, 10)
 
-        print(products_paginated)
         data['category'] = 'Cereal'
         data['pages'] = products_paginated
         data['products'] = Products.get_products(products_paginated)
 
-        print(data['products'])
         return data
 
     def _paginate_data(self, data_list, page, num_per_page):
@@ -159,7 +159,6 @@ class SingleProduct(TemplateView):
 @login_required
 def create_product(request):
     if request.method == 'POST':
-        print(request.POST)
         form = ProductCreateForm(data=request.POST)
         if form.is_valid():
             nutritional_info = _create_nutritional_info(request.POST)
