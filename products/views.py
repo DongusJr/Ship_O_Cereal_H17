@@ -32,24 +32,26 @@ class ProductLogic(TemplateView):
         if 'criteria' in self.request.GET:
             criteria = self.request.GET.get('criteria')
             if criteria != '':
-                products = products.filter(name__icontains=criteria)
+                if products != []:
+                    products = products.filter(name__icontains=criteria)
 
         if 'category' in self.request.GET:
             list_of_all_categories = self.get_all_unique_categories()
             category = self.request.GET['category']
             if category in list_of_all_categories:
                 data['category'] = category
-                products = products.filter(category__exact=category)
+                if products != []:
+                    products = products.filter(category__exact=category)
 
         if 'tag' in self.request.GET:
             tags_in_use = self.request.GET.getlist('tag')
             data['tags'] = ProductTag.objects.exclude(name__in=tags_in_use)
             for tag in tags_in_use:
-                products = Products.objects.filter(producttag__name=tag)
+                products = products.filter(producttag__name=tag)
         else:
             data['tags'] = ProductTag.objects.all()
 
-        if 'order' in self.request.GET:
+        if 'order' in self.request.GET and products!=[]:
             order = self.request.GET.get('order')
             if order == 'name_ascending':
                 products = products.order_by('name')[::-1]
@@ -63,7 +65,8 @@ class ProductLogic(TemplateView):
         if 'criteria' in self.request.GET:
             criteria = self.request.GET.get('criteria')
             if criteria != '':
-                products = Products.objects.filter(name__icontains=criteria)
+                if products != []:
+                    products = products.filter(name__icontains=criteria)
                 if str(self.request.user) != 'AnonymousUser':
                     SearchHistory.add_to_search_history(criteria, self.request.user)
 
@@ -71,7 +74,8 @@ class ProductLogic(TemplateView):
             category = self.request.GET['category']
             if category in data['all_categories']:
                 data['category'] = category
-                products = Products.objects.filter(category__exact=category)
+                if products != []:
+                    products = products.filter(category__exact=category)
 
         page = self.request.GET.get('page', 1)
         products_paginated = self._paginate_data(products, page, 10)
