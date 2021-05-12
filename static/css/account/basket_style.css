@@ -1,6 +1,7 @@
 .cart_page {
     display: flex;
     flex-direction: row;
+    margin-top: 1rem;
 }
 
 .cart {

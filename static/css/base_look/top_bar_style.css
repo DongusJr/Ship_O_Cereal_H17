@@ -3,12 +3,13 @@
     margin: 0%;
     padding:  20px;
     background-color: var(--light);
+    border-radius: 0 0 75px 75px;
 }
 .topText{
     color: var(--dark)
 }
 #header_top {
-    display: flex;
+    display: flex;  
     justify-content: space-between;
     margin-bottom: 0px;
 }

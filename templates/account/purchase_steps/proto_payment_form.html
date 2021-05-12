@@ -1,0 +1,16 @@
+
+    <form method="post" class="form">
+        {% csrf_token %}
+        {#{{  form }}#}
+
+        <input type="hidden" name="csrfmiddlewaretoken" value="cBBMUTEHVPhTWW28my7pBAcmqgvX7iJ3gBYqweC0lFhp3bKcRh92siOcm0QiP3Ii">
+        <label for="id_full_name">Full name:<input type="text" name="full_name" class="form-control" maxlength="80" required id="id_full_name"><br>
+        <label for="id_card_number">Card number:<input type="text" name="card_number" class="form-control" maxlength="16" required id="id_card_number"><br>
+        <label for="id_year">Year:<input type="number" name="year" class="form-control" required id="id_year"><br>
+        <label for="id_month">Month:<input type="number" name="month" class="form-control" required id="id_month"><br>
+        <label for="id_cvc">Cvc:<input type="text" name="cvc" class="form-control" maxlength="3" required id="id_cvc"><br>
+
+
+
+        <input type="submit" name="personinfo_step" value="Continue"/>
+    </form>
