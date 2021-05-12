@@ -10,10 +10,77 @@
     </div>
 
     <h1>Products</h1>
+    {% if products %}
+        <p>Number of products found: {{ pages.paginator.count }}</p>
+    {% else %}
+        <p>No product found</p>
+    {% endif %}
     <div style="display:flex;flex-wrap: wrap" id="category">
         {% for product in products %}
             {% include 'proto_products/proto_product.html' with product=product %}
         {% endfor %}
     </div>
 
+    {# temporary style for paginator #}
+    <style>
+    .paginator{
+          overflow: hidden;
+          list-style-type: none;
+    }
+
+
+    .paginator li {
+        float: left;
+        padding: 8px 16px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .paginator li{
+        border: 1px solid;
+          display: block;
+          text-align: center;
+          padding: 16px;
+          text-decoration: none;
+    }
+
+    .paginator li:not(.paginator .disabled):hover{
+        background: #B46B36;
+        color: black;
+    }
+
+    li:disabled{
+        background:white;
+    }
+
+    .active{
+        background-color: #B46B36;
+    }
+
+    </style>
+
+    {% if pages.has_other_pages %}
+        {# Prev page #}
+        <ul class="paginator">
+        {% if pages.has_previous %}
+            <li><a href="?page={{ pages.previous_page_number }}">&laquo;</a></li> {# &laquo is left angle quote #}
+        {% else %}
+            <li class="disabled"><span>&laquo;</span></li>
+        {% endif %}
+        {# Every page number #}
+        {% for i in pages.paginator.page_range %}
+            {% if pages.number == i %}
+                <li class="active"><span>{{ i }}</span></li> {# current page #}
+            {% else %}
+                <li><a href="?page={{ i }}">{{ i }}</a></li>
+            {% endif %}
+        {% endfor %}
+        {# Next page #}
+        {% if pages.has_next %}
+                <li><a href="?page={{ pages.next_page_number }}">&raquo;</a></li> {# &raquo is right angle quote #}
+        {% else %}
+            <li class="disabled"><span>&laquo;</span></li>
+        {% endif %}
+        </ul>
+    {% endif %}
+    <p>Showing {{ pages.start_index }}-{{ pages.end_index }} of {{ pages.paginator.count }}</p>
 {% endblock %}
