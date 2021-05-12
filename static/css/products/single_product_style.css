@@ -253,6 +253,8 @@ h2{
 }
 
 .relatedTag {
+    display: flex;
+    flex-direction: row;
     margin: 20px;
     border-top: dotted var(--dark);
 }

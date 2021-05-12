@@ -130,9 +130,8 @@
 </div>
 <div class="relatedTag">
     <h3>Related products</h3>
-    {% for product in product.category %}
-        {% block product %}
-        {% endblock %}
+    {% for product in similar_products %}
+        {% include 'proto_products/proto_product.html' with product=product %}
     {% endfor %}
 </div>
 {% if user.is_authenticated %}
