@@ -1,8 +1,10 @@
 {% extends 'products/category_page.html' %}
 {% block products %}
-    <div class="Create Button">
-        <a href="{% url 'create_product' %}" class='block btn btn-primary'>Add a product</a>
-    </div>
+    {% if user.is_superuser %}
+        <div class="Create Button">
+            <a href="{% url 'create_product' %}" class='block btn btn-primary'>Add a product</a>
+        </div>
+    {% endif %}
 
     <h1>Products</h1>
     {% if products %}

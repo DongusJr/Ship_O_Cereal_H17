@@ -76,6 +76,8 @@ class ProductLogic(TemplateView):
                 data['category'] = category
                 if products != []:
                     products = products.filter(category__exact=category)
+            else:
+                products = []
 
         page = self.request.GET.get('page', 1)
         products_paginated = self._paginate_data(products, page, 10)

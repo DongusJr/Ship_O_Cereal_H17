@@ -26,7 +26,7 @@ class EmailNewsLetter(TemplateView):
     This view class allows us to render the template which will enable the user
     to sign up for a news letter which has no functionality
     '''
-    template_name = 'email_nws.html'
+    template_name = 'company_info/email_nws.html'
     data = {}
 
     def get(self, request, *args, **kwargs):
