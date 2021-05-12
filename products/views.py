@@ -39,6 +39,7 @@ class ProductLogic(TemplateView):
             tags_in_use = self.request.GET.getlist('tag')
             print(tags_in_use)
             data['tags'] = ProductTag.objects.exclude(name__in=tags_in_use)
+            data['active_tags'] = ProductTag.objects.filter(name__in=tags_in_use)
             for tag in tags_in_use:
                 products = products.filter(producttag__name=tag)
         else:
@@ -50,6 +51,8 @@ class ProductLogic(TemplateView):
                 data['tags'] = ProductTag.objects.exclude(name__in=tags_in_use)
                 for tag in tags_in_use:
                     products = products.filter(producttag__name=tag)
+                data['tags'] = ProductTag.objects.exclude(name__in=tags_in_use)
+                data['active_tags'] = ProductTag.objects.include(name__in=tags_in_use)
 
         if 'criteria' in self.request.GET:
             criteria = self.request.GET.get('criteria')
