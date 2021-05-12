@@ -2,12 +2,22 @@
     <form method="post" class="form">
         {% csrf_token %}
         {#{{  form }}#}
+<<<<<<< Updated upstream
 
         <label for="id_full_name">Full name:<input type="text" name="full_name" class="form-control" maxlength="80" required id="id_full_name"><br>
+=======
+        <label for="id_full_name">Full name:<input type="text" name="full_name" class="form-control" required id="id_full_name"><br>
+>>>>>>> Stashed changes
         <label for="id_card_number">Card number:<input type="text" name="card_number" class="form-control" maxlength="16" required id="id_card_number"><br>
-        <label for="id_year">Year:<input type="number" name="year" class="form-control" required id="id_year"><br>
-        <label for="id_month">Month:<input type="number" name="month" class="form-control" required id="id_month"><br>
+        <label for="id_year">Year:<input type="number" name="year" class="form-control" maxlength="4" required id="id_year">
+        <label for="id_month">Month:<input type="number" name="month" class="form-control" maxlength="2" required id="id_month">
         <label for="id_cvc">Cvc:<input type="text" name="cvc" class="form-control" maxlength="3" required id="id_cvc"><br>
 
+<<<<<<< Updated upstream
         <input type="submit" name="personinfo_step" value="Continue"/>
+=======
+
+
+        <input class="continueBtn" type="submit" name="personinfo_step" value="Continue"/>
+>>>>>>> Stashed changes
     </form>

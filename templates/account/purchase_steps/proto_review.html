@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 <h1>Products</h1>
 <div class="products">
 {% for product in data.order_with_products.products %}
@@ -29,3 +30,24 @@
     {% csrf_token %}
     <input type="submit" name="complete_order" value="Complete order"/>
 </form>
+=======
+    <div id="productsReviewDiv">
+
+    </div>
+    <form method="post" class="form" id="lastForm">
+        {% csrf_token %}
+        <div id="cardInfoDiv">
+            <p>Card Holder Name: {{info.cardHolder}}</p>
+            <p>Card Number: {{info.cardNumber}}</p>
+            <p>Card; Year: {{info.cardYear}}, Month: {{info.cardMonth}}, Cvc:{{info.cardCvc}}</p>
+        </div>
+        <div id="shippingInfoDiv">
+            <p>Full Name: {{info.fullName}}</p>
+            <p>Country:{{info.country}}</p>
+            <p>Zip Code:{{info.zip}}</p>
+            <p>Street:{{info.street}}</p>
+            <p>Home Delivery:{{info.delivery}}</p>
+        </div>
+        <input class="continueBtn" type="submit" name="complete_order" value="Complete order"/>
+    </form>
+>>>>>>> Stashed changes
