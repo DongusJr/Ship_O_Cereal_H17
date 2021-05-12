@@ -19,7 +19,6 @@ def get_product_by_tags(request):
     if request.method == 'GET':
         tags_with_products = ProductTag.select_all_related_products()
         context = {'tags_with_products' : tags_with_products}
-        print(context)
         return render(request, 'main_page.html', context)
 
 class ProductLogic(TemplateView):
