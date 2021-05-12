@@ -28,4 +28,5 @@ urlpatterns = [
     path('aboutus/', include('misc.urls')),
     path('openinghours/', misc.views.OpeningHours.as_view(), name='opening_hours'),
     path('newsletter/', misc.views.EmailNewsLetter.as_view(), name='newsletter')
+    path('get_tags_json', products.views.get_tags_json, name='get_tags_json')
 ]
