@@ -6,7 +6,9 @@
       <a type="button" href="?tag={{ tag.name }}&{{ request.GET.urlencode }}">{{tag.name}}</a>
     {% endfor %}
     <label for="value">Order by:</label>
-
+{#  {% for tag in active_tags %}#}
+{#    <h1> {{ tag.name }}</h1>#}
+{#  {% endfor %}#}
     <form method="get" action="{% url 'product_index' %}">
         <input type="hidden" id="urlencode" name="urlencode" value="{{ request.GET.urlencode }}">
       <select name="order" id="value">
