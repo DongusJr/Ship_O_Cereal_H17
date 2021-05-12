@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render, get_object_or_404, redirect
 
 from products.forms.productform import ProductCreateForm, ProductUpdateForm
@@ -76,9 +77,29 @@ class ProductLogic(TemplateView):
                 data['category'] = category
                 products = products.filter(category__exact=category)
 
+        page = self.request.GET.get('page', 1)
+        products_paginated = self._paginate_data(products, page, 10)
+
+        print(products_paginated)
         data['category'] = 'Cereal'
-        data['products'] = Products.get_products(products)
+        data['pages'] = products_paginated
+        data['products'] = Products.get_products(products_paginated)
+
+        print(data['products'])
         return data
+
+    def _paginate_data(self, data_list, page, num_per_page):
+        paginator = Paginator(data_list, num_per_page)
+        try:
+            data = paginator.page(page)
+        except PageNotAnInteger:
+            data = paginator.page(1)
+        except EmptyPage:
+            data = paginator.page(paginator.num_pages)
+
+        return data
+
+
 
     def get_all_unique_categories(self):
         all_products = Products.objects.all()
