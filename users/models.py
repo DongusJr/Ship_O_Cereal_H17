@@ -4,6 +4,8 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 from django.db.models import Prefetch
 from django.core.exceptions import ObjectDoesNotExist
+from django.core.validators import URLValidator
+from django.core.exceptions import ValidationError
 
 from products.models import Products, ProductImage
 from django.contrib.auth.models import User
@@ -67,6 +69,11 @@ class Profile(models.Model):
         changes
         '''
         profile = Profile.objects.get(user_id=user_id)
+        validate = URLValidator()
+        try:
+            validate(image)
+        except ValidationError:
+            image = 'https://www.edmundsgovtech.com/wp-content/uploads/2020/01/default-picture_0_0.png'
         profile.image = image
         profile.save()
 
