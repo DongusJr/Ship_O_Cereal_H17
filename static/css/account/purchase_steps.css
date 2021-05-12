@@ -53,13 +53,25 @@
     margin-right: 1rem;
     padding-right: 1rem;
 }
-
+.btn-group{
+    margin: auto;
+    width: fit-content;
+}
 .bowlBtn{
-
+    margin: auto;
+    border: solid var(--backgroundWhite);
+    color: var(--backgroundWhite);
+    background-color: var(--backgroundWhite);
+}
+.bowlBtn:hover{
+    border: solid var(--backgroundWhite);
+    color: var(--backgroundWhite);
+    background-color: var(--backgroundWhite);
+}
+.bowlBtn label{
     content: url("/static/images/empty_bowl.svg");
 }
-
-.bowlBtn:disabled{
+.bowlBtn:disabled label{
     content: url("/static/images/full_bowl.svg");
 }
 

@@ -15,16 +15,19 @@
         <a href="{% url 'complete_order' %}?step=payment">
             <button type="button" class="btn btn-primary btn-nav bowlBtn">
                 <!--Payment-->
+                <label></label>
             </button>
         </a>
         <a href="{% url 'complete_order' %}?step=person_info">
             <button type="button" class="btn btn-primary btn-nav bowlBtn" {% if not request.session.payment_form %} disabled {% endif %}>
                 <!--Person-->
+                <label></label>
             </button>
         </a>
         <a href="{% url 'complete_order' %}?step=review">
             <button type="button" class="btn btn-primary btn-nav bowlBtn" {% if not request.session.payment_form or not request.session.person_info_form %} disabled {% endif %}>
                 <!--review-->
+                <label></label>
             </button>
         </a>
     </div>
