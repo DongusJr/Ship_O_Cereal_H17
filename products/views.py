@@ -34,38 +34,23 @@ class ProductLogic(TemplateView):
         data['all_categories'] = self.get_all_unique_categories()
         products= Products.objects.all()
 
-        if 'criteria' in self.request.GET:
-            criteria = self.request.GET.get('criteria')
-            if criteria != '':
-                if products != []:
-                    products = products.filter(name__icontains=criteria)
-
-        if 'category' in self.request.GET:
-            list_of_all_categories = self.get_all_unique_categories()
-            category = self.request.GET['category']
-            if category in list_of_all_categories:
-                data['category'] = category
-                if products != []:
-                    products = products.filter(category__exact=category)
-
         if 'tag' in self.request.GET:
+            print('tag in get')
             tags_in_use = self.request.GET.getlist('tag')
+            print(tags_in_use)
             data['tags'] = ProductTag.objects.exclude(name__in=tags_in_use)
             for tag in tags_in_use:
                 products = products.filter(producttag__name=tag)
         else:
             data['tags'] = ProductTag.objects.all()
 
-        if 'order' in self.request.GET and products!=[]:
-            order = self.request.GET.get('order')
-            if order == 'name_ascending':
-                products = products.order_by('name')[::-1]
-            elif order == 'name_descending':
-                products = products.order_by('name')
-            elif order == 'price_descending':
-                products = products.order_by('price')
-            elif order == 'price_ascending':
-                products = products.order_by('-price')
+        if self.request.GET.getlist('urlencode'):
+            print('urlencode in get')
+            tags_in_use = self._get_tags_from_url(self.request.GET.getlist('urlencode')[0])
+            print(tags_in_use)
+            data['tags'] = ProductTag.objects.exclude(name__in=tags_in_use)
+            for tag in tags_in_use:
+                products = products.filter(producttag__name=tag)
 
         if 'criteria' in self.request.GET:
             criteria = self.request.GET.get('criteria')
@@ -81,8 +66,17 @@ class ProductLogic(TemplateView):
                 data['category'] = category
                 if products != []:
                     products = products.filter(category__exact=category)
-            else:
-                products = []
+
+        if 'order' in self.request.GET and products!=[]:
+            order = self.request.GET.get('order')
+            if order == 'name_ascending':
+                products = products.order_by('name')[::-1]
+            elif order == 'name_descending':
+                products = products.order_by('name')
+            elif order == 'price_descending':
+                products = products.order_by('price')
+            elif order == 'price_ascending':
+                products = products.order_by('-price')
 
         page = self.request.GET.get('page', 1)
         products_paginated = self._paginate_data(products, page, 10)
@@ -91,6 +85,23 @@ class ProductLogic(TemplateView):
         data['products'] = Products.get_products(products_paginated)
 
         return data
+
+    def _get_tags_from_url(self, urlencode):
+        tags_in_use = []
+        tag_name = ""
+        tag_begin = False
+        for letter in urlencode:
+            if letter == "&":
+                tags_in_use.append(tag_name)
+                tag_name = ""
+                tag_begin = False
+            elif tag_begin:
+                tag_name += letter if letter != '+' else " "
+            elif letter == '=':
+                tag_begin = True
+        tags_in_use.append(tag_name)
+        return tags_in_use
+
 
     def _paginate_data(self, data_list, page, num_per_page):
         paginator = Paginator(data_list, num_per_page)
