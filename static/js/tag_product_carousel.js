@@ -6,7 +6,7 @@ $.ajax({
 
         var newHtml = resp.data.map(d => {
 
-            let text = `<div class="tag_name>
+            let text = `<div class="tag_name">
                             <a href="/products?tag=${d.name}"><h1>${d.name}</h1></a>
                        </div>
                         <div class="tag_div inner-carousel">
@@ -20,8 +20,8 @@ $.ajax({
                                 </div>
                         
                                 <h4>${d.products[product].name}</h4>
-                                <p>${d.products[product].description}</p>
-                                <p>${d.products[product].price}</p>
+                                <p>${d.products[product].short_description}</p>
+                                <p>${d.products[product].price}£</p>
                                 <p>${d.products[product].category}</p>
                             </a>
                         </div>`
@@ -29,8 +29,8 @@ $.ajax({
             text += `</div>
                     </div>
                      <div class="carousel-nav">
-                    <button class="prev"><i class="fas fa-arrow-left fa-2x">World</i></button>
-                    <button class="next"><i class="fas fa-arrow-right fa-2x">Hello</i></button>
+                    <button class="arrow-btn prev"><i class="fas fa-arrow-left fa-2x"><</i></button>
+                    <button class="arrow-btn next"><i class="fas fa-arrow-right fa-2x">></i></button>
                      </div>`
             return text
         });
