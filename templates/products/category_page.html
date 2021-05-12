@@ -7,12 +7,24 @@
     {% endfor %}
     <label for="value">Order by:</label>
 
-    <select name="order" id="value">
-      <option value="price_ascending">price <</option>
-      <option value="price_descending">price ></option>
-      <option value="name_ascending">name <</option>
-      <option value="name_descending">name ></option>
-    </select>
+    <form method="get" action="{% url 'product_index' %}">
+      <select name="order" id="value">
+        <option value="default">--Select--</option>
+        <option value="price_ascending">price <</option>
+        <option value="price_descending">price ></option>
+        <option value="name_ascending">name <</option>
+        <option value="name_descending">name ></option>
+      </select>
+
+      <select name="category">
+        <option value="default">--Select--</option>
+        {% for category in all_categories %}
+          <option value="{{category}}">{{category}}</option>
+        {% endfor %}
+      </select>
+
+      <button class="btn btn-outline-success" type="submit">submit</button>
+    </form>
   </div>
   <div class="products_page">
     {% block products %}
