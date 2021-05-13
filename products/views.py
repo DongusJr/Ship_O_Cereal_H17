@@ -237,7 +237,7 @@ def create_product(request):
                                short_description=request.POST['short_description'],
                                description=request.POST['description'],
                                price=request.POST['price'],
-                               category=request.POST['category'],
+                               category=category_select(request.POST['category']),
                                nutritional_info=nutritional_info,
                                in_stock=request.POST['in_stock'],)
             product.save()
@@ -253,17 +253,39 @@ def create_product(request):
         'form': form
     })
 
+def category_select(category):
+    if category.lower() == 'dinnerware':
+        category = 'dinnerware'
+    elif category.lower() == 'cereal':
+        category = 'cereal'
+    elif category.lower() == 'cookbook':
+        category = 'cookbook'
+    else:
+        category = 'other'
+    return category
+
 @login_required
 def update_product(request, id):
     product_data = Products.get_detail_data_for_product(id)
     if request.method == 'POST':
-        # form = ProductUpdateForm(data=data)
-        # if form.is_valid():
-        #     print("VALID UPDATE")
-        pass
+        form = ProductUpdateForm(data=request.POST)
+        data = _updated_info(request)
+        if form.is_valid():
+            product = Products.objects.get(id=id)
+            Products.update_product(data, product)
     else:
         form = ProductUpdateForm(data=product_data)
     return render(request, 'proto_products/proto_update_product.html', {
         'form': form,
         'id': id
     })
+
+def _updated_info(request):
+    data = {}
+    data['description'] = request.POST.get('description')
+    data['name'] = request.POST.get('name')
+    data['short_description'] = request.POST.get('short_description')
+    data['price'] = request.POST.get('price')
+    data['category'] = category_select(request.POST.get('category'))
+    data['in_stock'] = request.POST.get('in_stock')
+    return data

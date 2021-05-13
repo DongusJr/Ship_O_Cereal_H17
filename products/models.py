@@ -22,6 +22,17 @@ class Products(models.Model):
     in_stock = models.IntegerField(default=1) #can not be less than zero
 
     @staticmethod
+    def update_product(data, product):
+        product.name = data['name']
+        product.short_description = data['short_description']
+        product.description = data['description']
+        product.price = data['price']
+        product.category = data['category']
+        #product.nutritional_info = data['nutrional_info']
+        product.in_stock = data['in_stock']
+        product.save()
+
+    @staticmethod
     def update_stock(product, quantity, state=1):
         if state == 1:
             product.in_stock -= quantity
