@@ -25,7 +25,12 @@
 }
 #profile\&CartDiv{
     display: flex;
-    justify-content: space-around;
+    justify-content: right;
+    flex-direction: row-reverse;
+    min-width: 270px;
+}
+#spacerProfile\&Cart{
+    color: var(--light);
 }
 #topProfileImgDiv{
     float: left;
