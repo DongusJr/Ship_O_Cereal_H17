@@ -257,7 +257,7 @@ def create_product(request):
 def update_product(request, id):
     product_data = Products.get_detail_data_for_product(id)
     if request.method == 'POST':
-        # form = ProductUpdateForm(data=data)
+        form = ProductUpdateForm(data=product_data)
         # if form.is_valid():
         #     print("VALID UPDATE")
         pass
