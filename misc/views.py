@@ -42,8 +42,7 @@ class EmailNewsLetter(TemplateView):
         self.data['news'] = False
         try:
             user = User.objects.get(id=request.user.id)
-            Profile.is_user_subscribed(request.user.id)
-            self.data['sub'] = True
+            self.data['sub'] = Profile.is_user_subscribed(request.user.id)
         except:
             self.data['sub'] = False
         return render(request, self.template_name, self.data)
