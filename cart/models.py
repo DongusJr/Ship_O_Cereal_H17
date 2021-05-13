@@ -154,6 +154,14 @@ class Contains(models.Model):
         Cart.update_total(cart).save()
         Cart.update_number_of_items(cart).save()
 
+    @staticmethod
+    def contains_exist(pk):
+        try:
+            Contains.object.get(pk=pk)
+            return True
+        except ObjectDoesNotExist:
+            return False
+
 
 class ProductViewed(models.Model):
     product = models.ForeignKey(Products, on_delete=models.CASCADE)
