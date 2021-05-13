@@ -5,8 +5,8 @@
 <link rel="stylesheet" href="{% static 'css/company_info/email_nws_style.css' %}">
 
 <div class="email_page">
-  {% if user.is_auhenticated %}
-    {% if !sub %}
+  {% if user.is_authenticated %}
+    {% if not sub %}
     <form method="post">
         {% csrf_token %}
         <div class="email_box">
@@ -36,11 +36,12 @@
         <h4>Cereal stock is on the rise</h4>
         <p>Our legal team has successfully gone public with Ship O' Cereal and converted all monetary currency to bitcoin. To purchase stocks in our Eutopia of modern cereal living visit the stock trade for more info.</p>
         <form method="post">
-            <input type="text" name="unsub" value="Unsubscribe to news letter">
+            {% csrf_token %}
+            <input type="submit" name="unsub" value="Unsubscribe to news letter">
         </form>
+    {% endif %}
     {% else %}
         <p>A user can only receive the news letter if an account is created on the website</p>
-        <a href="{% url 'account' %}">Click here to register</a>
     {% endif %}
 </div>
 
