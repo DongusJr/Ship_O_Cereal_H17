@@ -273,6 +273,8 @@ def update_product(request, id):
         if form.is_valid():
             product = Products.objects.get(id=id)
             Products.update_product(data, product)
+        else:
+            form = ProductUpdateForm(data=product_data)
     else:
         form = ProductUpdateForm(data=product_data)
     return render(request, 'proto_products/proto_update_product.html', {
