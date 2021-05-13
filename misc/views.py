@@ -3,7 +3,7 @@ from django.views.generic import TemplateView
 from users.models import Profile
 from django.contrib.auth.models import User
 # Create your views here.
-from misc.models import News
+# from misc.models import News
 
 class AboutUs(TemplateView):
     template_name = 'company_info/about_us.html'
@@ -38,7 +38,8 @@ class EmailNewsLetter(TemplateView):
         get
         this method only renders the html requested by the user
         '''
-        self.data['news'] = News.objects.all()
+        #self.data['news'] = News.objects.all()
+        self.data['news'] = False
         try:
             user = User.objects.get(id=request.user.id)
             Profile.is_user_subscribed(request.user.id)

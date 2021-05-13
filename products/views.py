@@ -3,7 +3,7 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 
-from products.forms.productform import ProductCreateForm
+from products.forms.productform import ProductCreateForm, ProductUpdateForm
 from products.models import Products, ProductTag, ProductImage, NutritionalInfo
 from django.views.generic import TemplateView
 from cart.models import Contains, ProductViewed
@@ -187,7 +187,6 @@ def create_product(request):
     if request.method == 'POST':
         form = ProductCreateForm(data=request.POST)
         if form.is_valid():
-            print("VALID")
             nutritional_info = NutritionalInfo(energy=request.POST['energy'],
                                                sugar=request.POST['sugar'],
                                                fat=request.POST['fat'],
@@ -212,4 +211,19 @@ def create_product(request):
         form = ProductCreateForm()
     return render(request, 'proto_products/proto_create_product.html', {
         'form': form
+    })
+
+@login_required
+def update_product(request, id):
+    product_data = Products.get_detail_data_for_product(id)
+    if request.method == 'POST':
+        # form = ProductUpdateForm(data=data)
+        # if form.is_valid():
+        #     print("VALID UPDATE")
+        pass
+    else:
+        form = ProductUpdateForm(data=product_data)
+    return render(request, 'proto_products/proto_update_product.html', {
+        'form': form,
+        'id': id
     })
