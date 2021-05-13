@@ -1,6 +1,33 @@
 
-    <form method="post" class="form form-horizontal" style="border: solid 3px black;margin:auto; padding:5%;">
+    <form method="post" class="form">
         {% csrf_token %}
-        {{  form }}
-        <input type="submit" name="review_step" value="Continue"/>
+        {#{{  form }}#}
+        <div>
+            <label for="id_full_name">Full name:</label><input type="text" name="full_name" class="form-control" maxlength="50" required id="id_full_name">
+        </div><br>
+        <div>
+            <label for="id_country">Country:</label><select name="country" class="form-control" required id="id_country">
+        </div><br>
+        <div>
+            <option value="" selected>---------</option>
+            {% for countryName in countries %}
+                <option value="{{countryName}}">{{countryName}}</option>
+            {% endfor %}
+            <option value="1">Iceland</option>
+            </select>
+        </div><br>
+        <div>
+            <label for="id_zip">Zip:</label><input type="text" name="Zip" class="form-control" maxlength="12" required id="id_zip">
+        </div><br>
+        <div>
+            <label for="id_Street">Street:</label><input type="text" name="Street" class="form-control" maxlength="80" required id="id_Street">
+        </div><br>
+        <div>
+            <input type="checkbox"><label for="id_Street">Home delivery (may have additional cost)</label>
+        </div><br>
+        <input class="continueBtn" type="submit" name="review_step" value="Continue"/>
     </form>
+
+
+
+

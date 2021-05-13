@@ -1,5 +1,6 @@
 
 .topDiv{
+    z-index: 64;
     margin: 0%;
     padding:  20px;
     background-color: var(--light);
@@ -87,4 +88,10 @@
     font-family: Roboto, sans-serif;
     font-size: xx-large;
     margin-left: 20px;
+}
+nav{
+    z-index: 64;
+}
+#contentDiv{
+    z-index: 1;
 }

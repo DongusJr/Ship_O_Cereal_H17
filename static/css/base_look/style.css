@@ -1,8 +1,8 @@
 :root{
     --dark: #B46B36;
-    --darkHover: saddlebrown;
+    --darkHover: #ad5d22;
     --light: #F0C965;
-    --lightHover: yellow;
+    --lightHover: #ffd74e;
     --backgroundWhite: white;
     --pageWidth: 1400px;
     --marginsWidth: calc( calc(100vw - var(--pageWidth)) / 2);

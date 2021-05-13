@@ -1,6 +1,7 @@
 .email_page {
     width: 100%;
     display: flex;
+    flex-direction: column;
     margin: auto;
     align-items: center;
     justify-content: center;
@@ -35,4 +36,11 @@ input[type=text]{
     cursor: pointer;
     width: 6rem;
     height: 3rem;
+}
+
+.news_section {
+    border: 2px solid var(--dark);
+    border-radius: 10px;
+    margin: 2rem;
+    padding: 1rem;
 }
