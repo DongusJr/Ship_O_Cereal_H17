@@ -12,6 +12,16 @@ class NutritionalInfo(models.Model):
     saturates = models.FloatField()
     serving_amount = models.IntegerField(default=14)
 
+    @staticmethod
+    def update_nutritional_info(data, nut_obj):
+        nut_obj.energy = data['energy']
+        nut_obj.sugar = data['sugar']
+        nut_obj.fat = data['fat']
+        nut_obj.saturates = data['saturates']
+        nut_obj.serving_amount = int(data['serving_amount'])
+        nut_obj.save()
+        return nut_obj
+
 class Products(models.Model):
     name = models.CharField(max_length=64)
     short_description = models.CharField(max_length=100)
@@ -28,9 +38,11 @@ class Products(models.Model):
         product.description = data['description']
         product.price = data['price']
         product.category = data['category']
-        #product.nutritional_info = data['nutrional_info']
+        product.nutritional_info = NutritionalInfo.update_nutritional_info(data['nutritional_info'], product.nutritional_info)
+        ProductTag.update_tags(product, data['tags'])
         product.in_stock = data['in_stock']
         product.save()
+
 
     @staticmethod
     def update_stock(product, quantity, state=1):
@@ -150,4 +162,18 @@ class ProductTag(models.Model):
                      }
                     for product in tag.product.all()]
         return products
+
+    @staticmethod
+    def get_tags_for_product(product):
+        tag_list = ProductTag.objects.filter(product=product)
+        return tag_list
+
+    @staticmethod
+    def update_tags(product, tags):
+        tag_list = ProductTag.get_tags_for_product(product)
+        for tag in tag_list:
+            if tag.name not in tags:
+                rag = ProductTag.objects.get(name=tag.name)
+                rag.product.add(product)
+                rag.save()
 

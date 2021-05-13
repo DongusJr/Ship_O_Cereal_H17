@@ -289,5 +289,16 @@ def _updated_info(request):
     data['short_description'] = request.POST.get('short_description')
     data['price'] = request.POST.get('price')
     data['category'] = category_select(request.POST.get('category'))
+    data['nutritional_info'] = _updated_nutritional_info(request)
     data['in_stock'] = request.POST.get('in_stock')
+    data['tags'] = request.POST.get('tags')
+    return data
+
+def _updated_nutritional_info(request):
+    data = {}
+    data['energy'] = request.POST.get('energy')
+    data['sugar'] = request.POST.get('sugar')
+    data['fat'] = request.POST.get('fat')
+    data['saturates'] = request.POST.get('saturates')
+    data['serving_amount'] = request.POST.get('serving_amount')
     return data
