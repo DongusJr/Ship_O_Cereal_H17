@@ -41,13 +41,15 @@ def get_tags_json(request):
 def get_products(request):
     template_name = 'products/all_products.html'
 
-    json_response = False
+    try:
+        json_response = bool(request.GET.get('json_response'))
+    except:
+        json_response = False
     data = dict()
     data['all_categories'] = _get_all_unique_categories()
     products = Products.objects.all()
 
     if 'tags' in request.GET:
-        json_response = True
         print(request.GET)
         tags_in_use = request.GET.getlist('tags')
         data['tags'] = ProductTag.objects.exclude(name__in=tags_in_use)
@@ -63,18 +65,18 @@ def get_products(request):
             if products != []:
                 products = products.filter(name__icontains=criteria)
             if str(request.user) != 'AnonymousUser':
-                SearchHistory.add_to_search_history(criteria, self.request.user)
+                SearchHistory.add_to_search_history(criteria, request.user)
 
     if 'category' in request.GET:
-        json_response = True
         category = request.GET['category']
         if category in data['all_categories']:
-            data['category'] = category
+            data['def_category'] = category
             if products != []:
                 products = products.filter(category__exact=category)
+    else:
+        data['def_category'] = ''
     
     if 'order' in request.GET and products != []:
-        json_response = True
         order = request.GET.get('order')
         if order == 'name_ascending':
             products = products.order_by('name')[::-1]
@@ -91,6 +93,7 @@ def get_products(request):
     data['pages'] = products_paginated
     data['products'] = Products.get_products(products_paginated)
 
+
     if json_response:
         return JsonResponse({
             'products' : data['products'],
@@ -100,7 +103,8 @@ def get_products(request):
             'products': data['products'],
             'pages': data['pages'],
             'all_categories': data['all_categories'],
-            'tags' : data['tags']})
+            'tags': data['tags'],
+            'def_category': data['def_category']})
 
 def _jsonize_pages(pages):
     try:
@@ -114,7 +118,7 @@ def _jsonize_pages(pages):
         prev_page = -1
     data = {'page_count': pages.paginator.count,
             'has_other_pages': pages.has_other_pages(),
-            'page_has_next': pages.has_next(),
+            'has_next': pages.has_next(),
             'has_previous': pages.has_previous(),
             'next_page_number': next_page,
             'previous_page_number': prev_page,
@@ -288,5 +292,16 @@ def _updated_info(request):
     data['short_description'] = request.POST.get('short_description')
     data['price'] = request.POST.get('price')
     data['category'] = category_select(request.POST.get('category'))
+    data['nutritional_info'] = _updated_nutritional_info(request)
     data['in_stock'] = request.POST.get('in_stock')
+    data['tags'] = request.POST.get('tags')
+    return data
+
+def _updated_nutritional_info(request):
+    data = {}
+    data['energy'] = request.POST.get('energy')
+    data['sugar'] = request.POST.get('sugar')
+    data['fat'] = request.POST.get('fat')
+    data['saturates'] = request.POST.get('saturates')
+    data['serving_amount'] = request.POST.get('serving_amount')
     return data

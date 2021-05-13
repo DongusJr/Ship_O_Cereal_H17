@@ -3,7 +3,6 @@ let category = '';
 let tags = [];
 let page = 1;
 
-
 $(document).ready(function() {
     $('.order_select').on('change', function(e) {
         e.preventDefault();
@@ -25,15 +24,15 @@ $(document).ready(function() {
 })
 
 $(document).ready(function() {
-    $('.tag_button').on('click', function(e) {
+    $('.inactiveTag').on('click', function(e) {
         e.preventDefault();
-
-        if ($(e.target).attr('id') !== 'tag_clicked'){
-            $(e.target).attr('id', 'tag_clicked');
-            tags.push($(e.target).html())
+        let tag_button = $(e.target)
+        if (tag_button.attr('class') !== 'activeTag'){
+            tag_button.attr('class', 'activeTag');
+            tags.push($(e.target).children().html())
         } else {
-            $(e.target).removeAttr('id');
-            let index = tags.indexOf($(e.target).html())
+            tag_button.attr('class', 'inactiveTag');
+            let index = tags.indexOf($(e.target).children().html())
             if (index > -1) { tags.splice(index, 1)}
         }
         page = $('.active-page').html();
@@ -48,7 +47,6 @@ $(document).ready(function() {
 
 function make_page_nav_event_listener() {
     $('.page_nav_button').on('click', function(e) {
-        console.log('pressed')
         if ($(e.target).attr('id') === 'next_page') {
             page += 1;
         }
@@ -68,7 +66,7 @@ function make_url() {
     for (let i = 0; i < tags.length; i++){
         tag_url += '&tags=' + tags[i] + '&'
     }
-    return '/products?page=' + page + '&order=' + order + '&category=' + category + tag_url
+    return '/products?page=' + page + '&order=' + order + '&category=' + category + tag_url + '&json_response=True'
 }
 
 function make_ajax_request(url) {
@@ -109,7 +107,7 @@ function make_page_nav(pages){
         // Every page number
         for (let i=1; i< (pages.num_of_pages + 1); i++){
             if (pages.number == i) {
-              newHtml += `<li className="active"><span className="active-page">${i}</span></li>`
+              newHtml += `<li class="active"><span class="active-page">${i}</span></li>`
             } else {
                 newHtml += `<li><a class="page_nav_button" id="num_page">${i}</a></li>`; // href="?page=${i}"
             }

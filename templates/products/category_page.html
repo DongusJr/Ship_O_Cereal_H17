@@ -2,53 +2,51 @@
 {% load static %}
 {% block content %}
     {# bjaka style #}
-    <style>
-        .tag_button{
-            background-color: #F0C965 !important;
-            color: #B46B36;
-            cursor: pointer;
-        }
+{#    <style>#}
+{#        .tag_button{#}
+{#            background-color: #F0C965 !important;#}
+{#            color: #B46B36;#}
+{#            cursor: pointer;#}
+{#        }#}
+{##}
+{#        .tag_button:hover {#}
+{#            background-color: #B46B36 !important;#}
+{#            color: #F0C965;#}
+{#        }#}
+{##}
+{#        #tag_clicked {#}
+{#            background-color: #B46B36 !important;#}
+{#            color: #F0C965;#}
+{#        }#}
+{#    </style>#}
 
-        .tag_button:hover {
-            background-color: #B46B36 !important;
-            color: #F0C965;
-        }
-
-        #tag_clicked {
-            background-color: #B46B36 !important;
-            color: #F0C965;
-        }
-    </style>
     <script src="{% static 'js/products.js' %}"></script>
   <link rel="stylesheet" href="{% static 'css/products/category_page_style.css' %}">
   <div class="tags">
+      <label>Tags:</label>
       <div id="tagDiv">
-        {% for tag in active_tags %}
-        <div class="activeTag">
-          <a> {{ tag.name }}</a>
-        </div>
-        {% endfor %}
         {% for tag in tags %}
           <div class="inactiveTag">
-            <a type="button" href="?tag={{ tag.name }}&{{ request.GET.urlencode }}">{{tag.name}}</a>
+            <label class="tag_label">{{tag.name}}</label>
           </div>
         {% endfor %}
-        <label for="value">Order by:</label>
+
     {#  {% for tag in active_tags %}#}
     {#    <h1> {{ tag.name }}</h1>#}
     {#  {% endfor %}#}
      </div>
+      <label for="value">Order by:</label>
         <input type="hidden" id="urlencode" name="urlencode" value="{{ request.GET.urlencode }}">
       <select class="order_select" name="order" id="value">
-        <option value="">--Sort--</option>
-        <option value="price_ascending">price <</option>
-        <option value="price_descending">price ></option>
-        <option value="name_ascending">name <</option>
-        <option value="name_descending">name ></option>
+        <option value="">No order</option>
+        <option value="price_ascending">price asc</option>
+        <option value="price_descending">price desc</option>
+        <option value="name_ascending">name asc</option>
+        <option value="name_descending">name desc</option>
       </select>
 
-      <select class="category_select" name="category">
-        <option value="">--Category--</option>
+      <select class="category_select"name="category">
+        <option value="">All</option>
         {% for category in all_categories %}
           <option value="{{category}}">{{category}}</option>
         {% endfor %}
@@ -59,4 +57,11 @@
     {% block products %}
     {% endblock %}
   </div>
+
+        <script>
+        let def_category = "{{ def_category }}"
+        console.log(def_category)
+        $(".category_select").val(def_category)
+        category = def_category
+    </script>
 {% endblock %}
