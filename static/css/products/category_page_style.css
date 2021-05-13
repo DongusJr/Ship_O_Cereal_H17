@@ -1,11 +1,19 @@
 .tags {
     margin-top: 1rem;
-    width: 100%;
+    width: 97%;
     display: flex;
     justify-content: space-around;
     padding-bottom: 1rem;
     border-bottom: 2px solid #B46B36;
-    margin-inline: auto;
+    margin-inline: 1rem;
+}
+
+#tagDiv{
+    justify-content: space-around;
+    display: flex;
+    flex-direction: row;
+    width: 90%;
+    overflow: hidden;
 }
 
 .tags button {

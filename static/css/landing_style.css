@@ -67,7 +67,7 @@ nav{
 }
 .carousel-nav{
     z-index: 3;
-    height: 2rem;
+    height: 2.75rem;
 }
 .carousel-nav button {
     cursor: pointer;

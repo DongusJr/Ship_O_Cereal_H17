@@ -24,7 +24,7 @@
     border: 1px solid var(--dark);
 }
 #id_full_name{
-    width: 223px;
+    width: max-content;
 }
 #id_card_number{
         width: 200px;
