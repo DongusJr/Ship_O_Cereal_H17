@@ -25,106 +25,128 @@ def get_tags_json(request):
 
         return JsonResponse({'data': tags_with_products})
 
-
-class ProductLogic(TemplateView):
+def get_products(request):
     template_name = 'proto_products/proto_products.html'
+    json_response = False
+    data = dict()
+    data['all_categories'] = _get_all_unique_categories()
+    products = Products.objects.all()
 
-    def get_context_data(self, **kwargs):
-        data = super(ProductLogic, self).get_context_data(**kwargs)
-        data['all_categories'] = self.get_all_unique_categories()
-        products= Products.objects.all()
+    if 'tags' in request.GET:
+        json_response = True
+        print(request.GET)
+        tags_in_use = request.GET.getlist('tags')
+        data['tags'] = ProductTag.objects.exclude(name__in=tags_in_use)
+        data['active_tags'] = ProductTag.objects.filter(name__in=tags_in_use)
+        for tag in tags_in_use:
+            products = products.filter(producttag__name=tag)
+    else:
+        data['tags'] = ProductTag.objects.all()
 
-        if 'tag' in self.request.GET:
-            print('tag in get')
-            tags_in_use = self.request.GET.getlist('tag')
-            print(tags_in_use)
-            data['tags'] = ProductTag.objects.exclude(name__in=tags_in_use)
-            data['active_tags'] = ProductTag.objects.filter(name__in=tags_in_use)
-            for tag in tags_in_use:
-                products = products.filter(producttag__name=tag)
-        else:
-            data['tags'] = ProductTag.objects.all()
+    if 'criteria' in request.GET:
+        criteria = request.GET.get('criteria')
+        if criteria != '':
+            if products != []:
+                products = products.filter(name__icontains=criteria)
+            if str(request.user) != 'AnonymousUser':
+                SearchHistory.add_to_search_history(criteria, self.request.user)
 
-        if self.request.GET.getlist('urlencode'):
-            tags_in_use = self._get_tags_from_url(self.request.GET.getlist('urlencode')[0])
-            if tags_in_use != ['']:
-                data['tags'] = ProductTag.objects.exclude(name__in=tags_in_use)
-                data['active_tags'] = ProductTag.objects.filter(name__in=tags_in_use)
-                for tag in tags_in_use:
-                    products = products.filter(producttag__name=tag)
+    if 'category' in request.GET:
+        json_response = True
+        category = request.GET['category']
+        if category in data['all_categories']:
+            data['category'] = category
+            if products != []:
+                products = products.filter(category__exact=category)
+    #
+    if 'order' in request.GET and products != []:
+        json_response = True
+        order = request.GET.get('order')
+        if order == 'name_ascending':
+            products = products.order_by('name')[::-1]
+        elif order == 'name_descending':
+            products = products.order_by('name')
+        elif order == 'price_descending':
+            products = products.order_by('price')
+        elif order == 'price_ascending':
+            products = products.order_by('-price')
 
-        if 'criteria' in self.request.GET:
-            criteria = self.request.GET.get('criteria')
-            if criteria != '':
-                if products != []:
-                    products = products.filter(name__icontains=criteria)
-                if str(self.request.user) != 'AnonymousUser':
-                    SearchHistory.add_to_search_history(criteria, self.request.user)
+    page = request.GET.get('page', 1)
+    products_paginated = _paginate_data(products, page, 10)
 
-        if 'category' in self.request.GET:
-            category = self.request.GET['category']
-            if category in data['all_categories']:
-                data['category'] = category
-                if products != []:
-                    products = products.filter(category__exact=category)
+    data['pages'] = products_paginated
+    data['products'] = Products.get_products(products_paginated)
 
-        if 'order' in self.request.GET and products!=[]:
-            order = self.request.GET.get('order')
-            if order == 'name_ascending':
-                products = products.order_by('name')[::-1]
-            elif order == 'name_descending':
-                products = products.order_by('name')
-            elif order == 'price_descending':
-                products = products.order_by('price')
-            elif order == 'price_ascending':
-                products = products.order_by('-price')
+    if json_response:
+        return JsonResponse({
+            'products' : data['products'],
+            'pages': _jsonize_pages(products_paginated)})
+    else:
+        return render(request, template_name, {
+            'products': data['products'],
+            'pages': data['pages'],
+            'all_categories': data['all_categories'],
+            'tags' : data['tags']})
 
-        page = self.request.GET.get('page', 1)
-        products_paginated = self._paginate_data(products, page, 10)
+def _jsonize_pages(pages):
+    try:
+        next_page = pages.next_page_number()
+    except:
+        next_page = -1
 
-        data['pages'] = products_paginated
-        data['products'] = Products.get_products(products_paginated)
+    try:
+        prev_page = pages.next_page_number()
+    except:
+        prev_page = -1
+    data = {'page_count': pages.paginator.count,
+            'has_other_pages': pages.has_other_pages(),
+            'page_has_next': pages.has_next(),
+            'has_previous': pages.has_previous(),
+            'next_page_number': next_page,
+            'previous_page_number': prev_page,
+            'number': pages.number,
+            'start_index': pages.start_index(),
+            'end_index': pages.end_index(),
+            'num_of_pages': pages.paginator.num_pages
+            }
+    print(data)
+    return data
 
-        return data
-
-    def _get_tags_from_url(self, urlencode):
-        tags_in_use = []
-        tag_name = ""
-        tag_begin = False
-        for letter in urlencode:
-            if letter == "&":
-                tags_in_use.append(tag_name)
-                tag_name = ""
-                tag_begin = False
-            elif tag_begin:
-                tag_name += letter if letter != '+' else " "
-            elif letter == '=':
-                tag_begin = True
-        tags_in_use.append(tag_name)
-        return tags_in_use
-
-
-    def _paginate_data(self, data_list, page, num_per_page):
-        paginator = Paginator(data_list, num_per_page)
-        try:
-            data = paginator.page(page)
-        except PageNotAnInteger:
-            data = paginator.page(1)
-        except EmptyPage:
-            data = paginator.page(paginator.num_pages)
-
-        return data
+def _get_tags_from_url(urlencode):
+    tags_in_use = []
+    tag_name = ""
+    tag_begin = False
+    for letter in urlencode:
+        if letter == "&":
+            tags_in_use.append(tag_name)
+            tag_name = ""
+            tag_begin = False
+        elif tag_begin:
+            tag_name += letter if letter != '+' else " "
+        elif letter == '=':
+            tag_begin = True
+    tags_in_use.append(tag_name)
+    return tags_in_use
 
 
+def _paginate_data(data_list, page, num_per_page):
+    paginator = Paginator(data_list, num_per_page)
+    try:
+        data = paginator.page(page)
+    except PageNotAnInteger:
+        data = paginator.page(1)
+    except EmptyPage:
+        data = paginator.page(paginator.num_pages)
 
-    def get_all_unique_categories(self):
-        all_products = Products.objects.all()
-        all_unique_categories = []
-        for elem in all_products:
-            if elem.category not in all_unique_categories:
-                all_unique_categories.append(elem.category)
-        return sorted(all_unique_categories)
+    return data
 
+def _get_all_unique_categories():
+    all_products = Products.objects.all()
+    all_unique_categories = []
+    for elem in all_products:
+        if elem.category not in all_unique_categories:
+            all_unique_categories.append(elem.category)
+    return sorted(all_unique_categories)
 
 class SingleProduct(TemplateView):
     template_name = 'products/single_product_page.html'
