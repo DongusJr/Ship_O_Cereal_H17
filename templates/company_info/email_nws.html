@@ -33,24 +33,12 @@
         </div>
     </form>
     {% else %}
-        {% if news %}
-            {% for new in news %}
-            <div class="news_section">
-                <h4>{{ new.headline }}</h4>
-                {{ new.content }}
-            </div>
-            {% endfor %}
-        {% else %}
-            <div class="news_section">
-                <p>No news to show</p>
-            </div>
-        {% endif %}
-            <div class="unsub">
-                <form method="post">
-                    {% csrf_token %}
-                    <input type="submit" name="unsub" value="Unsubscribe to news letter">
-                </form>
-            </div>
+        <h4>Cereal stock is on the rise</h4>
+        <p>Our legal team has successfully gone public with Ship O' Cereal and converted all monetary currency to bitcoin. To purchase stocks in our Eutopia of modern cereal living visit the stock trade for more info.</p>
+        <form method="post">
+            {% csrf_token %}
+            <input type="submit" name="unsub" value="Unsubscribe to news letter">
+        </form>
     {% endif %}
     {% else %}
         <p>A user can only receive the news letter if an account is created on the website</p>
