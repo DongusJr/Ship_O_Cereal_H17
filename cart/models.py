@@ -156,6 +156,13 @@ class Contains(models.Model):
 
     @staticmethod
     def contains_exist(pk):
+        '''
+        contains_exist(pk)
+
+        parameter: pk: int
+        this method returns a boolean value whether the contains object associated with the pk
+        variable respectively
+        '''
         try:
             Contains.objects.get(pk=pk)
             return True
