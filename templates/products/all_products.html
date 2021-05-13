@@ -16,7 +16,7 @@
     </div>
     <div style="display:flex;flex-wrap: wrap" id="category">
         {% for product in products %}
-            {% include 'proto_products/proto_product.html' with product=product %}
+            {% include 'products/single_product.html' with product=product %}
         {% endfor %}
     </div>
 

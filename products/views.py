@@ -39,7 +39,7 @@ def get_tags_json(request):
         return JsonResponse({'data': tags_with_products})
 
 def get_products(request):
-    template_name = 'proto_products/proto_products.html'
+    template_name = 'products/all_products.html'
 
     json_response = False
     data = dict()
@@ -248,7 +248,7 @@ def create_product(request):
             return redirect('product_index')
     else:
         form = ProductCreateForm()
-    return render(request, 'proto_products/proto_create_product.html', {
+    return render(request, 'products/create_product.html', {
         'form': form
     })
 
@@ -276,7 +276,7 @@ def update_product(request, id):
             form = ProductUpdateForm(data=product_data)
     else:
         form = ProductUpdateForm(data=product_data)
-    return render(request, 'proto_products/proto_update_product.html', {
+    return render(request, 'products/update_product.html', {
         'form': form,
         'id': id
     })
