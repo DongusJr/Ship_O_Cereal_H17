@@ -7,12 +7,18 @@
     border-bottom: 2px solid #B46B36;
     margin-inline: 1rem;
 }
-
+.tags label{
+    color: var(--dark)
+}
+.tags select{
+    border: solid var(--dark);
+    color: var(--dark);
+}
 #tagDiv{
     justify-content: space-around;
     display: flex;
     flex-direction: row;
-    width: 90%;
+    width: 75%;
     overflow: hidden;
 }
 
@@ -51,6 +57,7 @@
     margin-right: auto;
 }
 .inactiveTag{
+    order: 42;
     padding: 5px;
     background-color: var(--light);
     border-radius: 20px;
@@ -59,7 +66,9 @@
     cursor: pointer;
     background-color: var(--lightHover);
 }
-
+.inactiveTag label{
+    color: var(--dark);
+}
 .tag_label{
     pointer-events: none;
 }
@@ -69,12 +78,14 @@
 }
 
 .activeTag{
+    order: 1;
     padding: 5px;
     background-color: var(--dark);
     color: var(--light);
     border-radius: 20px;
 }
 .activeTag:hover{
+    cursor: pointer;
     background-color: var(--darkHover);
 }
 .activeTag a{
@@ -83,7 +94,8 @@
 .upperInfo{
     display: flex;
     justify-content: space-between;
-    padding: 2rem;
+    padding-inline: 1.5rem;
+    margin-block: 0.5rem;
     width: 100%;
 }
 .lowerInfo{
@@ -92,3 +104,46 @@
     padding: 2rem;
     width: 100%;
 }
+
+.paginator{
+    overflow: hidden;
+    list-style-type: none;
+}
+
+
+.paginator li {
+    background-color: var(--light);
+    color: var(--dark);
+    float: left;
+    padding: 8px 16px;
+    border: 1px solid var(--dark);
+}
+
+/*.paginator li{
+
+    display: block;isplay: block;
+    text-align: center;
+    padding: 16px;
+
+}*/
+
+
+li.disabled{
+    border-color:var(--backgroundWhite);
+    background:var(--backgroundWhite);
+    color: var(--backgroundWhite);
+}
+
+li.active{
+    background-color: var(--dark);
+    color: var(--light);
+}
+li.active{
+    background-color: var(--dark);
+    color: var(--light);
+}
+
+.page_nav_button:hover {
+    cursor: pointer;
+}
+
