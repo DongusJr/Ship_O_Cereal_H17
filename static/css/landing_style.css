@@ -56,13 +56,6 @@
 }
 
 .carousel-nav button {
-    top: 50%;
-    transform: translatey(-50%);
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    outline: none;
-    border: 1px solid #000;
     cursor: pointer;
 }
 
@@ -87,4 +80,17 @@
 }
 .carousel-nav .next.hide {
   display: none;
+}
+
+.arrow-btn{
+    z-index: 4;
+    width: fit-content;
+    height: fit-content;
+    padding: 5px;
+}
+.prev{
+    float: left;
+}
+.next{
+    float: right;
 }
