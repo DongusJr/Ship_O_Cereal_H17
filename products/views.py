@@ -39,44 +39,56 @@ def get_tags_json(request):
         return JsonResponse({'data': tags_with_products})
 
 def get_products(request):
+    '''
+    get_products
+
+    this method allows us to generate the products by a specific or no
+    criteria where all products are put in as a json response so we can render with
+    a js file which will be explained in further detail in the static/js directory
+    '''
     template_name = 'proto_products/proto_products.html'
 
     try:
         json_response = bool(request.GET.get('json_response'))
     except:
         json_response = False
-    data = dict()
-    data['all_categories'] = _get_all_unique_categories()
-    products = Products.objects.all()
+    data = dict() # key word args to be returned
+    data['all_categories'] = _get_all_unique_categories() # we get all categories
+    products = Products.objects.all() # all products
 
     if 'tags' in request.GET:
-        print(request.GET)
+        # we ascertain which tags are already in use and exclude that tag from
+        # possible tags and add the tag to the active tag
         tags_in_use = request.GET.getlist('tags')
         data['tags'] = ProductTag.objects.exclude(name__in=tags_in_use)
         data['active_tags'] = ProductTag.objects.filter(name__in=tags_in_use)
         for tag in tags_in_use:
-            products = products.filter(producttag__name=tag)
+            products = products.filter(producttag__name=tag) # here we filter our products by the tag
     else:
-        data['tags'] = ProductTag.objects.all()
+        data['tags'] = ProductTag.objects.all() # otherwise we return all tags as available
 
     if 'criteria' in request.GET:
+        # criteria refers to the search bar and what the user inputs
         criteria = request.GET.get('criteria')
-        if criteria != '':
-            if products != []:
+        if criteria != '': # if criteria is not empty we can search products by the criteria
+            if products != []: # we cannot search an empty list
                 products = products.filter(name__icontains=criteria)
             if str(request.user) != 'AnonymousUser':
+                # this user cannot be created and therefore we can add it to the search history of the user
                 SearchHistory.add_to_search_history(criteria, request.user)
 
     if 'category' in request.GET:
+        # category gets the category selected by the user
         category = request.GET['category']
-        if category in data['all_categories']:
+        if category in data['all_categories']: # if the category exists
             data['def_category'] = category
-            if products != []:
+            if products != []: # if there are products still available
                 products = products.filter(category__exact=category)
     else:
         data['def_category'] = ''
     
     if 'order' in request.GET and products != []:
+        # order is the listing of the products after a specific order after name or price
         order = request.GET.get('order')
         if order == 'name_ascending':
             products = products.order_by('name')[::-1]
@@ -87,18 +99,18 @@ def get_products(request):
         elif order == 'price_ascending':
             products = products.order_by('-price')
 
-    page = request.GET.get('page', 1)
-    products_paginated = _paginate_data(products, page, 10)
+    page = request.GET.get('page', 1) # gets the current page
+    products_paginated = _paginate_data(products, page, 10) # gets products to be on a page
 
-    data['pages'] = products_paginated
-    data['products'] = Products.get_products(products_paginated)
+    data['pages'] = products_paginated # products are specific
+    data['products'] = Products.get_products(products_paginated) # the products are inserted here already sorted by page
 
 
-    if json_response:
+    if json_response: # if json is complete we send the json strong to js
         return JsonResponse({
             'products' : data['products'],
             'pages': _jsonize_pages(products_paginated)})
-    else:
+    else: # otherwise the default page is returned
         return render(request, template_name, {
             'products': data['products'],
             'pages': data['pages'],
@@ -107,6 +119,12 @@ def get_products(request):
             'def_category': data['def_category']})
 
 def _jsonize_pages(pages):
+    '''
+    jsonize_pages
+
+    this method uses the functionality page traversal by having the page functionality
+    being an attribute of the pages variable
+    '''
     try:
         next_page = pages.next_page_number()
     except:
@@ -127,10 +145,17 @@ def _jsonize_pages(pages):
             'end_index': pages.end_index(),
             'num_of_pages': pages.paginator.num_pages
             }
-    print(data)
     return data
 
 def _get_tags_from_url(urlencode):
+    '''
+    get_tags_from_url
+
+    this method gets the previously used or inputted search criteria by
+    the user by having a list of the tags in use we can distinct the
+    encoded url and distinct between the tags and enable the user to
+    have multiple search criteria at once
+    '''
     tags_in_use = []
     tag_name = ""
     tag_begin = False
@@ -148,6 +173,13 @@ def _get_tags_from_url(urlencode):
 
 
 def _paginate_data(data_list, page, num_per_page):
+    '''
+    _paginate_data(data_list, page, num_per_page)
+
+    parameters: data_list: dict, page: int, num_per_page: int
+    this method uses the products to which to be contained on each page
+    and what page the user is currently on
+    '''
     paginator = Paginator(data_list, num_per_page)
     try:
         data = paginator.page(page)
@@ -159,6 +191,13 @@ def _paginate_data(data_list, page, num_per_page):
     return data
 
 def _get_all_unique_categories():
+    '''
+    _get_all_unique_categories
+
+    this method is a helper method collects and sorts all categories
+    which define products by their categorization and returns the list
+    of all unique categories
+    '''
     all_products = Products.objects.all()
     all_unique_categories = []
     for elem in all_products:
@@ -172,6 +211,15 @@ class SingleProduct(TemplateView):
     data = {}
 
     def get(self, request, *args, **kwargs):
+        '''
+        get
+
+        this method finds the id in the request and finds the associated product
+        we then proceed to collect the information on the product and whether
+        the user places item to cart and all reviews relating to the product as well
+        as all ratings at long last we find all tags with which the product has
+        and 10 products which share the tags
+        '''
         id = self.kwargs['id']
         product = get_object_or_404(Products, pk=id)
 
@@ -202,6 +250,12 @@ class SingleProduct(TemplateView):
         return render(request, self.template_name, self.data)
 
     def post(self, request, *args, **kwargs):
+        '''
+        post
+
+        this method allows the user to post a public review on the prodyct by collecting
+        the rate and review inputted by the user
+        '''
         product = Products.objects.get(id=kwargs['id'])
         review_object = Review.objects.create(user=request.user, product=product)
         if 'rate' in request.POST and review_object.rating:
@@ -218,6 +272,13 @@ class SingleProduct(TemplateView):
         return render(request, self.template_name, self.data)
 
     def calculate_mean_rating(self, product):
+        '''
+        calculate_mean_rating(product)
+
+        parameters: product: Product
+        this method collects all rating on the product given as a parameter
+        and then the mean is calculated from those ratings
+        '''
         review_objects = Review.objects.filter(product=product)
         rating = 0
         for review in review_objects:
@@ -227,6 +288,13 @@ class SingleProduct(TemplateView):
 
 @login_required
 def create_product(request):
+    '''
+    create_product
+
+    this method collects the form implemented as a meta class and collects all
+    information needed to input for a new Product object with the requirement of
+    the inputted information complying with the input parameters
+    '''
     if request.method == 'POST':
         form = ProductCreateForm(data=request.POST)
         if form.is_valid():
@@ -257,6 +325,13 @@ def create_product(request):
     })
 
 def category_select(category):
+    '''
+    category_select(category)
+
+    parameters: category: str
+    this method measures whether the category inputted by the user is one of the four different
+    main categories
+    '''
     if category.lower() == 'dinnerware':
         category = 'dinnerware'
     elif category.lower() == 'cereal':
@@ -269,6 +344,13 @@ def category_select(category):
 
 @login_required
 def update_product(request, id):
+    '''
+    update_product(id)
+
+    parameter: id: int
+    this method allows a super user to update an existing product
+    providing that the information is valid
+    '''
     product_data = Products.get_detail_data_for_product(id)
     if request.method == 'POST':
         form = ProductUpdateForm(data=request.POST)
@@ -286,6 +368,12 @@ def update_product(request, id):
     })
 
 def _updated_info(request):
+    '''
+    updated_info
+
+    this method collects the information needed from the form and storing
+    it in a dictionary
+    '''
     data = {}
     data['description'] = request.POST.get('description')
     data['name'] = request.POST.get('name')
@@ -298,6 +386,12 @@ def _updated_info(request):
     return data
 
 def _updated_nutritional_info(request):
+    '''
+    updated_nutritional_info
+
+    this method collects the information corresponding to the
+    nutritional information on the product to be collected from the form
+    '''
     data = {}
     data['energy'] = request.POST.get('energy')
     data['sugar'] = request.POST.get('sugar')
