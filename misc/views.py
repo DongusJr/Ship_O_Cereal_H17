@@ -39,10 +39,10 @@ class EmailNewsLetter(TemplateView):
         '''
         try:
             user = User.objects.get(id=request.user.id)
-            if user.is_authenticated():
-                self.data['sub'] = Profile.is_user_subscribed(request.user.id)
+            Profile.is_user_subscribed(request.user.id)
+            self.data['sub'] = True
         except:
-            pass
+            self.data['sub'] = False
         return render(request, self.template_name, self.data)
 
     def post(self, request, *args, **kwargs):
@@ -52,9 +52,10 @@ class EmailNewsLetter(TemplateView):
         via the frontend
         '''
         if 'sub' in request.POST:
-            Profile.subscribed_to_newsletter(request.user.id)
+            Profile.subscribe_user_to_news_letter(request.user.id)
         elif 'unsub' in request.POST:
             Profile.unsubscribe(request.user.id)
+        self.data['sub'] = Profile.is_user_subscribed(request.user.id)
         return render(request, self.template_name, self.data)
 
 class OpeningHours(TemplateView):
