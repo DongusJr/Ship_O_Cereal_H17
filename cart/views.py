@@ -41,7 +41,8 @@ class CartView(TemplateView):
         be deleted and then deleted and update the contents of the cart
         '''
         primary_key = request.POST.get('delete')
-        Contains.remove_item(primary_key)
+        if Contains.contains_exist(primary_key):
+            Contains.remove_item(primary_key)
         cart = Cart.objects.get(user=request.user)
         self.data['cart'] = Contains.objects.filter(cart=self.data['purchase'])
         self.data['has'] = self.helper()

@@ -1,4 +1,3 @@
-
 $.ajax({
     url: '/get_tags_json',
     type: 'GET',

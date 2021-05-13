@@ -21,7 +21,11 @@
     <div class="summary">
         <h1>Summary</h1>
         <h4>{{purchase.total}}£</h4>
-        <a href="{% url 'complete_order'%}" ><button type="button" >Buy</button> </a>
+        {% if cart %}
+            <a href="{% url 'complete_order'%}" ><button type="button" >Buy</button> </a>
+        {% else %}
+            <a href="{% url 'product_index' %}"><button type="button" >Go to products</button></a>
+        {% endif %}
     </div>
 </div>
 

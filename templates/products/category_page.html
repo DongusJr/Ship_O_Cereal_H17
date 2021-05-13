@@ -1,6 +1,25 @@
 {% extends 'base_page.html' %}
 {% load static %}
 {% block content %}
+    {# bjaka style #}
+    <style>
+        .tag_button{
+            background-color: #F0C965 !important;
+            color: #B46B36;
+            cursor: pointer;
+        }
+
+        .tag_button:hover {
+            background-color: #B46B36 !important;
+            color: #F0C965;
+        }
+
+        #tag_clicked {
+            background-color: #B46B36 !important;
+            color: #F0C965;
+        }
+    </style>
+    <script src="{% static 'js/products.js' %}"></script>
   <link rel="stylesheet" href="{% static 'css/products/category_page_style.css' %}">
   <div class="tags">
     {% for tag in active_tags %}
@@ -17,9 +36,8 @@
 {#  {% for tag in active_tags %}#}
 {#    <h1> {{ tag.name }}</h1>#}
 {#  {% endfor %}#}
-    <form method="get" action="{% url 'product_index' %}">
         <input type="hidden" id="urlencode" name="urlencode" value="{{ request.GET.urlencode }}">
-      <select name="order" id="value">
+      <select class="order_select" name="order" id="value">
         <option value="">--Sort--</option>
         <option value="price_ascending">price <</option>
         <option value="price_descending">price ></option>
@@ -27,15 +45,13 @@
         <option value="name_descending">name ></option>
       </select>
 
-      <select name="category">
+      <select class="category_select" name="category">
         <option value="">--Category--</option>
         {% for category in all_categories %}
           <option value="{{category}}">{{category}}</option>
         {% endfor %}
       </select>
 
-      <button class="btn btn-outline-success" type="submit">submit</button>
-    </form>
   </div>
   <div class="products_page">
     {% block products %}
