@@ -9,7 +9,9 @@
     </div>
     {% endfor %}
     {% for tag in tags %}
-      <a type="button" href="?tag={{ tag.name }}&{{ request.GET.urlencode }}">{{tag.name}}</a>
+      <div class="inactiveTag">
+        <a type="button" href="?tag={{ tag.name }}&{{ request.GET.urlencode }}">{{tag.name}}</a>
+      </div>
     {% endfor %}
     <label for="value">Order by:</label>
 {#  {% for tag in active_tags %}#}
