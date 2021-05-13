@@ -18,4 +18,6 @@
 1. To view accounts with experimental data use the following username and password inputted respectively in the login form
     1. Username: Godjon
     1. Password: 
-
+1. To view accounts with a superuser we have a superuser account
+    1. username: admin
+    1. password: cerealLover
