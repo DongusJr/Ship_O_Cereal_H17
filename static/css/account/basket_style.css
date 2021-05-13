@@ -33,10 +33,12 @@
 
 .summary button {
     margin-left: auto;
-    width: 5rem;
+    width: fit-content;
+    padding-inline: 0.5rem;
     height: 1.5rem;
     color: var(--dark);
     background-color: var(--light);
+    justify-content: normal;
 }
 .summary h1 {
     color: var(--dark);
