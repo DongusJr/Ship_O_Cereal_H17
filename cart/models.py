@@ -182,7 +182,7 @@ class ProductViewed(models.Model):
         parameters: product: Product, user: User
         This method finds whether the product has recently been viewed
         by the user then we create an object associated with the user as
-        a new item so we do not have a repition of ProductViewed objects
+        a new item so we do not have a repetition of ProductViewed objects
         in the search history
         '''
         try:

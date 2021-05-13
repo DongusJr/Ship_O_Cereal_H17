@@ -35,10 +35,6 @@ def login_register(request):
             success = _register(request)
             if success:
                 return redirect('profile')
-    # return render(request, 'proto_users/account.html', {
-    #     'form_1' : register_form,
-    #     'form_2' : login_form
-    # })
     return render(request, 'account/login_page.html', {
         'form_1' : register_form,
         'form_2' : login_form
