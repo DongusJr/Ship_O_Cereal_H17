@@ -52,20 +52,21 @@ nav{
 
 
 .inner-carousel {
-  width: 100%;
-  height: fit-content;
-  overflow: auto;
-  /*overflow: hidden;*/
+    z-index: 1;
+    width: 100%;
+    height: 27.5rem;
+    overflow: auto;
+    overflow: hidden;
 }
 
 
 .track {
-  display: inline-flex;
-  height: 100%;
-  transition: transform 0.2s ease-in-out;
+    display: inline-flex;
+    height: 100%;
+    transition: transform 0.2s ease-in-out;
 }
 .carousel-nav{
-    z-index: 2;
+    z-index: 3;
     height: 2rem;
 }
 .carousel-nav button {
@@ -73,25 +74,33 @@ nav{
 }
 
 .carousel-nav .prev {
-  left: -30px;
-  display: none;
+    left: -30px;
+    display: none;
+
 }
 
 .carousel-nav .prev.show {
-  display: block;
+    display: block;
 }
 .carousel-nav .next {
-  right: -30px;
+    right: -30px;
 }
 .carousel-nav .next.hide {
-  display: none;
+    display: none;
 }
 
 .arrow-btn{
+    margin-inline: 1rem;
     z-index: 4;
     width: fit-content;
     height: fit-content;
-    padding: 5px;
+    padding: 10px;
+    border: solid var(--dark);
+    border-radius: 30px;
+}
+.arrow-btn:hover{
+    cursor: pointer;
+    background-color: var(--darkHover);
 }
 .prev{
     float: left;

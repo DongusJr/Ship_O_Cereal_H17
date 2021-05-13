@@ -20,7 +20,7 @@ $.ajax({
                         
                                 <h4>${d.products[product].name}</h4>
                                 <p>${d.products[product].short_description}</p>
-                                <p>${d.products[product].price}£</p>
+                                <h3 class="smallPriceTag">${d.products[product].price}£</h3>
                                 <p>${d.products[product].category}</p>
                             </a>
                         </div>`
@@ -44,6 +44,7 @@ $.ajax({
 function make_event_listeners_for_next_prev(document) {
     const prev_list = document.getElementsByClassName("prev");
     const next_list = document.getElementsByClassName("next");
+    console.log(next_list)
     const carousel = document.querySelector(".carousel-container");
     const track_list = document.getElementsByClassName("track");
     for (let i = 0; i < prev_list.length; i++) {
