@@ -1,9 +1,11 @@
 .tags {
+    margin-top: 1rem;
     width: 100%;
     display: flex;
     justify-content: space-around;
     padding-bottom: 1rem;
     border-bottom: 2px solid #B46B36;
+    margin-inline: auto;
 }
 
 .tags button {
@@ -39,4 +41,37 @@
     display: block;
     margin-left: auto;
     margin-right: auto;
+}
+.inactiveTag{
+    padding: 5px;
+    background-color: var(--light);
+    border-radius: 20px;
+}
+.inactiveTag:hover{
+    background-color: var(--lightHover);
+}
+
+.activeTag{
+    padding: 5px;
+    background-color: var(--dark);
+    color: var(--light);
+    border-radius: 20px;
+}
+.activeTag:hover{
+    background-color: var(--darkHover);
+}
+.activeTag a{
+    color: var(--light);
+}
+.upperInfo{
+    display: flex;
+    justify-content: space-between;
+    padding: 2rem;
+    width: 100%;
+}
+.lowerInfo{
+    display: flex;
+    justify-content: space-between;
+    padding: 2rem;
+    width: 100%;
 }

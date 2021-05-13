@@ -5,13 +5,14 @@
             <a href="{% url 'create_product' %}" class='block btn btn-primary'>Add a product</a>
         </div>
     {% endif %}
-
+    <div class="upperInfo">
     <h1>Products</h1>
     {% if products %}
         <p>Number of products found: {{ pages.paginator.count }}</p>
     {% else %}
         <p>No product found</p>
     {% endif %}
+    </div>
     <div style="display:flex;flex-wrap: wrap" id="category">
         {% for product in products %}
             {% include 'proto_products/proto_product.html' with product=product %}
@@ -54,7 +55,7 @@
     }
 
     </style>
-
+    <div class="lowerInfo">
     {% if pages.has_other_pages %}
         {# Prev page #}
         <ul class="paginator">
@@ -78,6 +79,11 @@
             <li class="disabled"><span>&laquo;</span></li>
         {% endif %}
         </ul>
+    {% else %}
+        <label></label>
     {% endif %}
-    <p>Showing {{ pages.start_index }}-{{ pages.end_index }} of {{ pages.paginator.count }}</p>
+
+        <p>Showing {{ pages.start_index }}-{{ pages.end_index }} of {{ pages.paginator.count }}</p>
+
+    </div>
 {% endblock %}
