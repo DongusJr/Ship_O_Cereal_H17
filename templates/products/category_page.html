@@ -2,36 +2,31 @@
 {% load static %}
 {% block content %}
     {# bjaka style #}
-    <style>
-        .tag_button{
-            background-color: #F0C965 !important;
-            color: #B46B36;
-            cursor: pointer;
-        }
-
-        .tag_button:hover {
-            background-color: #B46B36 !important;
-            color: #F0C965;
-        }
-
-        #tag_clicked {
-            background-color: #B46B36 !important;
-            color: #F0C965;
-        }
-    </style>
+{#    <style>#}
+{#        .tag_button{#}
+{#            background-color: #F0C965 !important;#}
+{#            color: #B46B36;#}
+{#            cursor: pointer;#}
+{#        }#}
+{##}
+{#        .tag_button:hover {#}
+{#            background-color: #B46B36 !important;#}
+{#            color: #F0C965;#}
+{#        }#}
+{##}
+{#        #tag_clicked {#}
+{#            background-color: #B46B36 !important;#}
+{#            color: #F0C965;#}
+{#        }#}
+{#    </style>#}
 
     <script src="{% static 'js/products.js' %}"></script>
   <link rel="stylesheet" href="{% static 'css/products/category_page_style.css' %}">
   <div class="tags">
       <div id="tagDiv">
-        {% for tag in active_tags %}
-        <div class="activeTag">
-          <a> {{ tag.name }}</a>
-        </div>
-        {% endfor %}
         {% for tag in tags %}
           <div class="inactiveTag">
-            <a type="button" href="?tag={{ tag.name }}&{{ request.GET.urlencode }}">{{tag.name}}</a>
+            <label class="tag_label">{{tag.name}}</label>
           </div>
         {% endfor %}
         <label for="value">Order by:</label>
@@ -65,5 +60,6 @@
         let def_category = "{{ def_category }}"
         console.log(def_category)
         $(".category_select").val(def_category)
+        category = def_category
     </script>
 {% endblock %}
