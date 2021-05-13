@@ -56,7 +56,16 @@
     border-radius: 20px;
 }
 .inactiveTag:hover{
+    cursor: pointer;
     background-color: var(--lightHover);
+}
+
+.tag_label{
+    pointer-events: none;
+}
+
+.inactiveTag *:hover{
+    cursor: pointer;
 }
 
 .activeTag{
