@@ -34,7 +34,7 @@
 .summary button {
     margin-left: auto;
     width: fit-content;
-    min-width: 2.5rem;
+    min-width: 4rem;
     padding-inline: 0.5rem;
     height: 1.5rem;
     color: var(--dark);
