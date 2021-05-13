@@ -15,7 +15,7 @@
 #divWithForm .form{
     color:var(--dark);
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     flex-wrap: wrap;
     width: fit-content;
 }
