@@ -157,7 +157,7 @@ class Contains(models.Model):
     @staticmethod
     def contains_exist(pk):
         try:
-            Contains.object.get(pk=pk)
+            Contains.objects.get(pk=pk)
             return True
         except ObjectDoesNotExist:
             return False
