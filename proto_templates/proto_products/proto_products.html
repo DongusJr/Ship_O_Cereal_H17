@@ -8,7 +8,7 @@
 
     <h1>Products</h1>
     {% if products %}
-        <p>Number of products found: {{ pages.paginator.count }}</p>
+        <p id="num_of_products">Number of products found: {{ pages.paginator.count }}</p>
     {% else %}
         <p>No product found</p>
     {% endif %}
@@ -53,31 +53,36 @@
         background-color: #B46B36;
     }
 
-    </style>
+    .page_nav_button:hover {
+        cursor: pointer;
+    }
 
+    </style>
+    <div class="page_nav">
     {% if pages.has_other_pages %}
         {# Prev page #}
         <ul class="paginator">
         {% if pages.has_previous %}
-            <li><a href="?page={{ pages.previous_page_number }}">&laquo;</a></li> {# &laquo is left angle quote #}
+            <li><a class="page_nav_button" id="previous_page">&laquo;</a></li> {# &laquo is left angle quote #}
         {% else %}
             <li class="disabled"><span>&laquo;</span></li>
         {% endif %}
         {# Every page number #}
         {% for i in pages.paginator.page_range %}
             {% if pages.number == i %}
-                <li class="active"><span>{{ i }}</span></li> {# current page #}
+                <li class="active"><span class="active-page">{{ i }}</span></li> {# current page #}
             {% else %}
-                <li><a href="?page={{ i }}">{{ i }}</a></li>
+                <li><a class="page_nav_button" id="num_page">{{ i }}</a></li>
             {% endif %}
         {% endfor %}
         {# Next page #}
         {% if pages.has_next %}
-                <li><a href="?page={{ pages.next_page_number }}">&raquo;</a></li> {# &raquo is right angle quote #}
+                <li><a class="page_nav_button" id="next_page">&raquo;</a></li> {# &raquo is right angle quote #}
         {% else %}
             <li class="disabled"><span>&laquo;</span></li>
         {% endif %}
         </ul>
     {% endif %}
     <p>Showing {{ pages.start_index }}-{{ pages.end_index }} of {{ pages.paginator.count }}</p>
+    </div>
 {% endblock %}
