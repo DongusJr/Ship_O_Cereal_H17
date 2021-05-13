@@ -36,14 +36,15 @@
         {% if news %}
             {% for new in news %}
             <div class="news_section">
-                <h4>{% new.headline %}</h4>
-                {% new.content %}
+                <h4>{{ new.headline }}</h4>
+                {{ new.content }}
             </div>
-            {% else %}
+            {% endfor %}
+        {% else %}
             <div class="news_section">
                 <p>No news to show</p>
             </div>
-            {% endif %}
+        {% endif %}
             <div class="unsub">
                 <form method="post">
                     {% csrf_token %}
