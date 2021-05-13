@@ -3,6 +3,11 @@
 {% block content %}
   <link rel="stylesheet" href="{% static 'css/products/category_page_style.css' %}">
   <div class="tags">
+    {% for tag in active_tags %}
+    <div class="activeTag">
+      <a> {{ tag.name }}</a>
+    </div>
+    {% endfor %}
     {% for tag in tags %}
       <a type="button" href="?tag={{ tag.name }}&{{ request.GET.urlencode }}">{{tag.name}}</a>
     {% endfor %}
