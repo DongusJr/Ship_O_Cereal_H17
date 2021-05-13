@@ -14,9 +14,17 @@ class Cart(models.Model):
 
     @staticmethod
     def get_products_from_cart_of_user_and_total(user_id):
+        '''
+        get_products_from_cart_of_user_and_total(user_id)
+
+        this method allows us to collect information on the cart and all the products
+        within that cart by associating the user id to user and snowballing all the products
+        the user has added to the cart. this is done so that the user can view the products
+        in the cart and can click on the product to go to the details page of that product
+        '''
         user = User.objects.get(id=user_id)
         cart = Cart.objects.get(user=user)
-        contains_list = Contains.objects.filter(cart=cart).prefetch_related('product')
+        contains_list = Contains.objects.filter(cart=cart).prefetch_related('product') #get all products in cart
         products = []
         product_image_map = ProductImage.get_first_image_for_each_product()
         for contains in contains_list:
@@ -32,6 +40,12 @@ class Cart(models.Model):
 
     @staticmethod
     def get_or_create_cart(user_id):
+        '''
+        get_or_create_cart(user_id)
+
+        this method allows the user to create or get his cart
+        by doing this we avoid an exception
+        '''
         user = User.objects.get(id=user_id)
         try:
             cart = Cart.objects.get(user=user)
