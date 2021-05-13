@@ -1,17 +1,19 @@
 {% extends 'products/category_page.html' %}
 {% block products %}
-    {% if user.is_superuser %}
+
+    <div class="upperInfo">
+        <h1>Products</h1>
+        {% if user.is_superuser %}
         <div class="Create Button">
             <a href="{% url 'create_product' %}" class='block btn btn-primary'>Add a product</a>
         </div>
-    {% endif %}
-
-    <h1>Products</h1>
-    {% if products %}
-        <p id="num_of_products">Number of products found: {{ pages.paginator.count }}</p>
-    {% else %}
-        <p>No product found</p>
-    {% endif %}
+        {% endif %}
+        {% if products %}
+            <p id="num_of_products">Number of products found: {{ pages.paginator.count }}</p>
+        {% else %}
+            <p>No product found</p>
+        {% endif %}
+    </div>
     <div style="display:flex;flex-wrap: wrap" id="category">
         {% for product in products %}
             {% include 'proto_products/proto_product.html' with product=product %}
@@ -58,7 +60,7 @@
     }
 
     </style>
-    <div class="page_nav">
+    <div class="page_nav lowerInfo">
     {% if pages.has_other_pages %}
         {# Prev page #}
         <ul class="paginator">
@@ -82,6 +84,8 @@
             <li class="disabled"><span>&laquo;</span></li>
         {% endif %}
         </ul>
+    {% else %}
+        <label></label>
     {% endif %}
     <p>Showing {{ pages.start_index }}-{{ pages.end_index }} of {{ pages.paginator.count }}</p>
     </div>
