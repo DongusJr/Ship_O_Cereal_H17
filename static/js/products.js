@@ -3,7 +3,6 @@ let category = '';
 let tags = [];
 let page = 1;
 
-
 $(document).ready(function() {
     $('.order_select').on('change', function(e) {
         e.preventDefault();
@@ -68,7 +67,7 @@ function make_url() {
     for (let i = 0; i < tags.length; i++){
         tag_url += '&tags=' + tags[i] + '&'
     }
-    return '/products?page=' + page + '&order=' + order + '&category=' + category + tag_url
+    return '/products?page=' + page + '&order=' + order + '&category=' + category + tag_url + '&json_response=True'
 }
 
 function make_ajax_request(url) {
