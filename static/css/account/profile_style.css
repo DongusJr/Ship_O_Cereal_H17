@@ -110,6 +110,8 @@
 }
 
 .rec_view {
+    display: flex;
+    flex-direction: column;
     border: 2px solid var(--dark);
     border-radius: 10px;
     padding: 1rem;
@@ -117,6 +119,8 @@
 }
 
 .search_hist {
+    display: flex;
+    flex-direction: column;
     border: 2px solid var(--dark);
     border-radius: 10px;
     padding: 1rem;
