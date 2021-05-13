@@ -3,7 +3,7 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 
-from products.forms.productform import ProductCreateForm
+from products.forms.productform import ProductCreateForm, ProductUpdateForm
 from products.models import Products, ProductTag, ProductImage, NutritionalInfo
 from django.views.generic import TemplateView
 from cart.models import Contains, ProductViewed
@@ -17,9 +17,22 @@ from reviews.models import Review
 
 
 def get_product_by_tags(request):
+    '''
+    get_product_by_tags
+
+    this method renders the landing page by supplying
+    the main_page template
+    '''
     return render(request, 'main_page.html', {})
 
 def get_tags_json(request):
+    '''
+    get_tags_json
+
+    this method is a get request to find all products
+    with a tag equal to another and distinct those products with
+    the helper function located in models.ProductTag
+    '''
     if request.method == 'GET':
         tags_with_products = ProductTag.select_all_related_products()
 
@@ -27,6 +40,7 @@ def get_tags_json(request):
 
 def get_products(request):
     template_name = 'proto_products/proto_products.html'
+
     json_response = False
     data = dict()
     data['all_categories'] = _get_all_unique_categories()
@@ -58,7 +72,7 @@ def get_products(request):
             data['category'] = category
             if products != []:
                 products = products.filter(category__exact=category)
-    #
+    
     if 'order' in request.GET and products != []:
         json_response = True
         order = request.GET.get('order')
@@ -148,6 +162,7 @@ def _get_all_unique_categories():
             all_unique_categories.append(elem.category)
     return sorted(all_unique_categories)
 
+  
 class SingleProduct(TemplateView):
     template_name = 'products/single_product_page.html'
     data = {}
@@ -211,7 +226,6 @@ def create_product(request):
     if request.method == 'POST':
         form = ProductCreateForm(data=request.POST)
         if form.is_valid():
-            print("VALID")
             nutritional_info = NutritionalInfo(energy=request.POST['energy'],
                                                sugar=request.POST['sugar'],
                                                fat=request.POST['fat'],
@@ -222,7 +236,7 @@ def create_product(request):
                                short_description=request.POST['short_description'],
                                description=request.POST['description'],
                                price=request.POST['price'],
-                               category=request.POST['category'],
+                               category=category_select(request.POST['category']),
                                nutritional_info=nutritional_info,
                                in_stock=request.POST['in_stock'],)
             product.save()
@@ -237,3 +251,42 @@ def create_product(request):
     return render(request, 'proto_products/proto_create_product.html', {
         'form': form
     })
+
+def category_select(category):
+    if category.lower() == 'dinnerware':
+        category = 'dinnerware'
+    elif category.lower() == 'cereal':
+        category = 'cereal'
+    elif category.lower() == 'cookbook':
+        category = 'cookbook'
+    else:
+        category = 'other'
+    return category
+
+@login_required
+def update_product(request, id):
+    product_data = Products.get_detail_data_for_product(id)
+    if request.method == 'POST':
+        form = ProductUpdateForm(data=request.POST)
+        data = _updated_info(request)
+        if form.is_valid():
+            product = Products.objects.get(id=id)
+            Products.update_product(data, product)
+        else:
+            form = ProductUpdateForm(data=product_data)
+    else:
+        form = ProductUpdateForm(data=product_data)
+    return render(request, 'proto_products/proto_update_product.html', {
+        'form': form,
+        'id': id
+    })
+
+def _updated_info(request):
+    data = {}
+    data['description'] = request.POST.get('description')
+    data['name'] = request.POST.get('name')
+    data['short_description'] = request.POST.get('short_description')
+    data['price'] = request.POST.get('price')
+    data['category'] = category_select(request.POST.get('category'))
+    data['in_stock'] = request.POST.get('in_stock')
+    return data

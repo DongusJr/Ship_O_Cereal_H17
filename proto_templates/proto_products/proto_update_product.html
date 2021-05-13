@@ -1,0 +1,8 @@
+{% extends "base_page.html" %}
+{% block content %}
+    <form class="form form-horizontal" action="{% url 'update_product' id %}" method="post" style="display: flex; flex-wrap: wrap; flex-direction: column; width: 20%">
+        {% csrf_token %}
+        {{ form }}
+        <input href="{% url 'update_product' id %}" type="submit" value="update" class="btn btn-primary pull-right" style="clear:both; margin: 10px 0"/>
+    </form>
+{% endblock %}

@@ -32,9 +32,9 @@
         </div>
     <div class="prev_order_box">
         {% for order_with_products in order_history %}
-                <p> order_id : {{ order_with_products.id }}</p>
                     {% include 'proto_account/proto_order.html' with products=order_with_products.products %}
-                <p>total: {{ order_with_products.total }}$</p>
+                <p>total: {{ order_with_products.total }}£</p>
+        <hr/>
         {% endfor %}
     </div>
 </div>

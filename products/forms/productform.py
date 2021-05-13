@@ -38,3 +38,17 @@ class ProductCreateForm(forms.Form):
     saturates = forms.FloatField(required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
     serving_amount = forms.FloatField(required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
     tags = forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple, choices=ProductTag.objects.all().values_list())
+
+class ProductUpdateForm(forms.Form):
+    name = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    short_description = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    description = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    price = forms.FloatField(required=True, widget=forms.NumberInput(attrs={'class': 'form-control'}))
+    category = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    in_stock = forms.IntegerField(required=True, widget=forms.NumberInput(attrs={'class': 'form-control'}))
+    energy = forms.FloatField(required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    sugar = forms.FloatField(required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    fat = forms.FloatField(required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    saturates = forms.FloatField(required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    serving_amount = forms.FloatField(required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    tags = forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple, choices=ProductTag.objects.all().values_list())
