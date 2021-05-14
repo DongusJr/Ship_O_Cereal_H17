@@ -1,0 +1,19 @@
+.error_div h1 {
+    padding-top: 1rem;
+    color: var(--dark);
+    margin: auto;
+}
+
+.error_div {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+}
+
+.error_div img {
+    padding: 1rem;
+    margin: auto;
+}
