@@ -68,7 +68,7 @@ class Products(models.Model):
         this method produces a list of dictionaries
         with information associated with the product
         '''
-        product_image_map = ProductImage.get_first_image_for_each_product()
+        # product_image_map = ProductImage.get_first_image_for_each_product()
 
         if product_query is None:
             product_query = Products.objects.all()
@@ -78,7 +78,7 @@ class Products(models.Model):
                      'description': product.description,
                      'price': product.price,
                      'category': product.category,
-                     'image': product_image_map[product.id]
+                     'image': ProductImage.get_first_image_for_single_product(product)
                      }
                     for product in product_query]
         return products
@@ -132,6 +132,15 @@ class ProductImage(models.Model):
                 product_image_map[product.id] = ''
         return product_image_map
 
+    @staticmethod
+    def get_first_image_for_single_product(product):
+        image_list = ProductImage.objects.filter(product=product)
+        try:
+            return  image_list[0].image
+        except:
+            return ''
+
+
 
 class ProductTag(models.Model):
     name = models.CharField(max_length=64)
@@ -153,9 +162,6 @@ class ProductTag(models.Model):
         # Store all return data in this list
         tags = []
 
-        # To reduce queries, already have a map between products and product image
-        product_image_map = ProductImage.get_first_image_for_each_product()
-
         for tag in tag_queryset:
             # products associated with tag
             products = [{'id':product.id,
@@ -164,7 +170,7 @@ class ProductTag(models.Model):
                          'description':product.description,
                          'price':product.price,
                          'category':product.category,
-                         'image':product_image_map[product.id]
+                         'image': ProductImage.get_first_image_for_single_product(product)
                          }
                         for product in tag.product.all()]
             # Add tag to return list
@@ -183,14 +189,12 @@ class ProductTag(models.Model):
         tag = ProductTag.objects.get(name__iexact=(tag_name))
         tag_queryset = ProductTag.objects.prefetch_related('product')
 
-        product_image_map = ProductImage.get_first_image_for_each_product()
-
         products = [{'id': product.id,
                      'name': product.name,
                      'description': product.description,
                      'price': product.price,
                      'category': product.category,
-                     'image': product_image_map[product.id]
+                     'image': ProductImage.get_first_image_for_single_product(product)
                      }
                     for product in tag.product.all()]
         return products
@@ -209,20 +213,21 @@ class ProductTag(models.Model):
         product_tag_pair.sort(key=lambda x:x[1])
 
         org_product_id = product.id
-        product_image_map = ProductImage.get_first_image_for_each_product()
+        #product_image_map = ProductImage.get_first_image_for_each_product()
         products_queryset = Products.objects.all()
         products_data = []
-        while product_tag_pair:
+        while product_tag_pair and len(products_data) < 10:
             product_id, count = product_tag_pair.pop()
             if product_id != org_product_id:
                 count_product = products_queryset.get(pk=product_id)
+                image = ProductImage.get_first_image_for_single_product(count_product)
                 products_data.append({'id': count_product.id,
                                       'name': count_product.name,
                                       'short_description': count_product.short_description,
                                       'description': count_product.description,
                                       'price': count_product.price,
                                       'category': count_product.category,
-                                      'image': product_image_map[count_product.id]
+                                      'image': image
                                       })
         return products_data
 
