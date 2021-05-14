@@ -129,9 +129,7 @@
 
 
 li.disabled{
-    border-color:var(--backgroundWhite);
-    background:var(--backgroundWhite);
-    color: var(--backgroundWhite);
+    background: wheat;
 }
 
 li.active{
