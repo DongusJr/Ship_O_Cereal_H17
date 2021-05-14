@@ -206,4 +206,6 @@ class ProductViewed(models.Model):
         product_list = []
         for product in products_viewed:
             product_list.append(product.product)
+        if len(product_list) > 10:
+            product_list = product_list[::-1][:10]
         return product_list
