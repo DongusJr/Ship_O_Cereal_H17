@@ -170,7 +170,7 @@ class ProductTag(models.Model):
                          'description':product.description,
                          'price':product.price,
                          'category':product.category,
-                         'image': ProductImage.get_first_image_for_single_product(product)
+                         'image': ProductImage.get_first_image_for_single_product(product.id)
                          }
                         for product in tag.product.all()]
             # Add tag to return list

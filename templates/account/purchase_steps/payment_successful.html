@@ -11,7 +11,7 @@
         {% for product in data.order_with_products.products %}
             {% include 'products/single_product.html' with product=product %}
         {% endfor %}
-        <p>total: {{ data.order_with_products.total }}</p>
+        <p>total: {{ data.order_with_products.total }}£</p>
     </div>
 
     <form method="post" class="form" id="lastForm">
@@ -34,8 +34,10 @@
             </div>
         </div>
     </form>
+    <div class="confirm_btn">
         <input type="hidden" name="step" value="review">
         <a href="{% url 'product_index'%}"><input type="submit" value="Return to main page"/></a>
+    </div>
 </div>
 
 {% endblock %}
