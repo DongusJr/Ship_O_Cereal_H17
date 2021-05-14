@@ -42,13 +42,12 @@
     flex-direction: column;
     margin-top: 4rem;
     width: 15%;
-    height: 15vh;
     text-align: center;
 }
 
 .profile_pic img {
     max-width: 100%;
-    max-height: 100%;
+
 }
 
 .profile_pic a {
