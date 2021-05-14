@@ -1,5 +1,6 @@
 from django.db import models
 
+import heapq
 # Create your models here.
 from django.db.models import Prefetch
 from django.shortcuts import get_object_or_404
@@ -37,6 +38,9 @@ class Products(models.Model):
     category = models.CharField(max_length=64)
     nutritional_info = models.ForeignKey(NutritionalInfo, on_delete=models.CASCADE)
     in_stock = models.IntegerField(default=1) #can not be less than zero
+
+    def __str__(self):
+        return self.name
 
     @staticmethod
     def update_product(data, product):
@@ -122,7 +126,10 @@ class ProductImage(models.Model):
         product_queryset = Products.objects.prefetch_related('productimage_set')
         for product in product_queryset:
             # Map product id with first image in the db associated with it
-            product_image_map[product.id] = product.productimage_set.first().image
+            try:
+                product_image_map[product.id] = product.productimage_set.first().image
+            except AttributeError:
+                product_image_map[product.id] = ''
         return product_image_map
 
 
@@ -187,6 +194,38 @@ class ProductTag(models.Model):
                      }
                     for product in tag.product.all()]
         return products
+
+    @staticmethod
+    def get_similar_products(product):
+        tag_queryset = ProductTag.objects.prefetch_related('product').filter(product=product)
+        product_count_dict = {}
+        for tag in tag_queryset:
+            for product_in_tag in tag.product.all():
+                try:
+                    product_count_dict[product_in_tag.id] += 1
+                except:
+                    product_count_dict[product_in_tag.id] = 1
+        product_tag_pair = list(product_count_dict.items())
+        product_tag_pair.sort(key=lambda x:x[1])
+
+        org_product_id = product.id
+        product_image_map = ProductImage.get_first_image_for_each_product()
+        products_queryset = Products.objects.all()
+        products_data = []
+        while product_tag_pair:
+            product_id, count = product_tag_pair.pop()
+            if product_id != org_product_id:
+                count_product = products_queryset.get(pk=product_id)
+                products_data.append({'id': count_product.id,
+                                      'name': count_product.name,
+                                      'short_description': count_product.short_description,
+                                      'description': count_product.description,
+                                      'price': count_product.price,
+                                      'category': count_product.category,
+                                      'image': product_image_map[count_product.id]
+                                      })
+        return products_data
+
 
     @staticmethod
     def get_tags_for_product(product):
