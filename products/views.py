@@ -254,23 +254,24 @@ class SingleProduct(TemplateView):
         except:
             return render(self.request, 'errors/404.html', {})
         if str(self.request.POST.get('add')) == 'Add to cart':
-            if 'quant' in self.request.POST:
-                quantity = self.request.POST.get('quant')
-                Contains.add_to_cart(self.request.user, product, int(quantity)).save()
+            if 'quant' in request.POST:
+                quantity = request.POST.get('quant')
+                Contains.add_to_cart(request.user, product, int(quantity)).save()
                 self.data['success'] = True
         if str(self.request.POST.get('Review')) == 'Submit':
             review_object = Review.objects.create(user=request.user, product=product)
-            boolean = Review.has_made_review(self.request.user, product)
-            if 'rate' in request.POST and review_object.rating and not boolean:
+            if 'rate' in request.POST:
                 rating = request.POST.get('rate')
+                print(rating)
                 review_object.rating = rating
                 review_object.save()
                 self.data['rating'] = self.calculate_mean_rating(product)
-            if 'review' in self.request.POST and review_object.comment and not boolean:
+            if 'review' in request.POST:
                 review = self.request.POST.get('review')
                 if review:
                     review_object.comment = review
                     review_object.save()
+        self.data['product'] = product
         self.data['has_not'] = Review.has_made_review(user=request.user, product=product)
         self.data['reviews'] = Review.objects.filter(product=product)
         return render(request, self.template_name, self.data)
