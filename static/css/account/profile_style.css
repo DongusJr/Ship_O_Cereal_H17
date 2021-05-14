@@ -46,7 +46,7 @@
 }
 
 .profile_pic img {
-    width: 100%;
+    max-width: 100%;
 }
 
 .profile_pic a {
