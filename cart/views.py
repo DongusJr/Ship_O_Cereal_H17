@@ -63,6 +63,12 @@ class CartView(TemplateView):
 
 
 class CompletePurchase(TemplateView):
+    '''
+    CompletePurchase
+    this view allows the user to render the pages pretaining to all the steps of
+    a payment process and empties the cart object associated with the user
+    '''
+    login_required = True
     template_name = 'account/purchase_steps/payment_template.html'
     html_template_names = {'payment' : 'account/purchase_steps/payment_form.html',
                            'person_info': 'account/purchase_steps/personinfo_form.html',

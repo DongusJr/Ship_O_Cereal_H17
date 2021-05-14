@@ -1,7 +1,7 @@
 {% load static %}
 
 <div class="input-group">
-    <form action="{% url 'product_detail' product.id %}" method="get">
+    <form action="{% url 'product_detail' product.id %}" method="post">
         <span class="input-group-btn">
             <button type="button" class="btn btn-danger btn-number"  data-type="minus">
                 <span class="glyphicon glyphicon-minus">-</span>

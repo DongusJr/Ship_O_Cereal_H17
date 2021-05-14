@@ -221,16 +221,16 @@ class SingleProduct(TemplateView):
         and 10 products which share the tags
         '''
         id = self.kwargs['id']
-        product = get_object_or_404(Products, pk=id)
+        try:
+            product = get_object_or_404(Products, pk=id)
+        except:
+            return render(self.request, 'errors/404.html', {})
+        boolean = Review.has_made_review(self.request.user, product)
+        self.data['has_not'] = boolean
 
         if str(self.request.user) != 'AnonymousUser':
             ProductViewed.add_to_previously_viewed(product, self.request.user).save()
         self.data['product'] = product
-
-        if 'quant' in self.request.GET:
-            quantity = self.request.GET.get('quant')
-            Contains.add_to_cart(self.request.user, product, int(quantity)).save()
-            self.data['success'] = True
 
         all_reviews = Review.objects.filter(product=product)
         if all_reviews:
@@ -246,16 +246,26 @@ class SingleProduct(TemplateView):
         '''
         post
 
-        this method allows the user to post a public review on the prodyct by collecting
+        this method allows the user to post a public review on the product by collecting
         the rate and review inputted by the user
         '''
-        product = Products.objects.get(id=kwargs['id'])
+        try:
+            product = Products.objects.get(id=kwargs['id'])
+            product = Products.objects.get(id=kwargs['id'])
+        except:
+            return render(self.request, 'errors/404.html', {})
         review_object = Review.objects.create(user=request.user, product=product)
-        if 'rate' in request.POST and review_object.rating:
+        boolean = Review.has_made_review(self.request.user, product)
+        self.data['has_not'] = boolean
+        if 'quant' in self.request.POST:
+            quantity = self.request.POST.get('quant')
+            Contains.add_to_cart(self.request.user, product, int(quantity)).save()
+            self.data['success'] = True
+        if 'rate' in request.POST and review_object.rating and not boolean:
             rating = request.POST.get('rate')
             review_object.rating = rating
             review_object.save()
-        if 'review' in self.request.POST:
+        if 'review' in self.request.POST and not boolean:
             review = self.request.POST.get('review')
             if review:
                 review_object.comment = review
