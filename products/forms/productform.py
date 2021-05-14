@@ -45,7 +45,6 @@ class ProductUpdateForm(forms.Form):
     description = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
     price = forms.FloatField(required=True, widget=forms.NumberInput(attrs={'class': 'form-control'}))
     category = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
-    #category = forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple, choices=['cereal', 'dinnerware', 'cookbook', 'other'])
     in_stock = forms.IntegerField(required=True, widget=forms.NumberInput(attrs={'class': 'form-control'}))
     energy = forms.FloatField(required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
     sugar = forms.FloatField(required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
