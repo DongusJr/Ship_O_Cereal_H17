@@ -42,6 +42,25 @@ class Products(models.Model):
     def __str__(self):
         return self.name
 
+
+    @staticmethod
+    def get_all_products():
+        products = Products.objects.all()
+        product_list = []
+        for product in products:
+            data = {'pk': product.id, 'product':{'id': product.id,
+             'name': product.name,
+             'short_description': product.short_description,
+             'description': product.description,
+             'price': product.price,
+             'category': product.category,
+             'image': ProductImage.get_first_image_for_single_product(product.id)
+             }}
+            product_list.append(data)
+        return product_list
+
+
+
     @staticmethod
     def update_product(data, product):
         '''
@@ -166,22 +185,22 @@ class ProductTag(models.Model):
         # Prefetch all products to reduce unnecessary queries
         tag_queryset = ProductTag.objects.prefetch_related('product')
         # Store all return data in this list
+        all_products = Products.get_all_products()
         tags = []
 
         for tag in tag_queryset:
             # products associated with tag
-            products = [{'id':product.id,
-                         'name':product.name,
-                         'short_description': product.short_description,
-                         'description':product.description,
-                         'price':product.price,
-                         'category':product.category,
-                         'image': ProductImage.get_first_image_for_single_product(product.id)
-                         }
+            products = [ProductTag.pk_get(product.id, all_products)
                         for product in tag.product.all()]
             # Add tag to return list
             tags.append({'id':tag.id, 'name':tag.name, 'products':products})
         return tags
+
+    @staticmethod
+    def pk_get(pk, all_products):
+        for product in all_products:
+            if pk == product['pk']:
+                return product['product']
 
     @staticmethod
     def get_products_with_tag(tag_name):
