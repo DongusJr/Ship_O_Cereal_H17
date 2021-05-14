@@ -191,14 +191,7 @@ class SingleProduct(TemplateView):
         else:
             self.data['reviews'] = None
 
-        similar_tag = []
-        tags = ProductTag.objects.filter(product=product)
-        for tag in tags:
-            if len(similar_tag) <= 10:
-                similar_tag.extend(ProductTag.get_products_with_tag(tag.name))
-            else:
-                break
-        self.data['similar_products'] = similar_tag
+        self.data['similar_products'] = ProductTag.get_similar_products(product)
         return render(request, self.template_name, self.data)
 
     def post(self, request, *args, **kwargs):

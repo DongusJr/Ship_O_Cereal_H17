@@ -107,7 +107,7 @@ function make_page_nav(pages){
         // Every page number
         for (let i=1; i< (pages.num_of_pages + 1); i++){
             if (pages.number == i) {
-              newHtml += `<li className="active"><span className="active-page">${i}</span></li>`
+              newHtml += `<li class="active"><span class="active-page">${i}</span></li>`
             } else {
                 newHtml += `<li><a class="page_nav_button" id="num_page">${i}</a></li>`; // href="?page=${i}"
             }
