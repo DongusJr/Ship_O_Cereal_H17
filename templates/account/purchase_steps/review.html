@@ -1,31 +1,43 @@
-<form method="post" class="form form-horizontal" style="border: solid 3px black;margin:auto; padding:5%;">
-    {% csrf_token %}
-    <input type="hidden" name="step" value="review">
-    <input type="submit" value="Complete order"/>
-</form>
-<div id="productsReviewDiv">
-    <h1>Products</h1>
-    {% for product in data.order_with_products.products %}
-        {% include 'proto_products/proto_product.html' with product=product %}
-    {% endfor %}
-    <p>total: {{ data.order_with_products.total }}</p>
+{% load static %}
+{% block content %}
 
+<link rel="stylesheet" href="{% static 'css/account/purchase_steps.css' %}">
+
+<div class="pay_conf_site">
+    <div id="productsReviewDiv">
+        <h1>Products</h1>
+        {% for product in data.order_with_products.products %}
+            {% include 'proto_products/proto_product.html' with product=product %}
+        {% endfor %}
+        <p>total: {{ data.order_with_products.total }}</p>
+    </div>
+
+    <form method="post" class="form" id="lastForm">
+        {% csrf_token %}
+        <div class="details_overview">
+            <div id="cardInfoDiv">
+                <h1>Card Info</h1>
+                <p>Card Holder Name: {{ data.payment.full_name }}</p>
+                <p>Card Number: {{ data.payment.card_number }}</p>
+                <p>Card; Year: {{ data.payment.year }}, Month: {{ data.payment.month }}, Cvc:{{ data.payment.cvc }}</p>
+            </div>
+
+            <div id="shippingInfoDiv">
+                <h1>Shipping Info</h1>
+                <p>Full Name: {{ data.person_info.full_name }}</p>
+                <p>Country:{{ data.person_info.country }}</p>
+                <p>Zip Code:{{ data.person_info.zip  }}</p>
+                <p>Street:{{ data.person_info.street }}</p>
+                <p>Home Delivery:{{info.delivery}}</p>
+            </div>
+        </div>
+
+        <form method="post" class="confirm_btn">
+            {% csrf_token %}
+            <input type="hidden" name="step" value="review">
+            <input type="submit" value="Complete order"/>
+        </form>
+    </form>
 </div>
-<form method="post" class="form" id="lastForm">
-    {% csrf_token %}
-    <div id="cardInfoDiv">
-        <h1>Card Info</h1>
-        <p>Card Holder Name: {{ data.payment.full_name }}</p>
-        <p>Card Number: {{ data.payment.card_number }}</p>
-        <p>Card; Year: {{ data.payment.year }}, Month: {{ data.payment.month }}, Cvc:{{ data.payment.cvc }}</p>
-    </div>
 
-    <div id="shippingInfoDiv">
-        <h1>Shipping Info</h1>
-        <p>Full Name: {{ data.person_info.full_name }}</p>
-        <p>Country:{{ data.person_info.country }}</p>
-        <p>Zip Code:{{ data.person_info.zip  }}</p>
-        <p>Street:{{ data.person_info.street }}</p>
-        <p>Home Delivery:{{info.delivery}}</p>
-    </div>
-</form>
+{% endblock %}
