@@ -105,13 +105,16 @@ class CompletePurchase(TemplateView):
             form = PaymentForm(data=request.POST)
             if form.is_valid():
                 request.session['payment'] = request.POST
+                request.session['payment_done'] = True
                 countries = Country.objects.all()
                 return render(request, self.template_name, {'form_html': self.html_template_names['person_info'], 'countries': countries})
 
         if step == 'person_info':
             form = PersonInfoForm(data=request.POST)
             if form.is_valid():
+                self.request.session['person_info'] = self.request.POST
                 data = self._get_review_data()
+                request.session['person_info_done'] = True
                 return render(request, self.template_name, {'form_html': self.html_template_names['review'], 'data':data})
             else:
                 countries = Country.objects.all()
@@ -126,7 +129,7 @@ class CompletePurchase(TemplateView):
             user_cart.complete_cart(self.request.user.id, payment_obj, person_info_obj)
             del request.session['payment']
             del request.session['person_info']
-            return render(request, 'account/purchase_steps/payment_successful.html', {})
+            return render(request, 'account/purchase_steps/payment_successful.html',{'data': data})
         return render(request, self.template_name, {'form_html': self.html_template_names[step]})
 
     def _get_person_info_from_form(self, person_info_form):
@@ -141,7 +144,6 @@ class CompletePurchase(TemplateView):
         return data
 
     def _get_review_data(self):
-        self.request.session['person_info'] = self.request.POST
         person_info = self._get_person_info_from_form(self.request.session['person_info'])
         order_with_products = Cart.get_products_from_cart_of_user_and_total(self.request.user.id)
         return {'payment': self.request.session['payment'],

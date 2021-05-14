@@ -9,7 +9,7 @@
     <div id="productsReviewDiv">
         <h1>Products</h1>
         {% for product in data.order_with_products.products %}
-            {% include 'proto_products/proto_product.html' with product=product %}
+            {% include 'products/single_product.html' with product=product %}
         {% endfor %}
         <p>total: {{ data.order_with_products.total }}</p>
     </div>

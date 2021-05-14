@@ -13,19 +13,22 @@
         </a>
     <div class="btn-group" role="group" aria-label="Basic example">
             <a href="{% url 'complete_order'%}?step=payment">
-                <button type="button" class="btn btn-primary btn-nav bowlBtn" name="step" value="payment">
+                <button type="button" class="btn btn-primary btn-nav bowlBtn" name="step" value="payment"
+                {% if request.session.payment_done %} {% else %} disabled {% endif %}>
                     <!--Payment-->
                     <label></label>
                 </button>
             </a>
             <a href="{% url 'complete_order'%}?step=person_info">
-                <button type="button" class="btn btn-primary btn-nav bowlBtn" name="step" value="person_info">
+                <button type="button" class="btn btn-primary btn-nav bowlBtn" name="step" value="person_info"
+                {% if request.session.payment_done %} {% else %} disabled {% endif %}>
                     <!--Person-->
                     <label></label>
                 </button>
             </a>
             <a href="{% url 'complete_order'%}?step=review">
-                <button type="button" class="btn btn-primary btn-nav bowlBtn" name="step" value="review">
+                <button type="button" class="btn btn-primary btn-nav bowlBtn" name="step" value="review"
+                {% if request.session.person_info_done   %} {% else %} disabled {% endif %}>
                     <!--review-->
                     <label></label>
                 </button>
