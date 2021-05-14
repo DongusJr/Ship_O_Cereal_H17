@@ -183,16 +183,23 @@ class ProductTag(models.Model):
                  : product_list[id, name, description, price, category, image]
         '''
         # Prefetch all products to reduce unnecessary queries
-        tag_queryset = ProductTag.objects.prefetch_related('product')
-        # Store all return data in this list
-        all_products = Products.get_all_products()
+        tag_queryset = ProductTag.objects.all()
+        tag_queryset = tag_queryset.prefetch_related(
+                            Prefetch('product', queryset=Products.objects.prefetch_related(
+                                Prefetch('productimage_set', queryset=ProductImage.objects.all()))))
         tags = []
 
         for tag in tag_queryset:
             # products associated with tag
-            products = [ProductTag.pk_get(product.id, all_products)
-                        for product in tag.product.all()]
-            # Add tag to return list
+            products = [{'id':product.id,
+                         'name':product.name,
+                         'short_description': product.short_description,
+                         'description':product.description,
+                         'price':product.price,
+                         'category':product.category,
+                         'image': product.productimage_set.all()[0].image
+                         } for product in tag.product.all()]
+
             tags.append({'id':tag.id, 'name':tag.name, 'products':products})
         return tags
 
