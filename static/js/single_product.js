@@ -1,3 +1,6 @@
+/*
+    Function which highlights in clicked picture in the big image slot
+ */
 $(document).ready(function() {
     $('.singleProductImage').on('click', function(e) {
         e.preventDefault();

@@ -3,8 +3,10 @@ let category = '';
 let tags = [];
 let page = 1;
 
-//this function checks whether the user has any orders already in the url
-// and gets the url from the request made
+/*
+    this function checks whether the user has any orders already in the url
+    and gets the url from the request made
+*/
 $(document).ready(function() {
     $('.order_select').on('change', function(e) {
         e.preventDefault();
@@ -59,7 +61,7 @@ $(document).ready(function() {
 })
 
 /*
-    this is the
+    Function that creates the navigation for the site
 */
 function make_page_nav_event_listener() {
     $('.page_nav_button').on('click', function(e) {
@@ -77,6 +79,9 @@ function make_page_nav_event_listener() {
     })
 }
 
+/*
+    Function that creates custom URL for site with current attributes set
+ */
 function make_url() {
     let tag_url = ''
     for (let i = 0; i < tags.length; i++){
@@ -85,6 +90,10 @@ function make_url() {
     return '/products?page=' + page + '&order=' + order + '&category=' + category + tag_url + '&json_response=True'
 }
 
+
+/*
+    Create an Ajax request for the site
+ */
 function make_ajax_request(url) {
             $.ajax({
             url: url,
@@ -110,6 +119,9 @@ function make_ajax_request(url) {
         })
 }
 
+/*
+    Function which navigates between sites
+ */
 function make_page_nav(pages){
     var newHtml = ``
     if (pages.has_other_pages) {
