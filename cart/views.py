@@ -127,9 +127,9 @@ class CompletePurchase(TemplateView):
             person_info_obj = person_info_form.save()
             user_cart = Cart.objects.get(user=self.request.user)
             user_cart.complete_cart(self.request.user.id, payment_obj, person_info_obj)
-            del request.session['payment']
-            del request.session['person_info']
-            return render(request, 'account/purchase_steps/payment_successful.html',{'data': data})
+            del request.session['payment_done']
+            del request.session['person_info_done']
+            return render(request, 'account/purchase_steps/payment_successful.html', {'data': data})
         return render(request, self.template_name, {'form_html': self.html_template_names[step]})
 
     def _get_person_info_from_form(self, person_info_form):
