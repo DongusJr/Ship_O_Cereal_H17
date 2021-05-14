@@ -191,13 +191,14 @@ class Order(models.Model):
 
         orders = []
         for order in order_queryset:
-            products = [{'id': product.id,
-                         'name': product.name,
-                         'price': product.price,
-                         'image': ProductImage.get_first_image_for_single_product(product)
-                         }
-                        for product in order.product.all()]
-            orders.append({'id':order.id, 'total': order.total, 'products': products})
+            if order.total != 0:
+                products = [{'id': product.id,
+                            'name': product.name,
+                            'price': product.price,
+                             'image': ProductImage.get_first_image_for_single_product(product)
+                             }
+                            for product in order.product.all()]
+                orders.append({'id':order.id, 'total': order.total, 'products': products})
         return orders
 
 class SearchHistory(models.Model):
