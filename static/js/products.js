@@ -83,7 +83,7 @@ function make_ajax_request(url) {
                                     </div>
                                     <h4>${product.name}</h4>
                                     <p>${product.short_description}</p>
-                                    <p>${product.price}</p>
+                                    <h4 class="smallPriceTag">${product.price}£</h4>
                                     <p>${product.category}</p>
                                 </a>
                             </div>`

@@ -2,21 +2,43 @@
 {% load static %}
 {% block content %}
 
-<link rel="stylesheet" href="{% static 'css/account/payment_succ_style.css' %}">
+<link rel="stylesheet" href="{% static 'css/account/purchase_steps.css' %}">
 
+<div class="pay_conf_site">
+    <h1>Confirmed</h1>
+    <div id="productsReviewDiv">
+        <h1>Products</h1>
+        {% for product in data.order_with_products.products %}
+            {% include 'proto_products/proto_product.html' with product=product %}
+        {% endfor %}
+        <p>total: {{ data.order_with_products.total }}</p>
+    </div>
 
-<h1>Payment Successful!</h1>
+    <form method="post" class="form" id="lastForm">
+        {% csrf_token %}
+        <div class="details_overview">
+            <div id="cardInfoDiv">
+                <h1>Card Info</h1>
+                <p>Card Holder Name: {{ data.payment.full_name }}</p>
+                <p>Card Number: {{ data.payment.card_number }}</p>
+                <p>Card; Year: {{ data.payment.year }}, Month: {{ data.payment.month }}, Cvc:{{ data.payment.cvc }}</p>
+            </div>
 
-<div class="order_conf">
-    orderconf
-</div>
-
-<div class="cust_info">
-    cust_info
-</div>
-
-<div class="controls">
-    controls
+            <div id="shippingInfoDiv">
+                <h1>Shipping Info</h1>
+                <p>Full Name: {{ data.person_info.full_name }}</p>
+                <p>Country:{{ data.person_info.country }}</p>
+                <p>Zip Code:{{ data.person_info.zip  }}</p>
+                <p>Street:{{ data.person_info.street }}</p>
+                <p>Home Delivery:{{info.delivery}}</p>
+            </div>
+        </div>
+    </form>
+    <form method="post" class="confirm_btn">
+        {% csrf_token %}
+        <input type="hidden" name="step" value="review">
+        <input type="submit" value="Complete order"/>
+    </form>
 </div>
 
 {% endblock %}

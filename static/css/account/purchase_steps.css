@@ -1,3 +1,29 @@
+.pay_conf_site {
+    display: flex;
+    flex-direction: column;
+}
+
+.details_overview {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    margin: auto;
+    justify-content: space-around;
+}
+
+#cardInfoDiv {
+    width: 40%;
+    margin: 1rem;
+    padding: 1rem;
+}
+
+#shippingInfoDiv {
+    width: 40%;
+    margin: 1rem;
+    padding: 1rem;
+    border-left: 2px dotted var(--dark);
+}
+
 #divWithForm{
     width: fit-content;
     /*max-width: 30%;*/
@@ -10,7 +36,6 @@
     border-radius: 25px;
     padding: 20px;
 }
-
 
 #divWithForm .form{
     color:var(--dark);
@@ -49,11 +74,7 @@
     background-color: var(--darkHover);
     border: solid var(--darkHover);
 }
-#cardInfoDiv{
-    border-right: 2px dotted var(--darkHover);
-    margin-right: 1rem;
-    padding-right: 1rem;
-}
+
 .btn-group{
     margin: auto;
     width: fit-content;
@@ -88,3 +109,34 @@
     max-width: 150%;
 }
 */
+
+#productsReviewDiv {
+    display: flex;
+    flex-direction: column;
+    border-top: 2px solid var(--dark);
+    border-bottom: 2px solid var(--dark);
+    padding: 1rem;
+    margin: 1rem;
+    justify-content: space-between;
+}
+
+.confirm_btn input {
+    float: right;
+    background-color: var(--dark);
+    color: var(--light);
+    margin: 1rem;
+}
+
+.confirm_btn input:hover {
+    background-color: var(--light);
+    color: var(--dark);
+    cursor: pointer;
+}
+
+.pay_conf_site h1 {
+    margin: 1rem;
+}
+
+.pay_conf_site p {
+    margin: 1rem;
+}
