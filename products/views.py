@@ -105,7 +105,7 @@ def get_products(request):
     data['products'] = Products.get_products(products_paginated) # the products are inserted here already sorted by page
 
 
-    if json_response: # if json is complete we send the json strong to js
+    if json_response: # if json is complete we send the json string to js
         return JsonResponse({
             'products' : data['products'],
             'pages': _jsonize_pages(products_paginated)})

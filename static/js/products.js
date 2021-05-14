@@ -2,6 +2,16 @@ let order = '';
 let category = '';
 let tags = [];
 let page = 1;
+let criteria = '';
+
+$(document).ready(function() {
+    let currentURL = $(location).attr('href');
+    console.log(currentURL)
+    if (currentURL.includes('?criteria=')){
+        url_split = currentURL.split('?criteria=')
+        criteria = url_split[url_split.length - 1]
+    }
+})
 
 $(document).ready(function() {
     $('.order_select').on('change', function(e) {
@@ -66,7 +76,7 @@ function make_url() {
     for (let i = 0; i < tags.length; i++){
         tag_url += '&tags=' + tags[i] + '&'
     }
-    return '/products?page=' + page + '&order=' + order + '&category=' + category + tag_url + '&json_response=True'
+    return '/products?page=' + page + '&order=' + order + '&category=' + category + '&criteria=' + criteria + tag_url + '&json_response=True'
 }
 
 function make_ajax_request(url) {
