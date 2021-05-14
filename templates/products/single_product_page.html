@@ -138,7 +138,7 @@
         {% endfor %}
     </div>
 </div>
-{% if user.is_authenticated %}
+{% if user.is_authenticated and not has_not %}
 <div id="writeReview">
     <form method="post">
         {% csrf_token %}

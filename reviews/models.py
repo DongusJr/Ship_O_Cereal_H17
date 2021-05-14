@@ -10,3 +10,11 @@ class Review(models.Model):
     product = models.ForeignKey(Products, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
+    @staticmethod
+    def has_made_review(user, product):
+        try:
+            if Review.objects.filter(user=user, product=product):
+                return True
+        except:
+            return False
+
