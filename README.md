@@ -15,9 +15,8 @@
 ### Creating a user
 1. Firstly go to the following url to create a user 'http://localhost:8000/user/account'
     1. To traverse this via navigation enter the annotation of profile image
-1. To view accounts with experimental data use the following username and password inputted respectively in the login form
-    1. Username: Godjon
-    1. Password: 
-1. To view accounts with a superuser we have a superuser account
-    1. username: admin
-    1. password: cerealLover
+2. How to make a super user:
+Type the following in a terminal located at the root directory of this project
+> python manage.py createsuperuser
+
+you will be prompted by the console on how to create the superuser

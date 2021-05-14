@@ -6,7 +6,6 @@ let criteria = '';
 
 $(document).ready(function() {
     let currentURL = $(location).attr('href');
-    console.log(currentURL)
     if (currentURL.includes('?criteria=')){
         url_split = currentURL.split('?criteria=')
         criteria = url_split[url_split.length - 1]

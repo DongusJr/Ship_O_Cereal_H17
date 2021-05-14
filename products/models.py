@@ -43,23 +43,6 @@ class Products(models.Model):
         return self.name
 
 
-    @staticmethod
-    def get_all_products():
-        products = Products.objects.all()
-        product_list = []
-        for product in products:
-            data = {'pk': product.id, 'product':{'id': product.id,
-             'name': product.name,
-             'short_description': product.short_description,
-             'description': product.description,
-             'price': product.price,
-             'category': product.category,
-             'image': ProductImage.get_first_image_for_single_product(product.id)
-             }}
-            product_list.append(data)
-        return product_list
-
-
 
     @staticmethod
     def update_product(data, product):
@@ -87,19 +70,22 @@ class Products(models.Model):
         this method produces a list of dictionaries
         with information associated with the product
         '''
-        # product_image_map = ProductImage.get_first_image_for_each_product()
-
         if product_query is None:
-            product_query = Products.objects.all()
-        products = [{'id': product.id,
+            product_query = Products.objects.prefetch_related(Prefetch('productimage_set', queryset=ProductImage.objects.all()))
+        products = []
+        for product in product_query:
+            try:
+                image = product.productimage_set.all()[0].image
+            except:
+                image = ''
+            products.append({'id': product.id,
                      'name': product.name,
                      'short_description': product.short_description,
                      'description': product.description,
                      'price': product.price,
                      'category': product.category,
-                     'image': ProductImage.get_first_image_for_single_product(product)
-                     }
-                    for product in product_query]
+                     'image': image
+                     })
         return products
 
     @staticmethod
@@ -132,24 +118,6 @@ class Products(models.Model):
 class ProductImage(models.Model):
     image = models.CharField(max_length=9999)
     product = models.ForeignKey(Products, on_delete=models.CASCADE)
-
-    @staticmethod
-    def get_first_image_for_each_product():
-        ''' Function that returns a dictionary where the key is a id of a product and
-            the value is the first image in the database
-
-            :returns
-            product_image_map : dictionary{product_id : product_image}
-        '''
-        product_image_map = {}
-        product_queryset = Products.objects.prefetch_related('productimage_set')
-        for product in product_queryset:
-            # Map product id with first image in the db associated with it
-            try:
-                product_image_map[product.id] = product.productimage_set.first().image
-            except AttributeError:
-                product_image_map[product.id] = ''
-        return product_image_map
 
     @staticmethod
     def get_first_image_for_single_product(product):
@@ -219,14 +187,14 @@ class ProductTag(models.Model):
         collected in said list
         '''
         tag = ProductTag.objects.get(name__iexact=(tag_name))
-        tag_queryset = ProductTag.objects.prefetch_related('product')
+        product_query = Products.objects.prefetch_related(Prefetch('productimage_set', queryset=ProductImage.objects.all()))
 
         products = [{'id': product.id,
                      'name': product.name,
                      'description': product.description,
                      'price': product.price,
                      'category': product.category,
-                     'image': ProductImage.get_first_image_for_single_product(product)
+                     'image': product.productimage_set.all()[0].image
                      }
                     for product in tag.product.all()]
         return products
@@ -251,14 +219,15 @@ class ProductTag(models.Model):
         product_tag_pair.sort(key=lambda x:x[1])
 
         org_product_id = product.id
-        #product_image_map = ProductImage.get_first_image_for_each_product()
         products_queryset = Products.objects.all()
+        products_queryset = products_queryset.prefetch_related(Prefetch('productimage_set', queryset=ProductImage.objects.all()))
         products_data = []
         while product_tag_pair and len(products_data) < 10:
             product_id, count = product_tag_pair.pop()
             if product_id != org_product_id:
                 count_product = products_queryset.get(pk=product_id)
-                image = ProductImage.get_first_image_for_single_product(count_product)
+                # image = ProductImage.get_first_image_for_single_product(count_product)
+                image = count_product.productimage_set.all()[0].image
                 products_data.append({'id': count_product.id,
                                       'name': count_product.name,
                                       'short_description': count_product.short_description,

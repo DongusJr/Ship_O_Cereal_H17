@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.db.models import Prefetch
 from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 
@@ -99,7 +100,8 @@ def get_products(request):
             products = products.order_by('-price')
 
     page = request.GET.get('page', 1) # gets the current page
-    products_paginated = _paginate_data(products, page, 10) # gets products to be on a page
+    prefetched_products = products.prefetch_related(Prefetch('productimage_set', queryset=ProductImage.objects.all()))
+    products_paginated = _paginate_data(prefetched_products, page, 10) # gets products to be on a page
 
     data['pages'] = products_paginated # products are specific
     data['products'] = Products.get_products(products_paginated) # the products are inserted here already sorted by page
