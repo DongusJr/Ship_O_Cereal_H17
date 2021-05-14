@@ -8,7 +8,11 @@
 <div class="profile_page">
     <div class="profile_container">
         <div class="profile_pic">
-            <img src="{{ profile.image }}"/>
+            {% if profile.image %}
+                <img src="{{ profile.image }}"/>
+            {% else %}
+                <img name="PlaceholderImg" src="https://www.edmundsgovtech.com/wp-content/uploads/2020/01/default-picture_0_0.png">
+            {% endif %}
             <a href="{% url 'update_profile' %}">Change profile picture</a>
         </div>
         <div class="profile_info">

@@ -77,6 +77,7 @@ def get_products(request):
                 # this user cannot be created and therefore we can add it to the search history of the user
                 SearchHistory.add_to_search_history(criteria, request.user)
 
+    data['def_category'] = ''
     if 'category' in request.GET:
         # category gets the category selected by the user
         category = request.GET['category']
@@ -84,8 +85,6 @@ def get_products(request):
             data['def_category'] = category
             if products != []: # if there are products still available
                 products = products.filter(category__exact=category)
-    else:
-        data['def_category'] = ''
     
     if 'order' in request.GET and products != []:
         # order is the listing of the products after a specific order after name or price
