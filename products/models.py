@@ -132,6 +132,12 @@ class ProductImage(models.Model):
                 product_image_map[product.id] = ''
         return product_image_map
 
+    @staticmethod
+    def get_first_image_for_single_product(product):
+        image_list = ProductImage.objects.filter(product=product)
+        return  image_list[0].image
+
+
 
 class ProductTag(models.Model):
     name = models.CharField(max_length=64)
@@ -209,20 +215,21 @@ class ProductTag(models.Model):
         product_tag_pair.sort(key=lambda x:x[1])
 
         org_product_id = product.id
-        product_image_map = ProductImage.get_first_image_for_each_product()
+        #product_image_map = ProductImage.get_first_image_for_each_product()
         products_queryset = Products.objects.all()
         products_data = []
         while product_tag_pair:
             product_id, count = product_tag_pair.pop()
             if product_id != org_product_id:
                 count_product = products_queryset.get(pk=product_id)
+                image = ProductImage.get_first_image_for_single_product(count_product)
                 products_data.append({'id': count_product.id,
                                       'name': count_product.name,
                                       'short_description': count_product.short_description,
                                       'description': count_product.description,
                                       'price': count_product.price,
                                       'category': count_product.category,
-                                      'image': product_image_map[count_product.id]
+                                      'image': image
                                       })
         return products_data
 
