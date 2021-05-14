@@ -12,25 +12,19 @@
             </button>
         </a>
     <div class="btn-group" role="group" aria-label="Basic example">
-        <a href="{% url 'complete_order' %}?step=payment">
-            <button type="button" class="btn btn-primary btn-nav bowlBtn">
+            <button type="button" class="btn btn-primary btn-nav bowlBtn" name="step" value="payment">
                 <!--Payment-->
                 <label></label>
             </button>
-        </a>
-        <a href="{% url 'complete_order' %}?step=person_info">
-            <button type="button" class="btn btn-primary btn-nav bowlBtn" {% if not request.session.payment_form %} disabled {% endif %}>
+            <button type="button" class="btn btn-primary btn-nav bowlBtn" name="step" value="person_info">
                 <!--Person-->
                 <label></label>
             </button>
-        </a>
-        <a href="{% url 'complete_order' %}?step=review">
-            <button type="button" class="btn btn-primary btn-nav bowlBtn" {% if not request.session.payment_form or not request.session.person_info_form %} disabled {% endif %}>
+            <button type="button" class="btn btn-primary btn-nav bowlBtn" name="step" value="review">
                 <!--review-->
                 <label></label>
             </button>
-        </a>
     </div>
-    <script src="{% static 'js/purchase_navigation.js' %}"></script>
+    <script src="{% static 'js/payment_process.js' %}"></script>
             </div>
 {% endblock %}
