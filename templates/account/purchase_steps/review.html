@@ -9,7 +9,7 @@
         {% for product in data.order_with_products.products %}
             {% include 'products/single_product.html' with product=product %}
         {% endfor %}
-        <p>total: {{ data.order_with_products.total }}</p>
+        <p>total: {{ data.order_with_products.total }}£</p>
     </div>
 
     <form method="post" class="form" id="lastForm">
