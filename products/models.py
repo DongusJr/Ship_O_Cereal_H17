@@ -43,6 +43,23 @@ class Products(models.Model):
         return self.name
 
     @staticmethod
+    def get_all_products_data_set():
+        products = Products.objects.all()
+        products_list = []
+
+        for product in products:
+            data = {'pk': product.id, 'product': {'id': product.id,
+            'name': product.name,
+            'description': product.description,
+            'price': product.price,
+            'category': product.category,
+            'image': ProductImage.get_first_image_for_single_product(product)
+            }}
+            products_list.append(data)
+        return products_list
+
+
+    @staticmethod
     def update_product(data, product):
         '''
         update_product(data, product)
@@ -188,16 +205,17 @@ class ProductTag(models.Model):
         '''
         tag = ProductTag.objects.get(name__iexact=(tag_name))
         tag_queryset = ProductTag.objects.prefetch_related('product')
+        products_list = Products.get_all_products_data_set()
 
-        products = [{'id': product.id,
-                     'name': product.name,
-                     'description': product.description,
-                     'price': product.price,
-                     'category': product.category,
-                     'image': ProductImage.get_first_image_for_single_product(product)
-                     }
+        products = [ProductTag.find_prod(products_list, product.id)
                     for product in tag.product.all()]
         return products
+
+    @staticmethod
+    def find_prod(products_list, pk):
+        for prod in products_list:
+            if prod['pk'] == pk:
+                return prod['product']
 
     @staticmethod
     def get_similar_products(product):

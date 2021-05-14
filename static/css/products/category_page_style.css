@@ -88,7 +88,7 @@
     cursor: pointer;
     background-color: var(--darkHover);
 }
-.activeTag a{
+.activeTag label{
     color: var(--light);
 }
 .upperInfo{
