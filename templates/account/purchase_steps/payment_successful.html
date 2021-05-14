@@ -9,7 +9,7 @@
     <div id="productsReviewDiv">
         <h1>Products</h1>
         {% for product in data.order_with_products.products %}
-            {% include 'proto_products/proto_product.html' with product=product %}
+            {% include 'products/single_product.html' with product=product %}
         {% endfor %}
         <p>total: {{ data.order_with_products.total }}</p>
     </div>
@@ -34,11 +34,8 @@
             </div>
         </div>
     </form>
-    <form method="post" class="confirm_btn">
-        {% csrf_token %}
         <input type="hidden" name="step" value="review">
-        <input type="submit" value="Complete order"/>
-    </form>
+        <a href="{% url 'product_index'%}"><input type="submit" value="Return to main page"/></a>
 </div>
 
 {% endblock %}

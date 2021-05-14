@@ -79,7 +79,7 @@ function make_ajax_request(url) {
                                 <a href="/products/${product.id}">
                             
                                     <div class="categoryProductImageDiv">
-                                        <img class="categoryProductImage" src="${product.image}" alt='image for ${product.name} missing' style="width: 200px;">
+                                        <img class="categoryProductImage" src="${product.image}" alt='image for ${product.name} missing'>
                                     </div>
                                     <h4>${product.name}</h4>
                                     <p>${product.short_description}</p>

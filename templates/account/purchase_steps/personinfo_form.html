@@ -3,33 +3,32 @@
         {% csrf_token %}
         <input type="hidden" name="step" value="person_info">
         <div>
-            <label for="id_full_name">Full name:</label><input type="text" name="full_name" class="form-control" maxlength="50" required id="id_full_name">
+            <label for="id_first_name">First name:</label><input type="text" name="first_name" class="form-control" maxlength="50" required id="id_first_name" value="{{ data.first_name }}">
+        </div><br>
+        <div>
+            <label for="id_last_name">Last name:</label><input type="text" name="last_name" class="form-control" maxlength="50" required id="id_last_name" value="{{ data.last_name }}">
         </div><br>
         <div>
             <label for="id_country">Country:</label><select name="country" class="form-control" required id="id_country">
         </div><br>
         <div>
-            <option value="" selected>---------</option>
-            {% for countryName in countries %}
-                <option value="{{country}}">{{country}}</option>
+            <option value="">---------</option>
+            {% for country in countries %}
+                <option value="{{country.id}}">{{country}}</option>
             {% endfor %}
-            <option value="1">Iceland</option>
             </select>
         </div><br>
         <div>
-            <a href="{% url 'complete_order' %}">
-                <label for="id_zip">Zip:</label><input type="text" name="Zip" class="form-control" maxlength="12" required id="id_zip">
-            <a/>
+                <label for="id_city_name">City:</label><input type="text" name="city_name" class="form-control" maxlength="12" required id="id_city_name" value="{{ data.city_name }}">
         </div><br>
         <div>
-            <a href="{% url 'complete_order' %}">
-                <label for="id_Street">Street:</label><input type="text" name="Street" class="form-control" maxlength="80" required id="id_Street">
-            </a>
+                <label for="id_Street">Street:</label><input type="text" name="Street" class="form-control" maxlength="80" required id="id_Street" value="{{ data.Street }}">
         </div><br>
         <div>
-            <a href="{% url 'complete_order' %}">
+                <label for="id_zip">Zip:</label><input type="text" name="zip" class="form-control" maxlength="12" required id="id_zip" value="{{ data.zip }}">
+        </div><br>
+        <div>
                 <input type="checkbox"><label for="id_Street">Home delivery (may have additional cost)</label>
-            </a>
         </div><br>
         <input class="continueBtn" type="submit" value="Continue"/>
     </form>

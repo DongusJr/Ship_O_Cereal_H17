@@ -1,5 +1,5 @@
 .email_page {
-    width: 100%;
+    width: 80%;
     display: flex;
     flex-direction: column;
     margin: auto;
@@ -37,10 +37,40 @@ input[type=text]{
     width: 6rem;
     height: 3rem;
 }
+.email_box button:hover{
+    background-color: var(--darkHover);
+}
+
 
 .news_section {
     border: 2px solid var(--dark);
     border-radius: 10px;
     margin: 2rem;
     padding: 1rem;
+}
+
+.btn-stuff{
+    padding: 14px 20px;
+    border: none;
+    background-color: var(--dark);
+    color: var(--light);
+    cursor: pointer;
+}
+
+.btn-stuff:hover{
+    background-color: var(--darkHover);
+}
+
+.news_div {
+    margin: 1rem;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    border: 2px solid var(--dark);
+    border-radius: 10px;
+}
+
+.news_div h4 {
+    color: var(--dark);
 }

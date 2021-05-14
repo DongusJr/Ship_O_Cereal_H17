@@ -26,14 +26,13 @@ class Cart(models.Model):
         cart = Cart.objects.get(user=user)
         contains_list = Contains.objects.filter(cart=cart).prefetch_related('product') #get all products in cart
         products = []
-        product_image_map = ProductImage.get_first_image_for_each_product()
         for contains in contains_list:
             products.append({'id': contains.product.id,
                              'name': contains.product.name,
                              'price': contains.product.price,
                              'category': contains.product.category,
                              'description': contains.product.description,
-                             'image': product_image_map[contains.product.id]})
+                             'image': ProductImage.get_first_image_for_single_product(contains.product.id)})
 
         data = {'total': cart.total, 'products': products}
         return data
