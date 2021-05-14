@@ -23,17 +23,19 @@
     <script src="{% static 'js/products.js' %}"></script>
   <link rel="stylesheet" href="{% static 'css/products/category_page_style.css' %}">
   <div class="tags">
+      <label>Tags:</label>
       <div id="tagDiv">
         {% for tag in tags %}
           <div class="inactiveTag">
             <label class="tag_label">{{tag.name}}</label>
           </div>
         {% endfor %}
-        <label for="value">Order by:</label>
+
     {#  {% for tag in active_tags %}#}
     {#    <h1> {{ tag.name }}</h1>#}
     {#  {% endfor %}#}
      </div>
+      <label for="value">Order by:</label>
         <input type="hidden" id="urlencode" name="urlencode" value="{{ request.GET.urlencode }}">
       <select class="order_select" name="order" id="value">
         <option value="">No order</option>

@@ -15,6 +15,13 @@ class NutritionalInfo(models.Model):
 
     @staticmethod
     def update_nutritional_info(data, nut_obj):
+        '''
+        update_nutritional_info(data, nut_obj)
+
+        parameters: data: dict, nut_obj: NutritionalInfo
+        this method updates the nut_obj in parameter and inputs all
+        corresponding data from the dictionary into the object
+        '''
         nut_obj.energy = data['energy']
         nut_obj.sugar = data['sugar']
         nut_obj.fat = data['fat']
@@ -37,6 +44,12 @@ class Products(models.Model):
 
     @staticmethod
     def update_product(data, product):
+        '''
+        update_product(data, product)
+
+        parameters: data: dict, product: Product
+        this method inputs the updated data into the product object product
+        '''
         product.name = data['name']
         product.short_description = data['short_description']
         product.description = data['description']
@@ -47,16 +60,14 @@ class Products(models.Model):
         product.in_stock = data['in_stock']
         product.save()
 
-
-    @staticmethod
-    def update_stock(product, quantity, state=1):
-        if state == 1:
-            product.in_stock -= quantity
-        else:
-            product.in_stock += quantity
-
     @staticmethod
     def get_products(product_query=None):
+        '''
+        get_product
+
+        this method produces a list of dictionaries
+        with information associated with the product
+        '''
         product_image_map = ProductImage.get_first_image_for_each_product()
 
         if product_query is None:
@@ -74,6 +85,13 @@ class Products(models.Model):
 
     @staticmethod
     def get_detail_data_for_product(id):
+        '''
+        get_detail_data_for_product(id)
+
+        parameters: id: int
+        this method gets all details for the product with the primary key id
+        and returns the dictionary with the respective information
+        '''
         product = get_object_or_404(Products, pk=id)
         tags = ProductTag.objects.filter(product=product).values()
         data = {'name': product.name,
@@ -155,6 +173,13 @@ class ProductTag(models.Model):
 
     @staticmethod
     def get_products_with_tag(tag_name):
+        '''
+        get_products_with_tag(tag_name)
+
+        parameters: tag_name: str
+        this method produces a list with all products with all respective information
+        collected in said list
+        '''
         tag = ProductTag.objects.get(name__iexact=(tag_name))
         tag_queryset = ProductTag.objects.prefetch_related('product')
 
@@ -204,11 +229,24 @@ class ProductTag(models.Model):
 
     @staticmethod
     def get_tags_for_product(product):
+        '''
+        get_tags_for_product(product)
+
+        parameters: product: Products
+        this method provides all tags pretaining to a single product objects product
+        '''
         tag_list = ProductTag.objects.filter(product=product)
         return tag_list
 
     @staticmethod
     def update_tags(product, tags):
+        '''
+        update_tags(product, tags)
+
+        parameters: product: Products, tags: str list
+        this method adds a product to a specified tag so long as
+        the product is not already in the list filtered
+        '''
         tag_list = ProductTag.get_tags_for_product(product)
         for tag in tag_list:
             if tag.name not in tags:

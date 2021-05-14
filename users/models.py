@@ -99,24 +99,54 @@ class Profile(models.Model):
 
     @staticmethod
     def update_name(name, user_id):
+        '''
+        update_name(name, user_id)
+
+        parameters: name: str, user_id: int
+        this method changes the current user's name to the new taken
+        as a parameter and the identifier is used to change and update
+        the user's name
+        '''
         user = User.objects.get(id=user_id)
         user.username = name
         user.save()
 
     @staticmethod
     def subscribe_user_to_news_letter(user_id):
+        '''
+        subscribe_user_to_news_letter(user_id)
+
+        parameters: user_id: int
+        this method is used to subscribe the user to a newsletter,
+        the boolean allows to identify which user has subscribed to the
+        newsletter
+        '''
         profile = Profile.objects.get(user_id=user_id)
         profile.subscribed_to_newsletter = True
         profile.save()
 
     @staticmethod
     def unsubscribe(user_id):
+        '''
+        unsubscribe(user_id)
+
+        parameters: user_id: int
+        this method changes the boolean value to false which will
+        disable the user's ability to view the newsletter on the site
+        '''
         profile = Profile.objects.get(user_id=user_id)
         profile.subscribed_to_newsletter = False
         profile.save()
 
     @staticmethod
     def is_user_subscribed(user_id):
+        '''
+        is_user_authenticated(user_id)
+
+        parameters: user_id
+        this method gets the profile associated with the user and
+        then returns the boolean value of the attribute subscribed_to_newsletter
+        '''
         profile = Profile.objects.get(user_id=user_id)
         return profile.subscribed_to_newsletter
 
@@ -170,14 +200,6 @@ class Order(models.Model):
             orders.append({'id':order.id, 'total': order.total, 'products': products})
         return orders
 
-    # def order_total(self, order):
-    #     total = 0
-    #     contains = OrderProduct.objects.get(order=order)
-    #     for product in contains:
-    #         total += product.price * (product.quantity)
-    #     order.total = total
-    #     return total
-
 class SearchHistory(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     previous_searches = models.TextField(max_length=128)
@@ -195,5 +217,12 @@ class SearchHistory(models.Model):
 
     @staticmethod
     def get_all_previous_searches(user):
+        '''
+        get_all_previous_searches(user)
+
+        parameters: user: User
+        this method finds all searches the user has previously searched for
+        in the search bar
+        '''
         all_searches = SearchHistory.objects.filter(user=user)
         return all_searches

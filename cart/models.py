@@ -156,6 +156,13 @@ class Contains(models.Model):
 
     @staticmethod
     def contains_exist(pk):
+        '''
+        contains_exist(pk)
+
+        parameter: pk: int
+        this method returns a boolean value whether the contains object associated with the pk
+        variable respectively
+        '''
         try:
             Contains.objects.get(pk=pk)
             return True
@@ -175,7 +182,7 @@ class ProductViewed(models.Model):
         parameters: product: Product, user: User
         This method finds whether the product has recently been viewed
         by the user then we create an object associated with the user as
-        a new item so we do not have a repition of ProductViewed objects
+        a new item so we do not have a repetition of ProductViewed objects
         in the search history
         '''
         try:
