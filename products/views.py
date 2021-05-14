@@ -246,7 +246,7 @@ class SingleProduct(TemplateView):
         '''
         post
 
-        this method allows the user to post a public review on the prodyct by collecting
+        this method allows the user to post a public review on the product by collecting
         the rate and review inputted by the user
         '''
         try:
