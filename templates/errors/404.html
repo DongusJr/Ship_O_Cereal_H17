@@ -1,5 +1,12 @@
 {% extends "base_page.html" %}
 {% load static %}
 {% block content %}
-<p>Site does not exist</p>
+
+<link rel="stylesheet" href="{% static 'css/error/error_style.css' %}">
+
+<div class="error_div">
+    <h1>404: Site not found</h1>
+    <img src="{% static 'images/panda_cereal.jpg' %}" height="400px" width="400px"/>
+    <a href="http://www.freepik.com">Designed by catalyststuff / Freepik</a>
+</div>
 {% endblock%}
