@@ -251,27 +251,28 @@ class SingleProduct(TemplateView):
         '''
         try:
             product = Products.objects.get(id=kwargs['id'])
-            product = Products.objects.get(id=kwargs['id'])
         except:
             return render(self.request, 'errors/404.html', {})
-        review_object = Review.objects.create(user=request.user, product=product)
-        boolean = Review.has_made_review(self.request.user, product)
-        self.data['has_not'] = boolean
-        if 'quant' in self.request.POST:
-            quantity = self.request.POST.get('quant')
-            Contains.add_to_cart(self.request.user, product, int(quantity)).save()
-            self.data['success'] = True
-        if 'rate' in request.POST and review_object.rating and not boolean:
-            rating = request.POST.get('rate')
-            review_object.rating = rating
-            review_object.save()
-        if 'review' in self.request.POST and not boolean:
-            review = self.request.POST.get('review')
-            if review:
-                review_object.comment = review
+        if str(self.request.POST.get('add')) == 'Add to cart':
+            if 'quant' in self.request.POST:
+                quantity = self.request.POST.get('quant')
+                Contains.add_to_cart(self.request.user, product, int(quantity)).save()
+                self.data['success'] = True
+        if str(self.request.POST.get('Review')) == 'Submit':
+            review_object = Review.objects.create(user=request.user, product=product)
+            boolean = Review.has_made_review(self.request.user, product)
+            if 'rate' in request.POST and review_object.rating and not boolean:
+                rating = request.POST.get('rate')
+                review_object.rating = rating
                 review_object.save()
+                self.data['rating'] = self.calculate_mean_rating(product)
+            if 'review' in self.request.POST and review_object.comment and not boolean:
+                review = self.request.POST.get('review')
+                if review:
+                    review_object.comment = review
+                    review_object.save()
+        self.data['has_not'] = Review.has_made_review(user=request.user, product=product)
         self.data['reviews'] = Review.objects.filter(product=product)
-        self.data['rating'] = self.calculate_mean_rating(product)
         return render(request, self.template_name, self.data)
 
     def calculate_mean_rating(self, product):
