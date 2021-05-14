@@ -60,3 +60,17 @@ input[type=text]{
 .btn-stuff:hover{
     background-color: var(--darkHover);
 }
+
+.news_div {
+    margin: 1rem;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    border: 2px solid var(--dark);
+    border-radius: 10px;
+}
+
+.news_div h4 {
+    color: var(--dark);
+}
