@@ -112,6 +112,10 @@ class Cart(models.Model):
         Cart.update_number_of_items(cart)
         return True
 
+    @staticmethod
+    def has_products(cart):
+        return Contains.objects.filter(cart=cart).exists()
+
 class Contains(models.Model):
     quantity = models.IntegerField()
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
