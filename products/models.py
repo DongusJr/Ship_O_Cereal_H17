@@ -68,7 +68,7 @@ class Products(models.Model):
         this method produces a list of dictionaries
         with information associated with the product
         '''
-        product_image_map = ProductImage.get_first_image_for_each_product()
+        # product_image_map = ProductImage.get_first_image_for_each_product()
 
         if product_query is None:
             product_query = Products.objects.all()
@@ -78,7 +78,7 @@ class Products(models.Model):
                      'description': product.description,
                      'price': product.price,
                      'category': product.category,
-                     'image': product_image_map[product.id]
+                     'image': ProductImage.get_first_image_for_single_product(product)
                      }
                     for product in product_query]
         return products
@@ -135,7 +135,10 @@ class ProductImage(models.Model):
     @staticmethod
     def get_first_image_for_single_product(product):
         image_list = ProductImage.objects.filter(product=product)
-        return  image_list[0].image
+        try:
+            return  image_list[0].image
+        except:
+            return ''
 
 
 
@@ -159,9 +162,6 @@ class ProductTag(models.Model):
         # Store all return data in this list
         tags = []
 
-        # To reduce queries, already have a map between products and product image
-        product_image_map = ProductImage.get_first_image_for_each_product()
-
         for tag in tag_queryset:
             # products associated with tag
             products = [{'id':product.id,
@@ -170,7 +170,7 @@ class ProductTag(models.Model):
                          'description':product.description,
                          'price':product.price,
                          'category':product.category,
-                         'image':product_image_map[product.id]
+                         'image': ProductImage.get_first_image_for_single_product(product)
                          }
                         for product in tag.product.all()]
             # Add tag to return list
@@ -189,14 +189,12 @@ class ProductTag(models.Model):
         tag = ProductTag.objects.get(name__iexact=(tag_name))
         tag_queryset = ProductTag.objects.prefetch_related('product')
 
-        product_image_map = ProductImage.get_first_image_for_each_product()
-
         products = [{'id': product.id,
                      'name': product.name,
                      'description': product.description,
                      'price': product.price,
                      'category': product.category,
-                     'image': product_image_map[product.id]
+                     'image': ProductImage.get_first_image_for_single_product(product)
                      }
                     for product in tag.product.all()]
         return products
