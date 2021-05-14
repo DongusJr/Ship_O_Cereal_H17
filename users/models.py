@@ -56,9 +56,9 @@ class Profile(models.Model):
         '''
         try:
             profile = Profile.objects.get(user_id=user_id)
-        except ObjectDoesNotExist:
-            user = User.objects.get(id=user_id)
-            profile = Profile.objects.create(user=user)
+        except:
+            return {}
+
         profile_information = {'id': profile.id,
                                'description': profile.description,
                                'image': profile.image,

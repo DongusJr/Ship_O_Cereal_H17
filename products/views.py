@@ -221,7 +221,10 @@ class SingleProduct(TemplateView):
         and 10 products which share the tags
         '''
         id = self.kwargs['id']
-        product = get_object_or_404(Products, pk=id)
+        try:
+            product = get_object_or_404(Products, pk=id)
+        except:
+            return render(self.request, 'errors/404.html', {})
         boolean = Review.has_made_review(self.request.user, product)
         self.data['has_not'] = boolean
 
@@ -246,7 +249,10 @@ class SingleProduct(TemplateView):
         this method allows the user to post a public review on the prodyct by collecting
         the rate and review inputted by the user
         '''
-        product = Products.objects.get(id=kwargs['id'])
+        try:
+            product = Products.objects.get(id=kwargs['id'])
+        except:
+            return render(self.request, 'errors/404.html', {})
         review_object = Review.objects.create(user=request.user, product=product)
         boolean = Review.has_made_review(self.request.user, product)
         self.data['has_not'] = boolean

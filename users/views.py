@@ -1,5 +1,6 @@
 import django.utils.datastructures
 from django.contrib.auth import login, authenticate
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib import messages
 from django.db.models import Prefetch
@@ -87,6 +88,7 @@ def _register(request):
 class UserProfile(TemplateView):
     template_name = 'account/profile.html'
 
+    @login_required
     def get_context_data(self, **kwargs):
         '''
         get_context_data
@@ -98,6 +100,8 @@ class UserProfile(TemplateView):
         user_id = self.request.user.id
         data = super(UserProfile, self).get_context_data(**kwargs)
         user_profile = Profile.get_profile_info_for_user(user_id)
+        if user_profile == {}:
+            redirect('login_register')
         data['profile'] = user_profile
         order_history_list = Order.get_order_history_for_user(user_id)
         all_searches = SearchHistory.get_all_previous_searches(self.request.user)
@@ -114,6 +118,7 @@ class UpdateProfile(TemplateView):
     template_name = 'update_profile.html'
     data = {}
 
+    @login_required
     def post(self, request, *args, **kwargs):
         '''
         post
