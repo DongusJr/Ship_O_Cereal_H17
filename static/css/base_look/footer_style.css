@@ -37,3 +37,13 @@ footer {
     height: 100% ;
 
 }
+#footer_logo2{
+     margin-top: auto;
+    margin-right: 5px;
+}
+
+#footer_logo2 img {
+    display: flow;
+    float: bottom;
+
+}
