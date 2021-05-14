@@ -218,7 +218,7 @@ class ProductTag(models.Model):
         #product_image_map = ProductImage.get_first_image_for_each_product()
         products_queryset = Products.objects.all()
         products_data = []
-        while product_tag_pair:
+        while product_tag_pair and len(products_data) < 10:
             product_id, count = product_tag_pair.pop()
             if product_id != org_product_id:
                 count_product = products_queryset.get(pk=product_id)
