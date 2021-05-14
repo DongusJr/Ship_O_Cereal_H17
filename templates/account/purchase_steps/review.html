@@ -1,6 +1,7 @@
 <form method="post" class="form form-horizontal" style="border: solid 3px black;margin:auto; padding:5%;">
     {% csrf_token %}
-    <input type="submit" name="complete_order" value="Complete order"/>
+    <input type="hidden" name="step" value="review">
+    <input type="submit" value="Complete order"/>
 </form>
 <div id="productsReviewDiv">
     <h1>Products</h1>
@@ -27,5 +28,4 @@
         <p>Street:{{ data.person_info.street }}</p>
         <p>Home Delivery:{{info.delivery}}</p>
     </div>
-    <input class="continueBtn" type="submit" name="complete_order" value="Complete order"/>
 </form>

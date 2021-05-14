@@ -7,7 +7,7 @@
     border-bottom: 2px solid #B46B36;
     margin-inline: 1rem;
 }
-.tags label{
+.inactiveTag label{
     color: var(--dark)
 }
 .tags select{
@@ -88,7 +88,7 @@
     cursor: pointer;
     background-color: var(--darkHover);
 }
-.activeTag a{
+.activeTag label{
     color: var(--light);
 }
 .upperInfo{

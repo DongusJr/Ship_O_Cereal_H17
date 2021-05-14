@@ -45,6 +45,7 @@
     border: solid var(--dark);
 }
 .continueBtn:hover{
+    cursor: pointer;
     background-color: var(--darkHover);
     border: solid var(--darkHover);
 }
@@ -58,17 +59,24 @@
     width: fit-content;
 }
 .bowlBtn{
+    cursor: pointer;
     margin: auto;
     border: solid var(--backgroundWhite);
     color: var(--backgroundWhite);
     background-color: var(--backgroundWhite);
 }
+
+.bowlBtn:disabled{
+    cursor: default;
+}
+
 .bowlBtn:hover{
     border: solid var(--backgroundWhite);
     color: var(--backgroundWhite);
     background-color: var(--backgroundWhite);
 }
 .bowlBtn label{
+    pointer-events: none;
     content: url("/static/images/empty_bowl.svg");
 }
 .bowlBtn:disabled label{

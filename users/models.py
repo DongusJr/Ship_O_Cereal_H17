@@ -11,12 +11,12 @@ from products.models import Products, ProductImage
 from django.contrib.auth.models import User
 
 # Create your models here.
-class ZipCodes(models.Model):
-    zip = models.IntegerField()
-    city_name = models.CharField(max_length=64)
-
-    def __str__(self):
-        return str(self.zip)
+# class ZipCodes(models.Model):
+#     zip = models.IntegerField()
+#     city_name = models.CharField(max_length=64)
+#
+#     def __str__(self):
+#         return str(self.zip)
 
 class Country(models.Model):
     name = models.CharField(max_length=50)
@@ -28,7 +28,8 @@ class PersonInfo(models.Model):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     country = models.ForeignKey(Country, on_delete=models.CASCADE)
-    zip = models.ForeignKey(ZipCodes, on_delete=models.CASCADE)
+    zip = models.IntegerField()
+    city_name = models.CharField(max_length=64)
     Street = models.CharField(max_length=80)
 
 class PaymentInfo(models.Model):
@@ -188,13 +189,12 @@ class Order(models.Model):
         '''
         order_queryset = Order.objects.filter(profile_id=user_id).prefetch_related('product')
 
-        product_image_map = ProductImage.get_first_image_for_each_product()
         orders = []
         for order in order_queryset:
             products = [{'id': product.id,
                          'name': product.name,
                          'price': product.price,
-                         'image': product_image_map[product.id]
+                         'image': ProductImage.get_first_image_for_single_product(product)
                          }
                         for product in order.product.all()]
             orders.append({'id':order.id, 'total': order.total, 'products': products})
