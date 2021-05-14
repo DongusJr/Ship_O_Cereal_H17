@@ -12,6 +12,12 @@ class Review(models.Model):
 
     @staticmethod
     def has_made_review(user, product):
+        '''
+        has_made_review(user, product)
+
+        parameters: user: User, product: Products,
+        Checks if the given user has made a review for the given product
+        '''
         try:
             if Review.objects.filter(user=user, product=product):
                 return True

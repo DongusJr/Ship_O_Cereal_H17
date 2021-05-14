@@ -76,6 +76,12 @@ class CompletePurchase(TemplateView):
                            'complete_order': 'account/purchase_steps/payment_successful.html'}
 
     def get(self, request, *args, **kwargs):
+        '''
+        get
+
+        this method gets the current payment step the user is currently on and
+        keeps data from each completed step in the session of the user
+        '''
         request.session['order_complete'] = False
         user_cart = Cart.objects.get(user=self.request.user)
         if not Cart.has_products(user_cart):
@@ -110,6 +116,12 @@ class CompletePurchase(TemplateView):
         return render(request, self.template_name, {'form_html': self.html_template_names['payment'], 'data': data})
 
     def post(self, request, *args, **kwargs):
+        '''
+        post
+
+        this method collects all information inputted on the respective form from the cart.forms
+        directory and retains the saves all data to the user's session
+        '''
         step = request.POST.get('step')
 
         if step == 'payment':
@@ -152,6 +164,14 @@ class CompletePurchase(TemplateView):
         return render(request, self.template_name, {'form_html': self.html_template_names[step]})
 
     def _get_person_info_from_form(self, person_info_form):
+        '''
+        _get_person_info_from_form(person_info_form)
+
+        parameters: person_info_form: PersonInfoForm
+        this function collects the data inputted by the user into the
+        PersonInfoForm in the payment process and places the relevant information
+        as a dictionary and returns said dictionary
+        '''
         country_name = get_object_or_404(Country, pk=person_info_form['country']).name
 
         data = {'first_name': person_info_form['first_name'],
@@ -163,6 +183,12 @@ class CompletePurchase(TemplateView):
         return data
 
     def _get_review_data(self):
+        '''
+        _get_review_data
+
+        this method collects the information of both forms has completed and
+        returns the information as a dictionary
+        '''
         person_info = self._get_person_info_from_form(self.request.session['person_info'])
         order_with_products = Cart.get_products_from_cart_of_user_and_total(self.request.user.id)
         return {'payment': self.request.session['payment'],

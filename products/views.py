@@ -261,7 +261,6 @@ class SingleProduct(TemplateView):
             review_object = Review.objects.create(user=request.user, product=product)
             if 'rate' in request.POST:
                 rating = request.POST.get('rate')
-                print(rating)
                 review_object.rating = rating
                 review_object.save()
                 self.data['rating'] = self.calculate_mean_rating(product)

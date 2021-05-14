@@ -13,16 +13,23 @@ $(document).ready(function() {
     }
 })
 
+/*
+    this function checks whether the user has any orders already in the url
+    and gets the url from the request made
+*/
 $(document).ready(function() {
     $('.order_select').on('change', function(e) {
         e.preventDefault();
-        // page = $('.active-page').html();
         order = $('.order_select').val();
         let url = make_url()
         make_ajax_request(url)
     })
 })
 
+/*
+    this function collects the inputted category set by the user
+    and creates the url so all information is retained
+*/
 $(document).ready(function() {
     $('.category_select').on('change', function(e) {
         e.preventDefault();
@@ -33,6 +40,11 @@ $(document).ready(function() {
     })
 })
 
+
+/*
+    this function finds all tags already search for by the user
+    and collects all the tags already search for and filters further
+*/
 $(document).ready(function() {
     $('.inactiveTag').on('click', function(e) {
         e.preventDefault();
@@ -51,10 +63,16 @@ $(document).ready(function() {
     })
 })
 
+/*
+    navigation keeper for the active elements in use
+*/
 $(document).ready(function() {
     make_page_nav_event_listener()
 })
 
+/*
+    Function that creates the navigation for the site
+*/
 function make_page_nav_event_listener() {
     $('.page_nav_button').on('click', function(e) {
         if ($(e.target).attr('id') === 'next_page') {
@@ -71,6 +89,9 @@ function make_page_nav_event_listener() {
     })
 }
 
+/*
+    Function that creates custom URL for site with current attributes set
+ */
 function make_url() {
     let tag_url = ''
     for (let i = 0; i < tags.length; i++){
@@ -79,6 +100,10 @@ function make_url() {
     return '/products?page=' + page + '&order=' + order + '&category=' + category + '&criteria=' + criteria + tag_url + '&json_response=True'
 }
 
+
+/*
+    Create an Ajax request for the site
+ */
 function make_ajax_request(url) {
             $.ajax({
             url: url,
@@ -104,6 +129,9 @@ function make_ajax_request(url) {
         })
 }
 
+/*
+    Function which navigates between sites
+ */
 function make_page_nav(pages){
     var newHtml = ``
     if (pages.has_other_pages) {

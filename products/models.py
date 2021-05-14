@@ -134,6 +134,12 @@ class ProductImage(models.Model):
 
     @staticmethod
     def get_first_image_for_single_product(product):
+        '''
+        get_first_image_for_single_product(product)
+
+        parameters: product: Product
+        this method returns the first image in the database at given Product
+        '''
         image_list = ProductImage.objects.filter(product=product)
         try:
             return  image_list[0].image
@@ -201,6 +207,12 @@ class ProductTag(models.Model):
 
     @staticmethod
     def get_similar_products(product):
+        '''
+        get_similar_products(product)
+
+        parameters: product: Product
+        this method produces a list with all products with similar attributes
+        '''
         tag_queryset = ProductTag.objects.prefetch_related('product').filter(product=product)
         product_count_dict = {}
         for tag in tag_queryset:
