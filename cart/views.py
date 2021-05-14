@@ -17,7 +17,7 @@ class CartView(TemplateView):
     objects selected for that cart with also the functionality
     to delete items from the cart
     '''
-    template_name = 'account/basket.html'
+    template_name = 'account/cart/basket.html'
     data = {}
 
     def get(self, request, *args, **kwargs):
@@ -69,10 +69,10 @@ class CompletePurchase(TemplateView):
     a payment process and empties the cart object associated with the user
     '''
     template_name = 'account/purchase_steps/payment_template.html'
-    html_template_names = {'payment' : 'account/purchase_steps/proto_payment_form.html',
-                           'person_info': 'account/purchase_steps/proto_personinfo_form.html',
-                           'review': 'account/purchase_steps/proto_review.html',
-                           'complete_order': 'account/purchase_steps/proto_payment_successful.html'}
+    html_template_names = {'payment' : 'account/purchase_steps/payment_form.html',
+                           'person_info': 'account/purchase_steps/personinfo_form.html',
+                           'review': 'account/purchase_steps/review.html',
+                           'complete_order': 'account/purchase_steps/payment_successful.html'}
 
     def get(self, request, *args, **kwargs):
         '''
@@ -174,5 +174,5 @@ class CompletePurchase(TemplateView):
             del request.session['step']
             del request.session['payment_form']
             del request.session['person_info_form']
-            return render(request, 'account/purchase_steps/proto_payment_successful.html', {})
+            return render(request, 'account/purchase_steps/payment_successful.html', {})
         return redirect('complete_order')
