@@ -1,7 +1,6 @@
 from django import forms
 from django.forms import ModelForm, widgets
 
-from cart.forms.creditcard_field import CreditCardField
 from users.models import PaymentInfo
 
 
