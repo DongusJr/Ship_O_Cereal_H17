@@ -16,6 +16,6 @@ class PersonInfoForm(ModelForm):
             'last_name': widgets.TextInput(attrs={'class': 'form-control'}),
             'Street': widgets.TextInput(attrs={'class': 'form-control'}),
             'Country': widgets.Select(attrs={'class': 'form-control'}),
-            'City': widgets.TextInput(attrs={'class': 'forms-control'}),
-            'Zip': widgets.TextInput(attrs={'class': 'form-control'}),
+            'city_name': widgets.TextInput(attrs={'class': 'forms-control'}),
+            'zip': widgets.TextInput(attrs={'class': 'form-control'}),
         }

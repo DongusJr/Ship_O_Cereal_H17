@@ -76,25 +76,64 @@ class CompletePurchase(TemplateView):
                            'complete_order': 'account/purchase_steps/payment_successful.html'}
 
     def get(self, request, *args, **kwargs):
-        print(request.GET)
+        print('GET: ' + str(request.GET))
+        data = dict()
         if 'step' in request.GET:
-            step = request.GET
+            step = request.GET.get('step')
+
             if step == 'payment':
-                return render(request, self.template_name, {'form_html': self.html_template_names['payment']})
+                if 'payment' in request.session:
+                    data = request.session['payment']
+                return render(request, self.template_name, {'form_html': self.html_template_names['payment'], 'data': data})
+
             if step == 'person_info':
-                return render(request, self.template_name, {'form_html': self.html_template_names['person_info']})
+                countries = Country.objects.all()
+                if 'person_info' in request.session:
+                    data = request.session['person_info']
+                return render(request, self.template_name, {'form_html': self.html_template_names['person_info'], 'data': data, 'countries': countries})
+
             if step == 'review':
-                return render(request, self.template_name, {'form_html': self.html_template_names['review']})
+                person_info = self._get_person_info_from_form(self.request.session['person_info_form'])
+                order_with_products = Cart.get_products_from_cart_of_user_and_total(self.request.user.id)
+                data = {'payment': self.request.session['payment_form'], 'person_info': person_info, 'order_with_products': order_with_products}
+                return render(request, self.template_name, {'form_html': self.html_template_names['review'], 'data': data})
         return render(request, self.template_name, {'form_html': self.html_template_names['payment']})
 
     def post(self, request, *args, **kwargs):
-        print(request.POST)
-        if request.POST.get('step') == 'payment':
-            return render(request, self.template_name, {'form_html': self.html_template_names['person_info']})
-        if request.POST.get('step') == 'person_info':
-            return render(request, self.template_name, {'form_html': self.html_template_names['review']})
-        if request.POST.get('step') == 'review':
+        print('POST: ' + str(request.POST))
+        step = request.POST.get('step')
+
+        if step == 'payment':
+            form = PaymentForm(data=request.POST)
+            if form.is_valid():
+                print('payment form valid')
+                request.session['payment'] = request.POST
+                countries = Country.objects.all()
+                return render(request, self.template_name, {'form_html': self.html_template_names['person_info'], 'countries': countries})
+
+        if step == 'person_info':
+            test = PersonInfoForm()
+            print(test)
+            form = PersonInfoForm(data=request.POST)
+            if form.is_valid():
+                request.session['person_info'] = request.POST
+                return render(request, self.template_name, {'form_html': self.html_template_names['review']})
+            else:
+                countries = Country.objects.all()
+                return render(request, self.template_name, {'form_html': self.html_template_names['person_info'], 'countries': countries, 'data':request.POST})
+
+        if step == 'review':
+            payment_form, person_info_form = PaymentForm(self.request.session['payment_form']), PersonInfoForm(self.request.session['person_info_form'])
+            payment_obj = payment_form.save()
+            person_info_obj = person_info_form.save()
+            user_cart = Cart.objects.get(user=self.request.user)
+            user_cart.complete_cart(self.request.user.id, payment_obj, person_info_obj)
+            del request.session['step']
+            del request.session['payment_form']
+            del request.session['person_info_form']
+            return render(request, 'account/purchase_steps/payment_successful.html', {})
             return render(request, self.html_template_names['complete_order'], {'data': ''})
+        return render(request, self.template_name, {'form_html': self.html_template_names[step]})
 
 
 # class CompletePurchase(TemplateView):
