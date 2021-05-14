@@ -45,6 +45,14 @@ $(document).ready(function() {
     make_page_nav_event_listener()
 })
 
+$(document).ready(function() {
+    $('.small_product_image').on('click', function(e) {
+        e.preventDefault();
+        console.log(e.target);
+        let imageID = $(e.target);
+    })
+})
+
 function make_page_nav_event_listener() {
     $('.page_nav_button').on('click', function(e) {
         if ($(e.target).attr('id') === 'next_page') {
