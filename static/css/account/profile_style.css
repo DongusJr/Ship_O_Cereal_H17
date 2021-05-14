@@ -126,3 +126,8 @@
     border-radius: 10px;
     padding: 1rem;
 }
+.ProductImage{
+    max-width: 200px;
+    max-height: 200px;
+    display: block;
+}
