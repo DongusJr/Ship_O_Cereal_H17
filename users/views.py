@@ -86,9 +86,9 @@ def _register(request):
 
 # Create your views here.
 class UserProfile(TemplateView):
+    login_required = True
     template_name = 'account/profile.html'
 
-    @login_required
     def get_context_data(self, **kwargs):
         '''
         get_context_data
@@ -115,10 +115,10 @@ class UserProfile(TemplateView):
         return data
 
 class UpdateProfile(TemplateView):
+    login_required = True
     template_name = 'update_profile.html'
     data = {}
 
-    @login_required
     def post(self, request, *args, **kwargs):
         '''
         post

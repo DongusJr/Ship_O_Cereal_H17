@@ -68,6 +68,7 @@ class CompletePurchase(TemplateView):
     this view allows the user to render the pages pretaining to all the steps of
     a payment process and empties the cart object associated with the user
     '''
+    login_required = True
     template_name = 'account/purchase_steps/payment_template.html'
     html_template_names = {'payment' : 'account/purchase_steps/payment_form.html',
                            'person_info': 'account/purchase_steps/personinfo_form.html',
@@ -80,6 +81,9 @@ class CompletePurchase(TemplateView):
         this method allows the user to get the current step via a helper function
         and a rendering of steps that have been completed
         '''
+        cart = Cart.get_or_create_cart(self.request.user.id)
+        if Contains.objects.filter(cart=cart) == []:
+            return redirect('product_index')
         step = self._get_step()
         data = {}
         if step is not None:

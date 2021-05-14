@@ -251,13 +251,14 @@ class SingleProduct(TemplateView):
         '''
         try:
             product = Products.objects.get(id=kwargs['id'])
+            product = Products.objects.get(id=kwargs['id'])
         except:
             return render(self.request, 'errors/404.html', {})
         review_object = Review.objects.create(user=request.user, product=product)
         boolean = Review.has_made_review(self.request.user, product)
         self.data['has_not'] = boolean
-        if 'quant' in self.request.GET:
-            quantity = self.request.GET.get('quant')
+        if 'quant' in self.request.POST:
+            quantity = self.request.POST.get('quant')
             Contains.add_to_cart(self.request.user, product, int(quantity)).save()
             self.data['success'] = True
         if 'rate' in request.POST and review_object.rating and not boolean:
