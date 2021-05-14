@@ -28,7 +28,7 @@
             <input type="text" placeholder="Enter Zip code" name="town" required>
 
 
-            <input type="submit" name="sub" value="Submit" class="btn">
+            <input type="submit" name="sub" value="Submit" class="btn-stuff">
 
         </div>
     </form>
@@ -37,7 +37,7 @@
         <p>Our legal team has successfully gone public with Ship O' Cereal and converted all monetary currency to bitcoin. To purchase stocks in our Eutopia of modern cereal living visit the stock trade for more info.</p>
         <form method="post">
             {% csrf_token %}
-            <input type="submit" name="unsub" value="Unsubscribe to news letter" class="btn">
+            <input type="submit" name="unsub" value="Unsubscribe to news letter" class="btn-stuff">
         </form>
     {% endif %}
     {% else %}
