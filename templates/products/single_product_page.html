@@ -22,7 +22,7 @@
     <div id="ProductInfoDiv">
         {% if user.is_authenticated %}
         <div id="CartProdInfo">
-            {% include 'proto_products/proto_quantity_counter.html' %}
+            {% include 'products/product_quantity_counter.html' %}
             <!--<input type="submit" name="add" class="btn btn-primary" value="Add to cart" href="{% url 'product_detail' product.id %}"></input>-->
 
         </div>
@@ -134,7 +134,7 @@
     </div>
     <div class="related_products">
         {% for product in similar_products %}
-            {% include 'proto_products/proto_product.html' with product=product %}
+            {% include 'products/single_product.html' with product=product %}
         {% endfor %}
     </div>
 </div>
