@@ -4,11 +4,12 @@
 
 <link rel="stylesheet" href="{% static 'css/products/single_product_style.css' %}">
 <link rel="stylesheet" href="{% static 'css/products/cool_star_style.css' %}">
+<script src="{% static 'js/single_product.js' %}"></script>
 
 <div id="mainProductDiv">
     <div id="ProductImages">
         <div id="largeProductImage">
-            place holder for a large image
+           <img id="largeProductImagePicture" src="{{ product.productimage_set.first.image }}">
         </div>
         <div id="smallProductImages">
         {% for product_image in product.productimage_set.all %}
